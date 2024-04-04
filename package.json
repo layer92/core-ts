@@ -1,0 +1,31 @@
+{
+  "name": "@layer92/core",
+  "version": "0.0.1",
+  "description": "Core utility library.",
+  "main": "compiled/index.js",
+  "types": "compiled/index.d.ts",
+  "files": [
+    "compiled"
+  ],
+  "scripts": {
+    "prepublishOnly": "tsc",
+    "test": "ts-node-dev test.test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/layer92/core-ts.git"
+  },
+  "author": "layer92",
+  "license": "0BSD",
+  "bugs": {
+    "url": "https://github.com/layer92/core-ts/issues"
+  },
+  "homepage": "https://github.com/layer92/core-ts#readme",
+  "dependencies": {
+    "@types/node": "20.8.6",
+    "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0"
+  }
+}
