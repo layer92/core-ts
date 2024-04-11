@@ -10,7 +10,8 @@ export declare class UnixTimeBox extends Box<number> {
     private __UnixTimeBox__;
     static MaybeMake(data: number | undefined): UnixTimeBox;
     static MakeNow(): UnixTimeBox;
-    static MakeByYearMonthDay(year: YearBox, monthNumber: MonthNumberBox, dayOfMonthNumber: DayOfMonthNumberBox): UnixTimeBox;
+    static MakeFromYearMonthDayBoxes(year: YearBox, monthNumber: MonthNumberBox, dayOfMonthNumber: DayOfMonthNumberBox): UnixTimeBox;
+    static MakeFromYearMonthDay(year: number, monthNumber: number, dayOfMonthNumber: number): UnixTimeBox;
     toSecondsBox(): SecondsBox;
     toDate(): Date;
     /**

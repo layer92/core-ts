@@ -22,12 +22,20 @@ export class UnixTimeBox extends Box<number>{
     static MakeNow(){
         return new UnixTimeBox( GetCurrentUnixTime() );
     }
-    static MakeByYearMonthDay(year:YearBox,monthNumber:MonthNumberBox,dayOfMonthNumber:DayOfMonthNumberBox){
+    static MakeFromYearMonthDayBoxes(year:YearBox,monthNumber:MonthNumberBox,dayOfMonthNumber:DayOfMonthNumberBox){
         const monthNumberString = ("0"+monthNumber.getData()).slice(-2);
         const dayOfMonthNumberString = ("0"+dayOfMonthNumber.getData()).slice(-2);
-        const dateString = `${year.getData()}.${monthNumberString}.${dayOfMonthNumberString}`;
-        const seconds = Math.floor( new Date(dateString).getTime() / 1000 );
+        const isoDate = `${year.getData()}-${monthNumberString}-${dayOfMonthNumberString}`;
+        const seconds = Math.floor( new Date(isoDate).getTime() / 1000 );
+        Expect(!isNaN(seconds),`Invalid year/month/date.`);
         return new UnixTimeBox(seconds);
+    }
+    static MakeFromYearMonthDay(year:number,monthNumber:number,dayOfMonthNumber:number){
+        return this.MakeFromYearMonthDayBoxes(
+            new YearBox(year),
+            new MonthNumberBox(monthNumber),
+            new DayOfMonthNumberBox(dayOfMonthNumber)
+        );
     }
 
     toSecondsBox(){
@@ -161,7 +169,7 @@ export class UnixTimeBox extends Box<number>{
         const year = YearBox.FromString(year4,onBadData);
         const monthNumber = MonthNumberBox.FromString(monthNumber2,onBadData);
         const dayOfMonthNumber = DayOfMonthNumberBox.FromString(dayOfMonth2,onBadData);
-        return this.MakeByYearMonthDay(year,monthNumber,dayOfMonthNumber);
+        return this.MakeFromYearMonthDayBoxes(year,monthNumber,dayOfMonthNumber);
     }
     static FromDate(javascriptDate:Date){
         const unixTime = Math.floor(javascriptDate.getTime() / 1000);
