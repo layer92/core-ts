@@ -9,7 +9,7 @@ class DayOfMonthNumberBox extends Box_1.Box {
         (0, Expect_1.Expect)(!isNaN(data), `data: not a number.`, onValidationFail);
     }
     static MakeFromDate(date) {
-        const dayOfMonth = date.getDate();
+        const dayOfMonth = date.getUTCDate();
         return new DayOfMonthNumberBox(dayOfMonth, () => { });
     }
     /* use length=2 to get a value like 09 for the 9th day of the month */

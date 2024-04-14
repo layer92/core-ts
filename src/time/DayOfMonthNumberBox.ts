@@ -14,7 +14,7 @@ export class DayOfMonthNumberBox extends Box<number>{
     }
 
     static MakeFromDate(date: Date) {
-        const dayOfMonth = date.getDate();
+        const dayOfMonth = date.getUTCDate();
         return new DayOfMonthNumberBox(dayOfMonth,()=>{});
     }
 
