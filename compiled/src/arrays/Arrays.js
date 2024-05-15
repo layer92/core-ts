@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Arrays = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.RemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = exports.UnboxArray = void 0;
+exports.Arrays = exports.ArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.RemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = exports.UnboxArray = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
@@ -181,6 +181,38 @@ function ToggleInclusion(array, item, compare = EqualsByThreeEquals_1.EqualsByTh
     return array;
 }
 exports.ToggleInclusion = ToggleInclusion;
+/** faster than ArrayEquals, but requires the arrays to be sorted */
+function SortedArrayEquals(a, b, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
+    if (a.length !== b.length) {
+        return false;
+    }
+    const length = a.length;
+    for (let i = 0; i < length; ++i) {
+        if (!compare(a[i], b[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+exports.SortedArrayEquals = SortedArrayEquals;
+/** if the arrays are sorted, use SortedArrayEquals, which is faster */
+function ArrayEquals(a, b, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
+    if (a.length !== b.length) {
+        return false;
+    }
+    a = a.slice();
+    b = b.slice();
+    while (a.length) {
+        const itemA = a.pop();
+        const matchIndex = b.findIndex(itemB => compare(itemA, itemB));
+        if (matchIndex === -1) {
+            return false;
+        }
+        b.splice(matchIndex, 1);
+    }
+    return true;
+}
+exports.ArrayEquals = ArrayEquals;
 /** DEPRECATED: Use individual utility functions instead to encourage better tree-shaking. */
 class Arrays {
 }

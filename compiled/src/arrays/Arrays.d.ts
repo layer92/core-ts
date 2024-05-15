@@ -31,6 +31,10 @@ export declare function GetPreviousItemInCycle<Item>(array: Item[], fromItem: It
 export declare function GetIndexByItem<Item>(array: Item[], item: Item): number;
 /** If the item is included in the array, removes it from the array. If the item isn't include in the array, pushes it to the array. */
 export declare function ToggleInclusion<Item>(array: Item[], item: Item, compare?: Relation): Item[];
+/** faster than ArrayEquals, but requires the arrays to be sorted */
+export declare function SortedArrayEquals<Item>(a: Item[], b: Item[], compare?: Relation): boolean;
+/** if the arrays are sorted, use SortedArrayEquals, which is faster */
+export declare function ArrayEquals<Item>(a: Item[], b: Item[], compare?: Relation): boolean;
 /** DEPRECATED: Use individual utility functions instead to encourage better tree-shaking. */
 export declare class Arrays {
     static UnboxArray: typeof UnboxArray;
