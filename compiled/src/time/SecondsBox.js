@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SecondsBox = void 0;
 const Box_1 = require("../away/Box");
+const Strings_1 = require("../strings/Strings");
 class SecondsBox extends Box_1.Box {
     static FromWeeks(weeks) {
         return SecondsBox.FromDays(weeks * 7);
@@ -39,6 +40,10 @@ class SecondsBox extends Box_1.Box {
             unit = "second";
             value = seconds;
         }
+        else if (this.toMinutes() < 60) {
+            unit = "minute";
+            value = Math.floor(this.toMinutes());
+        }
         else if (this.toDays() < 1) {
             unit = "hour";
             value = Math.floor(this.toHours());
@@ -47,11 +52,31 @@ class SecondsBox extends Box_1.Box {
             unit = "day";
             value = Math.floor(this.toDays());
         }
-        const isPlural = value > 1;
+        const isPlural = value > 1 || value === 0;
         if (isPlural) {
             unit += `s`;
         }
         return `${value} ${unit}`;
+    }
+    /**
+     *  Returns hh:mm:ss, omitting hours if empty, not omitting minutes if not empty
+     *  This is the same format found in several places, such as on Wikipedia when listing album length and track length.
+     */
+    toTypicalHoursMinutesSecondsString() {
+        const hours = Math.floor(this.toHours());
+        const minutes = Math.floor(this.toMinutes()) - hours * 60;
+        const seconds = Math.floor(this.getData()) - minutes * 60;
+        let result = (0, Strings_1.PadLeft)("" + seconds, "0", 2);
+        if (hours > 0) {
+            result = hours + ":" + (0, Strings_1.PadLeft)("" + minutes, "0", 2) + ":" + result;
+        }
+        else if (minutes > 0) {
+            result = minutes + ":" + result;
+        }
+        else {
+            result = "0:" + result;
+        }
+        return result;
     }
     static FromMilliseconds(ms) {
         return new SecondsBox(ms / 1000);
