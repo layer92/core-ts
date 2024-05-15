@@ -193,6 +193,37 @@ export function ToggleInclusion<Item>(array:Item[], item:Item, compare:Relation=
     return array;
 }
 
+/** faster than ArrayEquals, but requires the arrays to be sorted */
+export function SortedArrayEquals<Item>(a:Item[], b:Item[], compare:Relation=EqualsByThreeEquals){
+    if(a.length!==b.length){
+        return false;
+    }
+    const length = a.length;
+    for(let i=0;i<length;++i){
+        if(!compare(a[i],b[i])){
+            return false;
+        }
+    }
+    return true;
+}
+
+/** if the arrays are sorted, use SortedArrayEquals, which is faster */
+export function ArrayEquals<Item>(a:Item[], b:Item[], compare:Relation=EqualsByThreeEquals){
+    if(a.length!==b.length){
+        return false;
+    }
+    a = a.slice();
+    b = b.slice();
+    while(a.length){
+        const itemA = a.pop();
+        const matchIndex = b.findIndex(itemB=>compare(itemA,itemB));
+        if(matchIndex===-1){
+            return false;
+        }
+        b.splice(matchIndex,1);
+    }
+    return true;
+}
 
 /** DEPRECATED: Use individual utility functions instead to encourage better tree-shaking. */
 export class Arrays{
