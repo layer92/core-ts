@@ -1,6 +1,6 @@
 {
   "name": "@layer92/core",
-  "version": "0.0.2",
+  "version": "0.0.9",
   "description": "Core utility library.",
   "main": "compiled/index.js",
   "types": "compiled/index.d.ts",
