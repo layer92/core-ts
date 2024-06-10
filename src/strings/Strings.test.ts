@@ -1,5 +1,5 @@
 import { Expect } from "../away/Expect";
-import {Strings} from "./Strings";
+import { SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
 
 export function TestStrings(){
     console.log("\t Strings");
@@ -52,7 +52,7 @@ function SplitByRepeatingDelimiter(){
     ];
 
     for(const test of tests){
-        const resultSplit = Strings.SplitStringByRepeatingDelimiters({
+        const resultSplit = SplitStringByRepeatingDelimiters({
             string: test.input,
             delimiters: test.delimiters,
             parseDirection: test.parseDirection
@@ -121,7 +121,7 @@ function Between(){
     ];
 
     for(const test of tests){
-        const result = Strings.SetBetween({
+        const result = SetBetween({
             string:test.input,
             delimiters:[test.args[0],test.args[1]],
             valueToSetTo:test.args[2],

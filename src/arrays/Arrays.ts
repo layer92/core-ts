@@ -101,7 +101,7 @@ export function DoArraysIntersect(a:any[], b:any[],compare:Relation=EqualsByThre
 }
 
 export function GetItemByIndex<Item>(array:Item[], index:number){
-    this.ExpectIndexIsInRange(array,index);
+    ExpectIndexIsInRange(array,index);
     return array[index];
 }
 
@@ -163,18 +163,18 @@ export function GetRelativeItem<Item>(array:Item[], fromItem:Item, offset:number
     if(loop){
         index = Modulo(index,array.length);
     }else{
-        this.ExpectIndexIsInRange(array,index);
+        ExpectIndexIsInRange(array,index);
     }
     return array[index];
 }
 
 
 export function GetNextItemInCycle<Item>(array:Item[], fromItem:Item){
-    return this.GetRelativeItem(array,fromItem,1,true);
+    return GetRelativeItem(array,fromItem,1,true);
 }
 
 export function GetPreviousItemInCycle<Item>(array:Item[], fromItem:Item){
-    return this.GetRelativeItem(array,fromItem,-1,true);
+    return GetRelativeItem(array,fromItem,-1,true);
 }
 /** Throws an error if the item isn't in the array. */
 export function GetIndexByItem<Item>(array:Item[], item:Item){
@@ -223,34 +223,4 @@ export function ArrayEquals<Item>(a:Item[], b:Item[], compare:Relation=EqualsByT
         b.splice(matchIndex,1);
     }
     return true;
-}
-
-/** DEPRECATED: Use individual utility functions instead to encourage better tree-shaking. */
-export class Arrays{
-
-    static UnboxArray=UnboxArray;
-    static Includes=DoesArrayInclude;
-    static PushIfNotIncludes=PushIfNotIncludes;
-    static GetFirst=GetFirstItem;
-    static GetLast=GetLastItem;
-    static MaybeGetLast=MaybeGetLastItem;
-    static RemoveAnyFromEnd=RemoveAnyFromEndOfArray;
-    static GetRandom=GetRandomItem;
-    static PushManyIfNotIncludes=PushManyIfNotIncludes;
-    static MakeUnique=MakeUniqueArray;
-    static GetExclusion=GetArrayExclusion
-    static GetIntersection=GetArrayIntersection;
-    static Intersects=DoArraysIntersect;
-    static GetItem=GetItemByIndex;
-    static ExpectIndexIsInRange=ExpectIndexIsInRange;
-    static ContainsDuplicates=DoesArrayContainDuplicates;
-    static GetSum=GetArraySum;
-    static GetAverage=GetArrayAverage;
-    static GetMax=GetArrayMax;
-    static GetMin=GetArrayMin;
-    static GetRelativeItem=GetRelativeItem;
-    static GetNextItemInCycle=GetNextItemInCycle;
-    static GetPreviousItemInCycle=GetPreviousItemInCycle;    
-    static GetIndex=GetIndexByItem;
-    static ToggleInclusion=ToggleInclusion;
 }

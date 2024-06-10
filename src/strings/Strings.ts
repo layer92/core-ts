@@ -1,6 +1,6 @@
 import { AlphanumericCharacters, AlphebeticCharacters, LowercaseAlphabetCharacters, NumericCharacters, UppercaseAlphabetCharacters, WhitespaceCharacters } from "./CommonCharsets";
 import { Expect } from "../away/Expect";
-import { Arrays } from "../arrays/Arrays";
+import { GetRandomItem } from "../arrays/Arrays";
 
 
 export function GetSubstringCount(string:string,substring:string){
@@ -161,9 +161,9 @@ export function SplitStringByRepeatingDelimiters({
     let value = string;
     /** If parsing right-to-left, simply reverse the string, delimiters, and (at the end) the result. */
     if( parseRightToLeft ){
-        value = Reverse(string);
+        value = ReverseString(string);
         delimiters = delimiters.map(
-            a=>Strings.Reverse(a)
+            a=>ReverseString(a)
         ).reverse();
     }
     let result:string[] = [];
@@ -190,13 +190,13 @@ export function SplitStringByRepeatingDelimiters({
     if( parseRightToLeft ){
         /** Reverse the result */
         result = result.map(
-            a=>Strings.Reverse(a)
+            a=>ReverseString(a)
         ).reverse();
     }
     return result;
 }
 
-export function Reverse(string:string){
+export function ReverseString(string:string){
     return string.split("").reverse().join("");
 }
 
@@ -345,7 +345,7 @@ export function MakeRandom(
     const charsetArray = charset.split("");
     let result = "";
     while(result.length<length){
-        result += Arrays.GetRandom(charsetArray);
+        result += GetRandomItem(charsetArray);
     }
     return result;
 }
@@ -633,6 +633,11 @@ export function PadLeft(string:string,pad:string,length:number){
     return (pad.repeat(repetitions)+string).slice(-length);
 }
 
+// Adds zeroes to the left side of the number/string until it is the specified length. If the string is already the specified length or longer, returns the string as-is.
+export function PadNumberLeft(numberOrString:number|string,length:number){
+    return PadLeft(""+numberOrString,'0',length);
+}
+
 export function IsAlphabetic(string:string){
     return IsInCharset(string,AlphebeticCharacters);
 }
@@ -653,53 +658,3 @@ export function IsUppercaseAlphabetic(string:string){
     return IsInCharset(string,UppercaseAlphabetCharacters);
 }
 
-
-
-/** DEPRECATED: Use individual utility functions instead to encourage better tree-shaking. */
-export class Strings{
-    static GetSubstringCount=GetSubstringCount;
-    static MultiReplace=MultiReplace;
-    static GetBetween=GetBetween;
-    static MaybeGetBetween=MaybeGetBetween;
-    static GetAnyBetween=GetAnyBetween;
-    static GetRightOfSubstring=GetRightOfSubstring;
-    static SetBetween=SetBetween;
-    static SplitStringByRepeatingDelimiters=SplitStringByRepeatingDelimiters;
-    static Reverse=Reverse;
-    static RemoveAnyFromEnd=RemoveAnyFromEnd;
-    static RemoveExactlyOnceFromEnd=RemoveExactlyOnceFromEnd;
-    static RemoveAnyFromStart=RemoveAnyFromStart;
-    static RemoveExactlyOnceFromStart=RemoveExactlyOnceFromStart;
-    static RemoveAnyFromEnds=RemoveAnyFromEnds;
-    static MultiRemoveAnyFromStart=MultiRemoveAnyFromStart;
-    static HasIntersection=HasIntersection;
-    static IsLowerCase=IsLowerCase;
-    static RemoveWord=RemoveWord;
-    static RemoveCharactersFromEnd=RemoveCharactersFromEnd;
-    static RemoveCharactersFromEnds=RemoveCharactersFromEnds;
-    static MakeRandom=MakeRandom;
-    static CanBeParsedAsFloat=CanBeParsedAsFloat;
-    static RemoveWhitespaceFromEnds=RemoveWhitespaceFromEnds;
-    static SplitStringByMany=SplitStringByMany;
-    static SplitStringOnce=SplitStringOnce;
-    static RemoveSubstring=RemoveSubstring;
-    static ReplaceSubstring=ReplaceSubstring;
-    static MaybeReplaceEnding=MaybeReplaceEnding;
-    static ReplaceFirstSubstring=ReplaceFirstSubstring;
-    static ReplaceSubstringExactlyOnce=ReplaceSubstringExactlyOnce;
-    static ReplaceSubstrings=ReplaceSubstrings;
-    static RemoveCharacters=RemoveCharacters;
-    static ReplaceCharacters=ReplaceCharacters;
-    static ReplaceCharactersOutsideCharset=ReplaceCharactersOutsideCharset;
-    static JoinArrayByRepeatingDelimiters=JoinArrayByRepeatingDelimiters;
-    static IsInCharset=IsInCharset;
-    static GetIndicesOf=GetIndicesOf;
-    static GetIndicesOfMulti=GetIndicesOfMulti;
-    static GetIndexOfMulti=GetIndexOfMulti;
-    static PadLeft=PadLeft;
-    static IsAlphabetic=IsAlphabetic;
-    static IsAlphanumeric=IsAlphanumeric;
-    static IsNumeric=IsNumeric;
-    static IsLowercaseAlphabetic=IsLowercaseAlphabetic;
-    static IsUppercaseAlphabetic=IsUppercaseAlphabetic;
-}

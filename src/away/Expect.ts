@@ -1,5 +1,3 @@
-import { OnException } from "./OnException";
-
 /**
  * This is simlar to node's assert function. It's not called Assert, because that may imply that it might be disabled in some (eg production) environments.
  * Use this function just like you might use assert - use to sanity check during functions, use to check data in a Box's constructor, etc...
@@ -13,8 +11,8 @@ import { OnException } from "./OnException";
  * */
 export function Expect(
     value:any,
-    failMessage_or_makeFailMessage:string|(()=>string),
-    onFail?:OnException,
+    failMessage_or_makeFailMessage?:string|(()=>string),
+    onFail?:(message?:string)=>void|Promise<void>,
 ): asserts value{
     if(!value){
         const message = (
@@ -24,7 +22,7 @@ export function Expect(
         );
         const error = new Error(message);
         error.name="ExpectationFailed";
-        onFail?.();
+        onFail?.(message);
         throw error;
     }
 }

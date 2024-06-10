@@ -1,13 +1,14 @@
 import { TestStrings } from "./src/strings/Strings.test";
-import { TestHyphenatedDateBox } from "./src/time/HyphenatedDateBox.test";
-import { TestUrlBox } from "./src/web/UrlBox.test";
+import { TestHyphenatedDate } from "./src/time/HyphenatedDate.test";
+import { TestUrl } from "./src/web/Url.test";
+
 
 console.log("Running tests...")
 
 TestStrings();
 
-TestHyphenatedDateBox();
+TestHyphenatedDate();
 
-TestUrlBox();
+TestUrl();
 
 console.log("All tests passed.");
