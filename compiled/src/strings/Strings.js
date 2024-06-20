@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.HasIntersection = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
+exports.StringToFloat = exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringHasIntersection = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
 const CommonCharsets_1 = require("./CommonCharsets");
 const Expect_1 = require("../away/Expect");
 const Arrays_1 = require("../arrays/Arrays");
@@ -197,10 +197,10 @@ function MultiRemoveAnyFromStart(string, removeStrings) {
     return string;
 }
 exports.MultiRemoveAnyFromStart = MultiRemoveAnyFromStart;
-function HasIntersection(a, b) {
+function StringHasIntersection(a, b) {
     return a.split("").some(character => b.includes(character));
 }
-exports.HasIntersection = HasIntersection;
+exports.StringHasIntersection = StringHasIntersection;
 function IsLowerCase(string) {
     return string === string.toLowerCase();
 }
@@ -480,3 +480,27 @@ function IsUppercaseAlphabetic(string) {
     return IsInCharset(string, CommonCharsets_1.UppercaseAlphabetCharacters);
 }
 exports.IsUppercaseAlphabetic = IsUppercaseAlphabetic;
+/**
+ * Converts a string to an integer number, throwing an error if the string doesn't contain an integer.
+ * @returns An integer number, never returns NaN
+ * @param options.coerce Will attempt to create a result even if the string isn't an integer expression using Javascript's parseInt(), but will still throw an error if parseInt() returns NaN. Examples: "2.0"=2, "2.9"=2, "5/2"=5
+ * */
+function StringToInteger(string, options) {
+    const int = parseInt(string);
+    (0, Expect_1.Expect)(!isNaN(int), "Unable to convert string to integer (received expression that was not a number).", options?.onBadData);
+    if (!options?.coerce) {
+        (0, Expect_1.Expect)(IsInCharset(string, CommonCharsets_1.NumericCharacters), "Unable to convert string to integer (received non-integer numeric expression).", options?.onBadData);
+    }
+    return int;
+}
+exports.StringToInteger = StringToInteger;
+/**
+ * Converts a string to a float number, throwing an error if the string can't be parsed as a float value.
+ * @returns A float number, never returns NaN
+ * */
+function StringToFloat(string, options) {
+    const float = parseFloat(string);
+    (0, Expect_1.Expect)(!isNaN(float), "Unable to convert string to integer (received expression that was not a number).", options?.onBadData);
+    return float;
+}
+exports.StringToFloat = StringToFloat;

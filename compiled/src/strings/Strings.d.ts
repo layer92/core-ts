@@ -1,3 +1,4 @@
+import { OnException } from "../away/OnException";
 export declare function GetSubstringCount(string: string, substring: string): number;
 export declare function MultiReplace(string: string, replacementPairs: [string, string][]): string;
 /**
@@ -56,7 +57,7 @@ export declare function RemoveAnyFromStart(string: string, removeString: string)
 export declare function RemoveExactlyOnceFromStart(string: string, removeString: string): string;
 export declare function RemoveAnyFromEnds(string: string, removeString: string): string;
 export declare function MultiRemoveAnyFromStart(string: string, removeStrings: string[]): string;
-export declare function HasIntersection(a: string, b: string): boolean;
+export declare function StringHasIntersection(a: string, b: string): boolean;
 export declare function IsLowerCase(string: string): boolean;
 /** words are strings that are delimited by spaces */
 export declare function RemoveWord(string: string, word: string): string;
@@ -145,3 +146,19 @@ export declare function IsAlphanumeric(string: string): boolean;
 export declare function IsNumeric(string: string): boolean;
 export declare function IsLowercaseAlphabetic(string: string): boolean;
 export declare function IsUppercaseAlphabetic(string: string): boolean;
+/**
+ * Converts a string to an integer number, throwing an error if the string doesn't contain an integer.
+ * @returns An integer number, never returns NaN
+ * @param options.coerce Will attempt to create a result even if the string isn't an integer expression using Javascript's parseInt(), but will still throw an error if parseInt() returns NaN. Examples: "2.0"=2, "2.9"=2, "5/2"=5
+ * */
+export declare function StringToInteger(string: string, options?: {
+    onBadData?: OnException;
+    coerce?: boolean;
+}): number;
+/**
+ * Converts a string to a float number, throwing an error if the string can't be parsed as a float value.
+ * @returns A float number, never returns NaN
+ * */
+export declare function StringToFloat(string: string, options?: {
+    onBadData?: OnException;
+}): number;

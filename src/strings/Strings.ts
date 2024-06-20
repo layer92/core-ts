@@ -1,6 +1,7 @@
 import { AlphanumericCharacters, AlphebeticCharacters, LowercaseAlphabetCharacters, NumericCharacters, UppercaseAlphabetCharacters, WhitespaceCharacters } from "./CommonCharsets";
 import { Expect } from "../away/Expect";
 import { GetRandomItem } from "../arrays/Arrays";
+import { OnException } from "../away/OnException";
 
 
 export function GetSubstringCount(string:string,substring:string){
@@ -281,7 +282,7 @@ export function MultiRemoveAnyFromStart(
     return string;
 }
 
-export function HasIntersection(
+export function StringHasIntersection(
     a:string,
     b:string
 ){
@@ -658,3 +659,26 @@ export function IsUppercaseAlphabetic(string:string){
     return IsInCharset(string,UppercaseAlphabetCharacters);
 }
 
+/**
+ * Converts a string to an integer number, throwing an error if the string doesn't contain an integer.
+ * @returns An integer number, never returns NaN
+ * @param options.coerce Will attempt to create a result even if the string isn't an integer expression using Javascript's parseInt(), but will still throw an error if parseInt() returns NaN. Examples: "2.0"=2, "2.9"=2, "5/2"=5
+ * */
+export function StringToInteger(string:string,options?:{onBadData?:OnException,coerce?:boolean}){
+    const int = parseInt(string);
+    Expect(!isNaN(int),"Unable to convert string to integer (received expression that was not a number).",options?.onBadData);
+    if(!options?.coerce){
+        Expect(IsInCharset(string,NumericCharacters),"Unable to convert string to integer (received non-integer numeric expression).",options?.onBadData);
+    }
+    return int;
+}
+
+/**
+ * Converts a string to a float number, throwing an error if the string can't be parsed as a float value.
+ * @returns A float number, never returns NaN
+ * */
+export function StringToFloat(string:string,options?:{onBadData?:OnException}){
+    const float = parseFloat(string);
+    Expect(!isNaN(float),"Unable to convert string to integer (received expression that was not a number).",options?.onBadData);
+    return float;
+}
