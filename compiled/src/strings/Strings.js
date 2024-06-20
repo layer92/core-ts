@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StringToFloat = exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringHasIntersection = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
+exports.StringToFloat = exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringIntersects = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
 const CommonCharsets_1 = require("./CommonCharsets");
 const Expect_1 = require("../away/Expect");
 const Arrays_1 = require("../arrays/Arrays");
@@ -197,10 +197,10 @@ function MultiRemoveAnyFromStart(string, removeStrings) {
     return string;
 }
 exports.MultiRemoveAnyFromStart = MultiRemoveAnyFromStart;
-function StringHasIntersection(a, b) {
+function StringIntersects(a, b) {
     return a.split("").some(character => b.includes(character));
 }
-exports.StringHasIntersection = StringHasIntersection;
+exports.StringIntersects = StringIntersects;
 function IsLowerCase(string) {
     return string === string.toLowerCase();
 }

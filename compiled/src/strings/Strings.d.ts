@@ -57,7 +57,7 @@ export declare function RemoveAnyFromStart(string: string, removeString: string)
 export declare function RemoveExactlyOnceFromStart(string: string, removeString: string): string;
 export declare function RemoveAnyFromEnds(string: string, removeString: string): string;
 export declare function MultiRemoveAnyFromStart(string: string, removeStrings: string[]): string;
-export declare function StringHasIntersection(a: string, b: string): boolean;
+export declare function StringIntersects(a: string, b: string): boolean;
 export declare function IsLowerCase(string: string): boolean;
 /** words are strings that are delimited by spaces */
 export declare function RemoveWord(string: string, word: string): string;
