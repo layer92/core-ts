@@ -23,7 +23,7 @@ export function GetBetween(
     leftDelimiter:string,
     rightDelimiter:string,
     options?:{
-        // TODO: add "rightToLeft" as supported search direction
+        // TODO: add "rightToLeft" as a supported search direction
         searchDirection?:"leftToRight",
     }
 ){
@@ -42,7 +42,7 @@ export function MaybeGetBetween(
     leftDelimiter:string,
     rightDelimiter:string,
     options?:{
-        // TODO: add "rightToLeft" as supported search direction
+        // TODO: add "rightToLeft" as a supported search direction
         searchDirection?:"leftToRight",
     }
 ){
@@ -68,7 +68,7 @@ export function GetAnyBetween(
     leftDelimiter:string,
     rightDelimiter:string,
     options?:{
-        // TODO: add "rightToLeft" as supported search direction
+        // TODO: add "rightToLeft" as a supported search direction
         searchDirection?:"leftToRight",
     }
 ){
@@ -97,6 +97,7 @@ export function GetRightOfSubstring(
     string:string,
     delimiter:string,
     options?:{
+        // TODO: add "rightToLeft" as a supported search direction
         searchDirection?:"leftToRight",
     }
 ){
@@ -127,7 +128,7 @@ export function SetBetween(
     for(let i=1;i<split.length;i+=2){
         split[i] = valueToSetTo
     }
-    const result = JoinArrayByRepeatingDelimiters({array:split,delimiters});
+    const result = JoinArrayByRepeatingDelimiters(split,delimiters);
     return result;
 }
 
