@@ -282,7 +282,7 @@ export function MultiRemoveAnyFromStart(
     return string;
 }
 
-export function StringHasIntersection(
+export function StringIntersects(
     a:string,
     b:string
 ){
