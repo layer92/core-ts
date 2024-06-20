@@ -18,19 +18,16 @@ export function MultiReplace(string:string,replacementPairs:[string,string][]){
 /**
 * Returns the substring between the first pair of left & right delimiters.
 * */
-export function GetBetween({
-    string,
-    leftDelimiter,
-    rightDelimiter,
-    searchDirection,
-}:{
+export function GetBetween(
     string:string,
     leftDelimiter:string,
     rightDelimiter:string,
-    // TODO: add "rightToLeft" as supported search direction
-    searchDirection?:"leftToRight",
-}){
-    searchDirection = searchDirection||"leftToRight";
+    options?:{
+        // TODO: add "rightToLeft" as supported search direction
+        searchDirection?:"leftToRight",
+    }
+){
+    const searchDirection = options?.searchDirection||"leftToRight";
     let leftIndex = string.indexOf(leftDelimiter);
     Expect(leftIndex!==-1,()=>"Delimiter not found: "+leftDelimiter);
     leftIndex += leftDelimiter.length;
@@ -40,19 +37,16 @@ export function GetBetween({
 }
 
 
-export function MaybeGetBetween({
-    string,
-    leftDelimiter,
-    rightDelimiter,
-    searchDirection,
-}:{
+export function MaybeGetBetween(
     string:string,
     leftDelimiter:string,
     rightDelimiter:string,
-    // TODO: add "rightToLeft" as supported search direction
-    searchDirection?:"leftToRight",
-}){
-    searchDirection = searchDirection||"leftToRight";
+    options?:{
+        // TODO: add "rightToLeft" as supported search direction
+        searchDirection?:"leftToRight",
+    }
+){
+    const searchDirection = options?.searchDirection||"leftToRight";
     let leftIndex = string.indexOf(leftDelimiter);
     if(leftIndex==-1){
         return undefined;
@@ -69,19 +63,16 @@ export function MaybeGetBetween({
 /**
 * Returns the substrings between the first pair of left & right delimiters.
 * */
-export function GetAnyBetween({
-    string,
-    leftDelimiter,
-    rightDelimiter,
-    searchDirection,
-}:{
+export function GetAnyBetween(
     string:string,
     leftDelimiter:string,
     rightDelimiter:string,
-    // TODO: add "rightToLeft" as supported search direction
-    searchDirection?:"leftToRight",
-}){
-    searchDirection = searchDirection||"leftToRight";
+    options?:{
+        // TODO: add "rightToLeft" as supported search direction
+        searchDirection?:"leftToRight",
+    }
+){
+    const searchDirection = options?.searchDirection||"leftToRight";
     const results:string[] = [];
     let remainder = string;
     while(true){
@@ -102,16 +93,14 @@ export function GetAnyBetween({
 }
 
 /** Returns the remainder of the string after the first occurence of the delimiter. */
-export function GetRightOfSubstring({
-    string,
-    delimiter,
-    searchDirection,
-}:{
+export function GetRightOfSubstring(
     string:string,
     delimiter:string,
-    searchDirection?:"leftToRight",
-}){
-    searchDirection = searchDirection||"leftToRight";
+    options?:{
+        searchDirection?:"leftToRight",
+    }
+){
+    const searchDirection = options?.searchDirection||"leftToRight";
     let leftIndex = string.indexOf(delimiter);
     Expect(leftIndex!==-1,()=>"Delimiter not found: "+delimiter);
     leftIndex += delimiter.length;
@@ -122,22 +111,19 @@ export function GetRightOfSubstring({
  * Sets any substrings between the left & right delimiters.
  * By default, parses from the left, eg if you use "[" and "]" as delimiters, then "[ab[cd]" would be come "[FOO]" rather than [ab[FOO]" (of course "[ab][cd]" would become "[FOO][FOO]")
  */
-export function SetBetween({
-    string,
-    delimiters,
-    valueToSetTo,
-    parseDirection,
-}:{
+export function SetBetween(
     string:string,
     delimiters:string[],
     valueToSetTo:string,
-    parseDirection?:"leftToRight"|"rightToLeft",
-}){
-    const split = SplitStringByRepeatingDelimiters({
+    options?:{
+        parseDirection?:"leftToRight"|"rightToLeft",
+    }
+){
+    const split = SplitStringByRepeatingDelimiters(
         string,
         delimiters,
-        parseDirection,
-    });
+        options,
+    );
     for(let i=1;i<split.length;i+=2){
         split[i] = valueToSetTo
     }
@@ -149,16 +135,14 @@ export function SetBetween({
  * splits along the string, taking turns between the delimiters
  * parses left-to-right by default, but if parsing right-to-left through the string, the delimiters will also be parsed in the opposite direction (eg if the delimiters are "[","]", and you're parsing the string "[a[b]c]", you don't need to change the order of the delimiters to parse right-to-left instead of left-to-right, in other words, "[" will be considered "to the left" of "]", no matter which direction you parse in)
  * */
-export function SplitStringByRepeatingDelimiters({
-    string,
-    delimiters,
-    parseDirection,
-}:{
+export function SplitStringByRepeatingDelimiters(
     string:string,
     delimiters:string[],
-    parseDirection?:"leftToRight"|"rightToLeft",
-}){
-    const parseRightToLeft = parseDirection==="rightToLeft";
+    options?:{
+        parseDirection?:"leftToRight"|"rightToLeft",
+    }
+){
+    const parseRightToLeft = options?.parseDirection==="rightToLeft";
     let value = string;
     /** If parsing right-to-left, simply reverse the string, delimiters, and (at the end) the result. */
     if( parseRightToLeft ){
@@ -374,16 +358,14 @@ export function SplitStringByMany(string:string,delimiters:string[]){
 }
 
 /** Splits by the first occurence of the delimiter */
-export function SplitStringOnce({
-    string,
-    delimiter,
-    parseDirection
-}:{
+export function SplitStringOnce(
     string:string,
     delimiter:string,
-    parseDirection?:"rightToLeft"|"leftToRight"
-}):[string,string]{
-    parseDirection = parseDirection||"leftToRight";
+    options?:{
+        parseDirection?:"rightToLeft"|"leftToRight"
+    }
+):[string,string]{
+    const parseDirection = options?.parseDirection||"leftToRight";
     const index = parseDirection === "leftToRight" ? string.indexOf(delimiter) : string.lastIndexOf(delimiter);
     const left = string.slice(0,index);
     const right = string.slice(index+delimiter.length);
@@ -391,18 +373,14 @@ export function SplitStringOnce({
 }
 
 export function RemoveSubstring(string:string,remove:string){
-    return ReplaceSubstring({string,remove,insert:""});
+    return ReplaceSubstring(string,remove,"");
 }
 
 /* Within the string, finds and replaces a substring. */
 export function ReplaceSubstring(
-    {
-        string,remove,insert
-    }:{
-        string:string,
-        remove:string,
-        insert:string,
-    }
+    string:string,
+    remove:string,
+    insert:string,
 ){
     return string.split(remove).join(insert);
 }
@@ -419,13 +397,9 @@ export function MaybeReplaceEnding(string:string,remove:string,insert:string){
 
 /* Within the string, finds and replaces the first occurence of the substring. */
 export function ReplaceFirstSubstring(
-    {
-        string,remove,insert
-    }:{
-        string:string,
-        remove:string,
-        insert:string
-    }
+    string:string,
+    remove:string,
+    insert:string
 ){
     const split = string.split(remove);
     Expect(split.length>=2,`String didn't contain the substring to remove.`);
@@ -438,13 +412,9 @@ export function ReplaceFirstSubstring(
 
 /* Within the string, finds and replaces the first occurence of the substring. */
 export function ReplaceSubstringExactlyOnce(
-    {
-        string,remove,insert,
-    }:{
-        string:string,
-        remove:string,
-        insert:string,
-    }
+    string:string,
+    remove:string,
+    insert:string,
 ){
     const split = string.split(remove);
     if( split.length!==2 ){
@@ -458,13 +428,11 @@ export function ReplaceSubstringExactlyOnce(
 
 
 /* Within the string, finds and replaces multiple substrings. If you provide a single string in the insert array, will use that string for all insertions. */
-export function ReplaceSubstrings({
-    string,remove,insert
-}:{
+export function ReplaceSubstrings(
     string:string,
     remove:string[],
     insert:string[],
-}){
+){
     if(insert.length==1){
         const [insertString] = insert; 
         for(const removeString of remove){
@@ -487,23 +455,19 @@ export function ReplaceSubstrings({
  * @param remove: the characters to remove
  */
 export function RemoveCharacters(string:string,remove:string){
-    return ReplaceCharacters({string,remove,insert:""});
+    return ReplaceCharacters(string,remove,"");
 }
 /**
  * Within the string, finds and replaces multiple characters.
  * @param remove: the characters to remove
  * @param insert: what to insert whenever one of the characters is encountered
  * */
-export function ReplaceCharacters({
-    string,
-    remove,
-    insert,
-}:{
+export function ReplaceCharacters(
     string:string,
     remove:string,
     /** you can provide multiple characters to replace with, in which case the length must be the same as the characters you're removing */
     insert:string,
-}){
+){
     if(insert.length<=1){
         for(const removeChar of remove){
             if(!string.includes(removeChar)){
@@ -523,16 +487,12 @@ export function ReplaceCharacters({
 }
 
 /* Within the string, finds and replaces any characters that aren't in the charset. */
-export function ReplaceCharactersOutsideCharset({
-    string,
-    charset,
-    insert,
-}:{
+export function ReplaceCharactersOutsideCharset(
     string:string,
     charset:string,
     /** characters outside the charset will be replaced with this (entire) string */
     insert:string,
-}){
+){
     const stringArray = string.split("");
     const stringArrayLength = stringArray.length;
     for(let i=0;i<stringArrayLength;++i){
@@ -543,13 +503,10 @@ export function ReplaceCharactersOutsideCharset({
     return stringArray.join("");
 }
 
-export function JoinArrayByRepeatingDelimiters({
-    array,
-    delimiters,
-}:{
+export function JoinArrayByRepeatingDelimiters(
     array:string[],
     delimiters:string[]
-}){
+){
     Expect(delimiters.every(a=>a.length),`delimiters: cannot have empty values`);
     let result = "";
     let repeatingDelimitersIndex = -1;
