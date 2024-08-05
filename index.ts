@@ -31,7 +31,7 @@ export * from "./src/time/Seconds";
 export * from "./src/time/UnixTime";
 export * from "./src/time/Year";
 export * from "./src/web/AuthenticationHeader";
-export * from "./src/web/BasicCredentialsString";
+export * from "./src/web/BasicAccessCredentials";
 export * from "./src/web/HttpMethodLowercase";
 export * from "./src/web/HttpStatusCode";
 export * from "./src/web/HttpStatusCodes";

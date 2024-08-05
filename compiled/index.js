@@ -47,7 +47,7 @@ __exportStar(require("./src/time/Seconds"), exports);
 __exportStar(require("./src/time/UnixTime"), exports);
 __exportStar(require("./src/time/Year"), exports);
 __exportStar(require("./src/web/AuthenticationHeader"), exports);
-__exportStar(require("./src/web/BasicCredentialsString"), exports);
+__exportStar(require("./src/web/BasicAccessCredentials"), exports);
 __exportStar(require("./src/web/HttpMethodLowercase"), exports);
 __exportStar(require("./src/web/HttpStatusCode"), exports);
 __exportStar(require("./src/web/HttpStatusCodes"), exports);

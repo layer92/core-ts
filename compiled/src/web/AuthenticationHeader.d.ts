@@ -8,7 +8,7 @@ export declare function ExpectAuthenticationHeader(authneticationHeader: string,
 /** eg "username:password" becomes "Basic username:password" */
 export declare function BasicCredentialsStringToAuthenticationHeader(basicCredentialsString: string): string;
 /** eg token "foo" becomes "Bearer foo" */
-export declare function BearerTokenToAuthenticationHeader(basicCredentialsString: string): string;
+export declare function BearerTokenToAuthenticationHeader(token: string): string;
 /** Returns the part of the header such as "Basic" or "Bearer" */
 export declare function GetCredentialTypeFromAuthenticationHeader(header: string): string;
 /** Returns the part that is usually a token, username:password, etc */

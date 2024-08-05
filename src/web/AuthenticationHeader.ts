@@ -1,6 +1,6 @@
 import { Expect } from "../away/Expect";
 import { OnException } from "../away/OnException";
-import { ExpectBasicCredentialsString } from "./BasicCredentialsString";
+import { ExpectBasicAccessCredentials } from "./BasicAccessCredentials";
 
 /**
  * A string in the form "Type value", eg "Basic username:password" or "Bearer foo"
@@ -14,14 +14,13 @@ export function ExpectAuthenticationHeader(authneticationHeader:string,onFail?:O
 
 /** eg "username:password" becomes "Basic username:password" */
 export function BasicCredentialsStringToAuthenticationHeader(basicCredentialsString:string){
-    ExpectBasicCredentialsString(basicCredentialsString);
+    ExpectBasicAccessCredentials(basicCredentialsString);
     return `Basic ${basicCredentialsString}`;
 }
 
 /** eg token "foo" becomes "Bearer foo" */
-export function BearerTokenToAuthenticationHeader(basicCredentialsString:string){
-    ExpectBasicCredentialsString(basicCredentialsString);
-    return `Bearer ${basicCredentialsString}`;
+export function BearerTokenToAuthenticationHeader(token:string){
+    return `Bearer ${token}`;
 }
 
 /** Returns the part of the header such as "Basic" or "Bearer" */

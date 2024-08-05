@@ -2,21 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetCredentialDataFromAuthenticationHeader = exports.GetCredentialTypeFromAuthenticationHeader = exports.BearerTokenToAuthenticationHeader = exports.BasicCredentialsStringToAuthenticationHeader = exports.ExpectAuthenticationHeader = void 0;
 const Expect_1 = require("../away/Expect");
-const BasicCredentialsString_1 = require("./BasicCredentialsString");
+const BasicAccessCredentials_1 = require("./BasicAccessCredentials");
 function ExpectAuthenticationHeader(authneticationHeader, onFail) {
     (0, Expect_1.Expect)(authneticationHeader.includes(" "), `Expected " "`, onFail);
 }
 exports.ExpectAuthenticationHeader = ExpectAuthenticationHeader;
 /** eg "username:password" becomes "Basic username:password" */
 function BasicCredentialsStringToAuthenticationHeader(basicCredentialsString) {
-    (0, BasicCredentialsString_1.ExpectBasicCredentialsString)(basicCredentialsString);
+    (0, BasicAccessCredentials_1.ExpectBasicAccessCredentials)(basicCredentialsString);
     return `Basic ${basicCredentialsString}`;
 }
 exports.BasicCredentialsStringToAuthenticationHeader = BasicCredentialsStringToAuthenticationHeader;
 /** eg token "foo" becomes "Bearer foo" */
-function BearerTokenToAuthenticationHeader(basicCredentialsString) {
-    (0, BasicCredentialsString_1.ExpectBasicCredentialsString)(basicCredentialsString);
-    return `Bearer ${basicCredentialsString}`;
+function BearerTokenToAuthenticationHeader(token) {
+    return `Bearer ${token}`;
 }
 exports.BearerTokenToAuthenticationHeader = BearerTokenToAuthenticationHeader;
 /** Returns the part of the header such as "Basic" or "Bearer" */
