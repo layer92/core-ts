@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetCredentialDataFromAuthenticationHeader = exports.GetCredentialTypeFromAuthenticationHeader = exports.BearerTokenToAuthenticationHeader = exports.BasicCredentialsStringToAuthenticationHeader = exports.ExpectAuthenticationHeader = void 0;
+exports.GetCredentialFromAuthenticationHeader = exports.GetCredentialTypeFromAuthenticationHeader = exports.BearerTokenToAuthenticationHeader = exports.BasicCredentialsStringToAuthenticationHeader = exports.ExpectAuthenticationHeader = void 0;
 const Expect_1 = require("../away/Expect");
 const BasicAccessCredentials_1 = require("./BasicAccessCredentials");
 function ExpectAuthenticationHeader(authneticationHeader, onFail) {
@@ -25,8 +25,8 @@ function GetCredentialTypeFromAuthenticationHeader(header) {
 }
 exports.GetCredentialTypeFromAuthenticationHeader = GetCredentialTypeFromAuthenticationHeader;
 /** Returns the part that is usually a token, username:password, etc */
-function GetCredentialDataFromAuthenticationHeader(header) {
+function GetCredentialFromAuthenticationHeader(header) {
     ExpectAuthenticationHeader(header);
     return header.split(" ")[1];
 }
-exports.GetCredentialDataFromAuthenticationHeader = GetCredentialDataFromAuthenticationHeader;
+exports.GetCredentialFromAuthenticationHeader = GetCredentialFromAuthenticationHeader;

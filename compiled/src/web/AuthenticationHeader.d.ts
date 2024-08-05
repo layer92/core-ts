@@ -12,4 +12,4 @@ export declare function BearerTokenToAuthenticationHeader(token: string): string
 /** Returns the part of the header such as "Basic" or "Bearer" */
 export declare function GetCredentialTypeFromAuthenticationHeader(header: string): string;
 /** Returns the part that is usually a token, username:password, etc */
-export declare function GetCredentialDataFromAuthenticationHeader(header: string): string;
+export declare function GetCredentialFromAuthenticationHeader(header: string): string;

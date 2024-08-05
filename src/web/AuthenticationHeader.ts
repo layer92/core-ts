@@ -30,7 +30,7 @@ export function GetCredentialTypeFromAuthenticationHeader(header:string){
 }
 
 /** Returns the part that is usually a token, username:password, etc */
-export function GetCredentialDataFromAuthenticationHeader(header:string){
+export function GetCredentialFromAuthenticationHeader(header:string){
     ExpectAuthenticationHeader(header);
     return header.split(" ")[1];
 }
