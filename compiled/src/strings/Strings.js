@@ -84,7 +84,7 @@ function SetBetween(string, delimiters, valueToSetTo, options) {
     for (let i = 1; i < split.length; i += 2) {
         split[i] = valueToSetTo;
     }
-    const result = JoinArrayByRepeatingDelimiters({ array: split, delimiters });
+    const result = JoinArrayByRepeatingDelimiters(split, delimiters);
     return result;
 }
 exports.SetBetween = SetBetween;

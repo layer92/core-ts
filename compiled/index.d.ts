@@ -30,7 +30,7 @@ export * from "./src/time/MonthNumber";
 export * from "./src/time/Seconds";
 export * from "./src/time/UnixTime";
 export * from "./src/time/Year";
-export * from "./src/web/AuthorizationHeader";
+export * from "./src/web/AuthenticationHeader";
 export * from "./src/web/BasicCredentialsString";
 export * from "./src/web/HttpMethodLowercase";
 export * from "./src/web/HttpStatusCode";
