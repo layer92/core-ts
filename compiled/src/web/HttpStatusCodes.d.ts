@@ -10,6 +10,7 @@ export declare const MissingOrMalformedUrlParametersHttpStatusCode = 400;
 export declare const MissingOrMalformedQueryStringHttpStatusCode = 400;
 export declare const MalformedRequestBodyHttpStatusCode = 400;
 export declare const ViolatesBusinessRulesHttpStatusCode = 400;
+export declare const MissingOrMalformedHeaderStatusCode = 400;
 export declare const UnauthenticatedHttpStatusCode = 401;
 export declare const ForbiddenHttpStatusCode = 403;
 export declare const UnauthorizedHttpStatusCode = 403;

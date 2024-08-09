@@ -12,6 +12,8 @@ export const MissingOrMalformedQueryStringHttpStatusCode = 400;
 export const MalformedRequestBodyHttpStatusCode = 400;
 // https://softwareengineering.stackexchange.com/questions/329229/should-i-return-an-http-400-bad-request-status-if-a-parameter-is-syntactically
 export const ViolatesBusinessRulesHttpStatusCode = 400;
+// as suggested in: https://stackoverflow.com/questions/10576898/what-is-the-most-appropriate-http-status-code-to-return-if-a-required-header-is
+export const MissingOrMalformedHeaderStatusCode = 400;
 export const UnauthenticatedHttpStatusCode = 401;
 export const ForbiddenHttpStatusCode = 403;
 export const UnauthorizedHttpStatusCode = 403;
