@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.RemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = exports.UnboxArray = void 0;
+exports.ArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = exports.UnboxArray = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
@@ -44,7 +44,7 @@ function GetRandomItem(array) {
     return array[index];
 }
 exports.GetRandomItem = GetRandomItem;
-function RemoveAnyFromEndOfArray(array, removeItem, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
+function GetButRemoveAnyFromEndOfArray(array, removeItem, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
     if (array.length === 0) {
         return [];
     }
@@ -54,7 +54,7 @@ function RemoveAnyFromEndOfArray(array, removeItem, compare = EqualsByThreeEqual
     }
     return array.slice(0, rightIndex);
 }
-exports.RemoveAnyFromEndOfArray = RemoveAnyFromEndOfArray;
+exports.GetButRemoveAnyFromEndOfArray = GetButRemoveAnyFromEndOfArray;
 /** Return a version of the array without duplicates. Array is in the same order, and in the case of a duplicate, all occurrences after the first are removed. */
 function MakeUniqueArray(array, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
     const result = [];
@@ -200,15 +200,15 @@ function ArrayEquals(a, b, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) 
     if (a.length !== b.length) {
         return false;
     }
-    a = a.slice();
-    b = b.slice();
+    const a2 = a.slice();
+    const b2 = b.slice();
     while (a.length) {
-        const itemA = a.pop();
-        const matchIndex = b.findIndex(itemB => compare(itemA, itemB));
+        const itemA = a2.pop();
+        const matchIndex = b2.findIndex(itemB => compare(itemA, itemB));
         if (matchIndex === -1) {
             return false;
         }
-        b.splice(matchIndex, 1);
+        b2.splice(matchIndex, 1);
     }
     return true;
 }
