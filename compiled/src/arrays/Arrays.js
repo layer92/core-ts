@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = exports.UnboxArray = void 0;
+exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = exports.UnboxArray = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
@@ -181,7 +181,7 @@ function ToggleInclusion(array, item, compare = EqualsByThreeEquals_1.EqualsByTh
     return array;
 }
 exports.ToggleInclusion = ToggleInclusion;
-/** faster than ArrayEquals, but requires the arrays to be sorted */
+/** Returns true if the arrays have the same items in the same order. */
 function SortedArrayEquals(a, b, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
     if (a.length !== b.length) {
         return false;
@@ -195,14 +195,14 @@ function SortedArrayEquals(a, b, compare = EqualsByThreeEquals_1.EqualsByThreeEq
     return true;
 }
 exports.SortedArrayEquals = SortedArrayEquals;
-/** if the arrays are sorted, use SortedArrayEquals, which is faster */
-function ArrayEquals(a, b, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
+/** Returns true if the arrays have the same items, regardless of order. This is slower than SortedArrayEquals, so if you are able to gaurantee your specimens will be sorted, it is suggested to use SortedArrayEquals instead. */
+function UnsortedArrayEquals(a, b, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
     if (a.length !== b.length) {
         return false;
     }
     const a2 = a.slice();
     const b2 = b.slice();
-    while (a.length) {
+    while (a2.length) {
         const itemA = a2.pop();
         const matchIndex = b2.findIndex(itemB => compare(itemA, itemB));
         if (matchIndex === -1) {
@@ -212,4 +212,39 @@ function ArrayEquals(a, b, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) 
     }
     return true;
 }
-exports.ArrayEquals = ArrayEquals;
+exports.UnsortedArrayEquals = UnsortedArrayEquals;
+/**
+ * Returns an array of all possible subsets of the array.
+ * See https://en.wikipedia.org/wiki/Power_set
+ * */
+function MakePowerSet(array) {
+    const result = [[]];
+    // each pass adds a layer of subsets, each time introducing one new element
+    // for example, for the array [1,2,3]
+    // result starts as [ [] ]
+    // the first pass makes [ [],[1] ]
+    // the second pass makes [ [],[1], [2],[1,2] ]
+    // the third pass makes [ [],[1],[2],[1,2], [3],[1,3],[2,3],[1,2,3] ]
+    for (const a of array) {
+        const lengthAtStartOfPass = result.length;
+        for (let i = 0; i < lengthAtStartOfPass; ++i) {
+            // result.push([ ...result[i], a ]); // using slice instead (see notes below)
+            const subset = result[i].slice();
+            subset.push(a);
+            result.push(subset);
+        }
+    }
+    return result;
+    // consulted: https://stackoverflow.com/questions/42773836/how-to-find-all-subsets-of-a-set-in-javascript-powerset-of-array
+    /**
+     * for choosing slice over spread, may be faster https://stackoverflow.com/questions/55843097/does-spread-operator-affect-performance, https://stackoverflow.com/questions/51164161/spread-syntax-vs-slice-method
+     * my results from https://stackoverflow.com/questions/55843097/does-spread-operator-affect-performance:
+     * spread: 261.1 ms
+        map: 228 ms
+        for: 298.7 ms
+        reduce: 273.2 ms
+        slice: 29.5 ms
+        arrayFrom: 249.4 ms
+             */
+}
+exports.MakePowerSet = MakePowerSet;

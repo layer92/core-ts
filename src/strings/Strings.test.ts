@@ -3,8 +3,8 @@ import { SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
 
 export function TestStrings(){
     console.log("\t Strings");
-    SplitByRepeatingDelimiter();
-    Between();
+    TestSplitByRepeatingDelimiter();
+    TestSetBetween();
 }
 
 interface SplitByRepeatingDelimiterTest{
@@ -14,7 +14,7 @@ interface SplitByRepeatingDelimiterTest{
     parseDirection:"rightToLeft"|"leftToRight"
 }
 
-function SplitByRepeatingDelimiter(){
+function TestSplitByRepeatingDelimiter(){
     console.log("\t\t .SplitStringByRepeatingDelimiters");
     const tests:SplitByRepeatingDelimiterTest[] = [
 
@@ -52,11 +52,13 @@ function SplitByRepeatingDelimiter(){
     ];
 
     for(const test of tests){
-        const resultSplit = SplitStringByRepeatingDelimiters({
-            string: test.input,
-            delimiters: test.delimiters,
-            parseDirection: test.parseDirection
-        });
+        const resultSplit = SplitStringByRepeatingDelimiters(
+            test.input,
+            test.delimiters,
+            {
+                parseDirection: test.parseDirection
+            }
+        );
         Expect(
             JSON.stringify(resultSplit)===JSON.stringify(test.expectedResult),
             JSON.stringify({...test,resultSplit}),
@@ -72,8 +74,8 @@ interface SetBetweenTest{
     args:[string,string,string,"rightToLeft"|"leftToRight"]
 }
 
-function Between(){
-    console.log("\t\t .SetBetween");
+function TestSetBetween(){
+    console.log("\t\t SetBetween");
     const tests:SetBetweenTest[] = [
 
         {
@@ -121,12 +123,14 @@ function Between(){
     ];
 
     for(const test of tests){
-        const result = SetBetween({
-            string:test.input,
-            delimiters:[test.args[0],test.args[1]],
-            valueToSetTo:test.args[2],
-            parseDirection: test.args[3],
-        });
+        const result = SetBetween(
+            test.input,
+            [test.args[0],test.args[1]],
+            test.args[2],
+            {
+                parseDirection: test.args[3],
+            }
+        );
         Expect(
             result===test.expectedResult,
             JSON.stringify({...test,result}),

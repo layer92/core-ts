@@ -193,7 +193,7 @@ export function ToggleInclusion<Item>(array:Item[], item:Item, compare:Relation=
     return array;
 }
 
-/** faster than ArrayEquals, but requires the arrays to be sorted */
+/** Returns true if the arrays have the same items in the same order. */
 export function SortedArrayEquals<Item>(a:Readonly<Item[]>, b:Readonly<Item[]>, compare:Relation=EqualsByThreeEquals){
     if(a.length!==b.length){
         return false;
@@ -207,14 +207,14 @@ export function SortedArrayEquals<Item>(a:Readonly<Item[]>, b:Readonly<Item[]>, 
     return true;
 }
 
-/** if the arrays are sorted, use SortedArrayEquals, which is faster */
-export function ArrayEquals<Item>(a:Readonly<Item[]>, b:Readonly<Item[]>, compare:Relation=EqualsByThreeEquals){
+/** Returns true if the arrays have the same items, regardless of order. This is slower than SortedArrayEquals, so if you are able to gaurantee your specimens will be sorted, it is suggested to use SortedArrayEquals instead. */
+export function UnsortedArrayEquals<Item>(a:Readonly<Item[]>, b:Readonly<Item[]>, compare:Relation=EqualsByThreeEquals){
     if(a.length!==b.length){
         return false;
     }
     const a2 = a.slice();
     const b2 = b.slice();
-    while(a.length){
+    while(a2.length){
         const itemA = a2.pop();
         const matchIndex = b2.findIndex(itemB=>compare(itemA,itemB));
         if(matchIndex===-1){
@@ -223,4 +223,39 @@ export function ArrayEquals<Item>(a:Readonly<Item[]>, b:Readonly<Item[]>, compar
         b2.splice(matchIndex,1);
     }
     return true;
+}
+
+/**
+ * Returns an array of all possible subsets of the array.
+ * See https://en.wikipedia.org/wiki/Power_set
+ * */
+export function MakePowerSet<Item>(array:Readonly<Item[]>){
+    const result:Item[][] = [[]];
+    // each pass adds a layer of subsets, each time introducing one new element
+    // for example, for the array [1,2,3]
+    // result starts as [ [] ]
+    // the first pass makes [ [],[1] ]
+    // the second pass makes [ [],[1], [2],[1,2] ]
+    // the third pass makes [ [],[1],[2],[1,2], [3],[1,3],[2,3],[1,2,3] ]
+    for(const a of array){
+        const lengthAtStartOfPass = result.length;
+        for(let i=0; i<lengthAtStartOfPass; ++i){
+            // result.push([ ...result[i], a ]); // using slice instead (see notes below)
+            const subset = result[i].slice();
+            subset.push(a);
+            result.push(subset);
+        }
+    }
+    return result;
+    // consulted: https://stackoverflow.com/questions/42773836/how-to-find-all-subsets-of-a-set-in-javascript-powerset-of-array
+    /**
+     * for choosing slice over spread, may be faster https://stackoverflow.com/questions/55843097/does-spread-operator-affect-performance, https://stackoverflow.com/questions/51164161/spread-syntax-vs-slice-method
+     * my results from https://stackoverflow.com/questions/55843097/does-spread-operator-affect-performance:
+     * spread: 261.1 ms
+        map: 228 ms
+        for: 298.7 ms
+        reduce: 273.2 ms
+        slice: 29.5 ms
+        arrayFrom: 249.4 ms 
+             */
 }

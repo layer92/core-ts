@@ -31,7 +31,12 @@ export declare function GetPreviousItemInCycle<Item>(array: Readonly<Item[]>, fr
 export declare function GetIndexByItem<Item>(array: Readonly<Item[]>, item: Item): number;
 /** If the item is included in the array, removes it from the array. If the item isn't include in the array, pushes it to the array. */
 export declare function ToggleInclusion<Item>(array: Item[], item: Item, compare?: Relation): Item[];
-/** faster than ArrayEquals, but requires the arrays to be sorted */
+/** Returns true if the arrays have the same items in the same order. */
 export declare function SortedArrayEquals<Item>(a: Readonly<Item[]>, b: Readonly<Item[]>, compare?: Relation): boolean;
-/** if the arrays are sorted, use SortedArrayEquals, which is faster */
-export declare function ArrayEquals<Item>(a: Readonly<Item[]>, b: Readonly<Item[]>, compare?: Relation): boolean;
+/** Returns true if the arrays have the same items, regardless of order. This is slower than SortedArrayEquals, so if you are able to gaurantee your specimens will be sorted, it is suggested to use SortedArrayEquals instead. */
+export declare function UnsortedArrayEquals<Item>(a: Readonly<Item[]>, b: Readonly<Item[]>, compare?: Relation): boolean;
+/**
+ * Returns an array of all possible subsets of the array.
+ * See https://en.wikipedia.org/wiki/Power_set
+ * */
+export declare function MakePowerSet<Item>(array: Readonly<Item[]>): Item[][];
