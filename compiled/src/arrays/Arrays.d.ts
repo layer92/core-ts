@@ -1,7 +1,5 @@
 import { Relation } from "./Relation";
-import { Box } from "../away/Box";
 import { OnException } from "../away/OnException";
-export declare function UnboxArray<Item extends Box<any>>(array: Readonly<Item[]>): any[];
 export declare function DoesArrayInclude<Item>(array: Readonly<Item[]>, item: Item | Readonly<Item>, compare?: Relation): boolean;
 export declare function PushIfNotIncludes<Item>(array: Item[], item: Item | Readonly<Item>, compare?: Relation): void;
 export declare function PushManyIfNotIncludes<Item>(array: Item[], itemsToPush: Readonly<Item[]>, compare?: Relation): void;
@@ -40,3 +38,10 @@ export declare function UnsortedArrayEquals<Item>(a: Readonly<Item[]>, b: Readon
  * See https://en.wikipedia.org/wiki/Power_set
  * */
 export declare function MakePowerSet<Item>(array: Readonly<Item[]>): Item[][];
+/**
+ *
+ * @param array
+ * @param offset The offset to apply to the index of each element of the array. Default is -1, which moves all elements 1 position closer to the front of the array (moving the last element to the end of the array)
+ * @returns
+ */
+export declare function MakeRotatedArray<Item>(array: Readonly<Item[]>, offset?: number): any[];

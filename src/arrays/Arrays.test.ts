@@ -1,11 +1,12 @@
 import { Expect } from "../away/Expect";
-import { UnsortedArrayEquals, MakePowerSet } from "./Arrays";
+import { UnsortedArrayEquals, MakePowerSet, MakeRotatedArray, SortedArrayEquals } from "./Arrays";
 import { EqualsByThreeEquals } from "./EqualsByThreeEquals";
 
 export function TestArrays(){
     console.log("\t Arrays");
     TestUnsortedArrayEquals();
     TestMakePowerSet();
+    TestMakeRotatedArray();
 }
 
 function TestUnsortedArrayEquals(){
@@ -95,5 +96,47 @@ function TestMakePowerSet(){
             );
             Expect(occurences.length===1,"Test failed: "+JSON.stringify(test)+" ACTUAL RESULT:"+result);
         }
+    }
+}
+
+function TestMakeRotatedArray(){
+    console.log("\t\t MakeRotatedArray");
+    const tests = [
+        {
+            array: [1,2,3],
+            offset: undefined,
+            result: [2,3,1],
+        },
+        {
+            array: [1,2,3],
+            offset: -1,
+            result: [2,3,1],
+        },
+        {
+            array: [1,2,3],
+            offset: 1,
+            result: [3,1,2],
+        },
+        {
+            array: [1,2,3],
+            offset: 2,
+            result: [2,3,1],
+        },
+        {
+            array: [1,2,3],
+            offset: -2,
+            result: [3,1,2],
+        },
+        {
+            array: [1,2,3],
+            offset: -30,
+            result: [1,2,3],
+        },
+    ] as const;
+
+    for(const test of tests){
+        const result = MakeRotatedArray(test.array,test.offset);
+        const isSame = SortedArrayEquals(test.result,result);
+        Expect(isSame,"Test failed: "+JSON.stringify(test)+" ACTUAL RESULT:"+JSON.stringify(result));
     }
 }

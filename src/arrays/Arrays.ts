@@ -6,9 +6,9 @@ import { Expect } from "../away/Expect";
 import { Modulo } from "../math/Modulo";
 import { OnException } from "../away/OnException";
 
-export function UnboxArray<Item extends Box<any>>(array:Readonly<Item[]>) {
-    return array.map(a=>a.getData());
-}
+// export function UnboxArray<Item extends Box<any>>(array:Readonly<Item[]>) {
+//     return array.map(a=>a.getData());
+// }
 export function DoesArrayInclude<Item>(
     array:Readonly<Item[]>,
     item:Item|Readonly<Item>,
@@ -259,3 +259,24 @@ export function MakePowerSet<Item>(array:Readonly<Item[]>){
         arrayFrom: 249.4 ms 
              */
 }
+
+/**
+ * 
+ * @param array 
+ * @param offset The offset to apply to the index of each element of the array. Default is -1, which moves all elements 1 position closer to the front of the array (moving the last element to the end of the array)
+ * @returns 
+ */
+export function MakeRotatedArray<Item>(array:Readonly<Item[]>, offset=-1){
+    if(offset===0){
+        return array.slice();
+    }
+    const length = array.length;
+    const result = [];
+    for(let fromIndex=0;fromIndex<length;++fromIndex){
+        const toIndex = Modulo(fromIndex+offset,length);
+        result[toIndex] = array[fromIndex];
+    }
+    return result;
+    // it might be faster to use array.slice() than the above method (for example if the browser implements slice natively), but the above algorithm is just fine in linear time
+}
+

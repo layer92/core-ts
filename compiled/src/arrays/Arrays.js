@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = exports.UnboxArray = void 0;
+exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
-function UnboxArray(array) {
-    return array.map(a => a.getData());
-}
-exports.UnboxArray = UnboxArray;
+// export function UnboxArray<Item extends Box<any>>(array:Readonly<Item[]>) {
+//     return array.map(a=>a.getData());
+// }
 function DoesArrayInclude(array, item, compare = EqualsByThreeEquals_1.EqualsByThreeEquals) {
     return array.some(a => compare(a, item));
 }
@@ -248,3 +247,23 @@ function MakePowerSet(array) {
              */
 }
 exports.MakePowerSet = MakePowerSet;
+/**
+ *
+ * @param array
+ * @param offset The offset to apply to the index of each element of the array. Default is -1, which moves all elements 1 position closer to the front of the array (moving the last element to the end of the array)
+ * @returns
+ */
+function MakeRotatedArray(array, offset = -1) {
+    if (offset === 0) {
+        return array.slice();
+    }
+    const length = array.length;
+    const result = [];
+    for (let fromIndex = 0; fromIndex < length; ++fromIndex) {
+        const toIndex = (0, Modulo_1.Modulo)(fromIndex + offset, length);
+        result[toIndex] = array[fromIndex];
+    }
+    return result;
+    // it might be faster to use array.slice() than the above method (for example if the browser implements slice natively), but the above algorithm is just fine in linear time
+}
+exports.MakeRotatedArray = MakeRotatedArray;
