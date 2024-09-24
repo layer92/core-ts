@@ -61,7 +61,7 @@ export function MaybeGetBetween(
 
 
 /**
-* Returns the substrings between the first pair of left & right delimiters.
+* Returns any substrings that occur between the left & right delimiters.
 * */
 export function GetAnyBetween(
     string:string,

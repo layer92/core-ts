@@ -35,6 +35,13 @@ export function PushManyIfNotIncludes<Item>(array:Item[],itemsToPush:Readonly<It
     }
 }
 
+/** Equivalent to `array.push(...itemsToPush)`, except it works even with large arrays. */
+export function PushMany<Item>(array:Item[],itemsToPush:Readonly<Item[]>){
+    for(const aItem of itemsToPush){
+        array.push(aItem);
+    }
+}
+
 export function GetFirstItem<Item>(array:Readonly<Item[]>){
     Expect(array.length,"Array was empty.");
     return array[0];
