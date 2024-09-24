@@ -43,7 +43,7 @@ function MaybeGetBetween(string, leftDelimiter, rightDelimiter, options) {
 }
 exports.MaybeGetBetween = MaybeGetBetween;
 /**
-* Returns the substrings between the first pair of left & right delimiters.
+* Returns any substrings that occur between the left & right delimiters.
 * */
 function GetAnyBetween(string, leftDelimiter, rightDelimiter, options) {
     const searchDirection = options?.searchDirection || "leftToRight";

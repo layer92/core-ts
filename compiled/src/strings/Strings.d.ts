@@ -11,7 +11,7 @@ export declare function MaybeGetBetween(string: string, leftDelimiter: string, r
     searchDirection?: "leftToRight";
 }): string;
 /**
-* Returns the substrings between the first pair of left & right delimiters.
+* Returns any substrings that occur between the left & right delimiters.
 * */
 export declare function GetAnyBetween(string: string, leftDelimiter: string, rightDelimiter: string, options?: {
     searchDirection?: "leftToRight";

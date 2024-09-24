@@ -3,6 +3,8 @@ import { OnException } from "../away/OnException";
 export declare function DoesArrayInclude<Item>(array: Readonly<Item[]>, item: Item | Readonly<Item>, compare?: Relation): boolean;
 export declare function PushIfNotIncludes<Item>(array: Item[], item: Item | Readonly<Item>, compare?: Relation): void;
 export declare function PushManyIfNotIncludes<Item>(array: Item[], itemsToPush: Readonly<Item[]>, compare?: Relation): void;
+/** Equivalent to `array.push(...itemsToPush)`, except it works even with large arrays. */
+export declare function PushMany<Item>(array: Item[], itemsToPush: Readonly<Item[]>): void;
 export declare function GetFirstItem<Item>(array: Readonly<Item[]>): Item;
 export declare function GetLastItem<Item>(array: Readonly<Item[]>): Item;
 export declare function MaybeGetLastItem<Item>(array: Readonly<Item[]>): Item;
