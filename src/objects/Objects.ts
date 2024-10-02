@@ -1,9 +1,12 @@
 
+type PickedType<Source,Key extends keyof Source> = {
+    [key in Key]:Source[key]
+};
 
-export function Pick<ObjectType>(object:Readonly<ObjectType>,keys:Readonly<(keyof ObjectType)[]>):Partial<ObjectType>{
-    const result:Partial<ObjectType> = {};
+export function Pick<SourceObject,Key extends keyof SourceObject>(object:Readonly<SourceObject>,keys:Readonly<Key[]>):PickedType<SourceObject,Key>{
+    const result:Partial<PickedType<SourceObject,Key>> = {};
     for(const key of keys){
         result[key] = object[key];
     }
-    return result;
+    return result as PickedType<SourceObject,Key>;
 }

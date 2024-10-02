@@ -6,6 +6,16 @@ export function TestObjects(){
     TestPick();
 }
 
+
+// compile-time test
+{
+    const ABC_to_C = ["a","c"] as const;
+    const abc = {a:1,b:"b",c:[3]};
+    const ac = Pick(abc,ABC_to_C);
+    ac.a;
+    ac.c;
+}
+
 function TestPick(){
     console.log("\t\t Pick");
     const tests = [
