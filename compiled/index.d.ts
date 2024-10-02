@@ -1,3 +1,4 @@
+export * from "./src/objects/Objects";
 export * from "./src/arrays/Arrays";
 export * from "./src/arrays/EqualsByJsonStringify";
 export * from "./src/arrays/EqualsByThreeEquals";
