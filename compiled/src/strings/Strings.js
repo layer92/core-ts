@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StringToFloat = exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringIntersects = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
+exports.StringToFloat = exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadRight = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringIntersects = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
 const CommonCharsets_1 = require("./CommonCharsets");
 const Expect_1 = require("../away/Expect");
 const Arrays_1 = require("../arrays/Arrays");
@@ -445,21 +445,31 @@ function GetIndexOfMulti(string, substrings, startPosition = 0) {
     // );
 }
 exports.GetIndexOfMulti = GetIndexOfMulti;
-// Adds characters to the left side of the string until it is the specified length. If the string is already the specified length or longer, returns the string as-is.
+/** Adds characters to the left side of the string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
 function PadLeft(string, pad, length) {
     const deficit = length - string.length;
     if (deficit <= 0) {
         return string;
     }
-    const repetitions = Math.ceil(deficit / pad.length);
-    return (pad.repeat(repetitions) + string).slice(-length);
+    const requiredRepetitions = Math.ceil(deficit / pad.length);
+    return (pad.repeat(requiredRepetitions) + string).slice(-length);
 }
 exports.PadLeft = PadLeft;
-// Adds zeroes to the left side of the number/string until it is the specified length. If the string is already the specified length or longer, returns the string as-is.
+/** Adds zeroes to the left side of the number/string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
 function PadNumberLeft(numberOrString, length) {
     return PadLeft("" + numberOrString, '0', length);
 }
 exports.PadNumberLeft = PadNumberLeft;
+/** Adds characters to the right side of the string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
+function PadRight(string, pad, length) {
+    const deficit = length - string.length;
+    if (deficit <= 0) {
+        return string;
+    }
+    const requiredRepetitions = Math.ceil(deficit / pad.length);
+    return (string + pad.repeat(requiredRepetitions)).slice(0, length);
+}
+exports.PadRight = PadRight;
 function IsAlphabetic(string) {
     return IsInCharset(string, CommonCharsets_1.AlphebeticCharacters);
 }

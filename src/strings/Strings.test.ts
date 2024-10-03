@@ -1,10 +1,11 @@
 import { Expect } from "../away/Expect";
-import { SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
+import { PadRight, SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
 
 export function TestStrings(){
     console.log("\t Strings");
     TestSplitByRepeatingDelimiter();
     TestSetBetween();
+    TestPadRight();
 }
 
 interface SplitByRepeatingDelimiterTest{
@@ -137,6 +138,53 @@ function TestSetBetween(){
             ()=>{}
         );
     
+    }
+
+}
+
+
+
+
+function TestPadRight(){
+    console.log("\t\t PadRight");
+    const tests:{
+        input: [string,string,number],
+        result:string,
+    }[] = [
+        {
+            input: ["abc","x",5],
+            result: "abcxx",
+        },
+        {
+            input: ["abc","x",3],
+            result: "abc",
+        },
+        {
+            input: ["abc","x",2],
+            result: "abc",
+        },
+        {
+            input: ["abc","x",0],
+            result: "abc",
+        },
+        {
+            input: ["abc","xyz",4],
+            result: "abcx",
+        },
+        {
+            input: ["abc","xyz",5],
+            result: "abcxy",
+        },
+        {
+            input: ["","0",2],
+            result: "00",
+        },
+    ];
+
+    for(const test of tests){
+        const result = PadRight(test.input[0],test.input[1],test.input[2]);
+        const ok = result===test.result;
+        Expect(ok,"Test failed: "+JSON.stringify(test)+" ACTUAL RESULT:"+JSON.stringify(result));
     }
 
 }

@@ -582,19 +582,29 @@ export function GetIndexOfMulti(string:string,substrings:string[],startPosition:
     // );
 }
 
-// Adds characters to the left side of the string until it is the specified length. If the string is already the specified length or longer, returns the string as-is.
+/** Adds characters to the left side of the string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
 export function PadLeft(string:string,pad:string,length:number){
     const deficit = length-string.length;
     if(deficit<=0){
         return string;
     }
-    const repetitions = Math.ceil(deficit/pad.length);
-    return (pad.repeat(repetitions)+string).slice(-length);
+    const requiredRepetitions = Math.ceil(deficit/pad.length);
+    return (pad.repeat(requiredRepetitions)+string).slice(-length);
 }
 
-// Adds zeroes to the left side of the number/string until it is the specified length. If the string is already the specified length or longer, returns the string as-is.
+/** Adds zeroes to the left side of the number/string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
 export function PadNumberLeft(numberOrString:number|string,length:number){
     return PadLeft(""+numberOrString,'0',length);
+}
+
+/** Adds characters to the right side of the string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
+export function PadRight(string:string,pad:string,length:number){
+    const deficit = length-string.length;
+    if(deficit<=0){
+        return string;
+    }
+    const requiredRepetitions = Math.ceil(deficit/pad.length);
+    return (string+pad.repeat(requiredRepetitions)).slice(0,length);
 }
 
 export function IsAlphabetic(string:string){

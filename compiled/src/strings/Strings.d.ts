@@ -96,8 +96,12 @@ export declare function GetIndicesOf(string: string, substring: string): any[];
 export declare function GetIndicesOfMulti(string: string, substrings: string[], startPosition?: number): any[];
 /** Returns the position of the first occurrence of one of the provided substrings. */
 export declare function GetIndexOfMulti(string: string, substrings: string[], startPosition?: number): number;
+/** Adds characters to the left side of the string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
 export declare function PadLeft(string: string, pad: string, length: number): string;
+/** Adds zeroes to the left side of the number/string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
 export declare function PadNumberLeft(numberOrString: number | string, length: number): string;
+/** Adds characters to the right side of the string until it is the specified length. If the string is already the specified length or longer, returns the string as-is. If the pad is longer than 1 character, the result will still be at exactly the correct length (in which the last time the pad is added, it may be trunacated) */
+export declare function PadRight(string: string, pad: string, length: number): string;
 export declare function IsAlphabetic(string: string): boolean;
 export declare function IsAlphanumeric(string: string): boolean;
 export declare function IsNumeric(string: string): boolean;
