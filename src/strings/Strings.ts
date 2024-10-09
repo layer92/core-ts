@@ -322,6 +322,19 @@ export function RemoveCharactersFromEnds(
     return string;
 }
 
+export function RemoveCharactersFromStart(
+    string:string,
+    characters:string,
+){
+    if(characters===""){
+        return string;
+    }
+    while( characters.includes(string[0]) ){
+        string = string.slice(1);
+    }
+    return string;
+}
+
 export function MakeRandom(
     length:number,
     charset?:string

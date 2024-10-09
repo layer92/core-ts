@@ -47,6 +47,7 @@ export declare function IsLowerCase(string: string): boolean;
 export declare function RemoveWord(string: string, word: string): string;
 export declare function RemoveCharactersFromEnd(string: string, characters: string): string;
 export declare function RemoveCharactersFromEnds(string: string, characters: string): string;
+export declare function RemoveCharactersFromStart(string: string, characters: string): string;
 export declare function MakeRandom(length: number, charset?: string): string;
 export declare function CanBeParsedAsFloat(string: string): boolean;
 export declare function RemoveWhitespaceFromEnds(string: string): string;
