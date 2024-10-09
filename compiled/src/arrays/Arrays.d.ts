@@ -23,6 +23,8 @@ export declare function DoesArrayContainDuplicates(array: Readonly<any[]>, compa
 export declare function GetArraySum(array: Readonly<any[]>): any;
 export declare function GetArrayAverage(array: Readonly<any[]>): number;
 export declare function GetArrayMax(array: Readonly<any[]>): number;
+export declare function GetIndexOfMaxItem(array: Readonly<any[]>): number;
+export declare function GetIndexOfMinItem(array: Readonly<any[]>): number;
 export declare function GetArrayMin(array: Readonly<any[]>): number;
 export declare function GetRelativeItem<Item>(array: Readonly<Item[]>, fromItem: Item | Readonly<Item>, offset: number, loop: boolean): Item;
 export declare function GetNextItemInCycle<Item>(array: Readonly<Item[]>, fromItem: Item): Item;

@@ -153,6 +153,37 @@ export function GetArrayMax(array:Readonly<any[]>){
     }
     return max;
 }
+export function GetIndexOfMaxItem(array:Readonly<any[]>){
+    Expect(array.length,"Array was empty.");
+    let maxIndex =  0;
+    let max:number = array[0];
+    const length=array.length;
+    for(let i=0;i<length;++i){
+        for(const a of array){
+            if(a[i]>max){
+                max=a[i];
+                maxIndex=i;
+            }
+        }
+    }
+    return maxIndex;
+}
+
+export function GetIndexOfMinItem(array:Readonly<any[]>){
+    Expect(array.length,"Array was empty.");
+    let minIndex =  0;
+    let min:number = array[0];
+    const length=array.length;
+    for(let i=0;i<length;++i){
+        for(const a of array){
+            if(a[i]<min){
+                min=a[i];
+                minIndex=i;
+            }
+        }
+    }
+    return minIndex;
+}
 
 export function GetArrayMin(array:Readonly<any[]>){
     Expect(array.length,"Array was empty.");

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
+exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
@@ -138,6 +138,38 @@ function GetArrayMax(array) {
     return max;
 }
 exports.GetArrayMax = GetArrayMax;
+function GetIndexOfMaxItem(array) {
+    (0, Expect_1.Expect)(array.length, "Array was empty.");
+    let maxIndex = 0;
+    let max = array[0];
+    const length = array.length;
+    for (let i = 0; i < length; ++i) {
+        for (const a of array) {
+            if (a[i] > max) {
+                max = a[i];
+                maxIndex = i;
+            }
+        }
+    }
+    return maxIndex;
+}
+exports.GetIndexOfMaxItem = GetIndexOfMaxItem;
+function GetIndexOfMinItem(array) {
+    (0, Expect_1.Expect)(array.length, "Array was empty.");
+    let minIndex = 0;
+    let min = array[0];
+    const length = array.length;
+    for (let i = 0; i < length; ++i) {
+        for (const a of array) {
+            if (a[i] < min) {
+                min = a[i];
+                minIndex = i;
+            }
+        }
+    }
+    return minIndex;
+}
+exports.GetIndexOfMinItem = GetIndexOfMinItem;
 function GetArrayMin(array) {
     (0, Expect_1.Expect)(array.length, "Array was empty.");
     let min = array[0];
