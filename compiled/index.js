@@ -64,6 +64,7 @@ __exportStar(require("./src/time/HyphenatedDate"), exports);
 __exportStar(require("./src/time/MonthNumber"), exports);
 __exportStar(require("./src/time/Seconds"), exports);
 __exportStar(require("./src/time/UnixTime"), exports);
+__exportStar(require("./src/time/UnixTimeToRelativeEnglishPhrase"), exports);
 __exportStar(require("./src/time/Year"), exports);
 __exportStar(require("./src/web/AuthenticationHeader"), exports);
 __exportStar(require("./src/web/BasicAccessCredentials"), exports);

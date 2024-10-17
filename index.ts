@@ -49,6 +49,7 @@ export * from "./src/time/HyphenatedDate";
 export * from "./src/time/MonthNumber";
 export * from "./src/time/Seconds";
 export * from "./src/time/UnixTime";
+export * from "./src/time/UnixTimeToRelativeEnglishPhrase";
 export * from "./src/time/Year";
 export * from "./src/web/AuthenticationHeader";
 export * from "./src/web/BasicAccessCredentials";
