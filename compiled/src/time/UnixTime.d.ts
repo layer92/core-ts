@@ -2,11 +2,8 @@ import { OnException } from "../away/OnException";
 /** Unix time: A number of seconds since Jan 1 1970     */
 export declare function UnixTimeFromYearMonthDay(year: number, monthNumber: number, dayOfMonthNumber: number): number;
 export declare function UnixTimeToJsDate(unixTime: number): Date;
-/**
- * Returns a string such as "5 days ago", "1 week ago", "30 seconds ago", etc...
- * By default, fromTime will be the current unix time
- * */
-export declare function UnixTimeToEnglishAgoString(fromTime: number | undefined, toTime: number): string;
+/** Returns how the targetTime relates to the reference time (current time). For example "5 days ago" or "60 seconds from now" If not referenceTime is not defined, defaults to the current unix time. */
+export declare function UnixTimeToRelativeEnglishPhrase(targetTime: number, referenceTime?: number): string;
 /** Returns undefined if the string is unparsable. */
 export declare function MaybeMakeUnixTimeFromHyphenDate(hyphenDate: string, options?: {
     forbidEmptyMonthNumber?: true;
