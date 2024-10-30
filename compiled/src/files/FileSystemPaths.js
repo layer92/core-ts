@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MaybeGetFileSystemPathName = exports.MaybeGetFileSystemPathParentPath = exports.IsFileSystemPathFilePath = exports.IsFileSystemPathFolderPath = exports.IsFileSystemPathRelative = exports.IsFileSystemPathAbsolute = exports.ExpectFileSystemPath = void 0;
 const Expect_1 = require("../away/Expect");
+/**
+ * A path used in a file system. Not to be confused with filepath, which is the file system path of specifically a file (not a folder)
+ */
 function ExpectFileSystemPath(path, onBadData) {
     (0, Expect_1.Expect)(path !== "", `A file system path cannot be an empty string. Perhaps you meant ".." or "."?`, onBadData);
     (0, Expect_1.Expect)(!path.includes("//"), `File system path cannot not have a "//". This may indicate a buggy concatenation.`);

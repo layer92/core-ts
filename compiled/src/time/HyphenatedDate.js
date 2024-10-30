@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetDayOfWeekJapaneseAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishNameFromHyphenDate = exports.GetDayOfWeekNumberFromHyphenDate = exports.HyphenDateToExplicitString = exports.HyphenDateToAmericanSlashString = exports.GetEarliestHyphenDate = exports.GetLatestHyphenDate = exports.UnixTimeToHyphenDate = exports.SetHyphenDateDayOfMonthNumber = exports.MaybeGetDayOfMonthNumberFromHyphenDate = exports.MaybeGetMonthNumberFromHyphenDate = exports.GetYearFromHyphenDate = exports.HyphenDateToUnixWeekDays = exports.GetNetWorkDaysBetweenHyphenDates = exports.GetDifferenceYearsBetweenHyphenDates = exports.GetDifferenceMonthsFromHyphenDate = exports.GetDifferenceWeekdaysBetweenHyphenDates = exports.GetDifferenceDaysBetweenHyphenDates = exports.AddMonthsToHyphenDate = exports.JsDateToHyphenDate = exports.AddWeekdaysToHyphenDate = exports.AddDaysToHyphenDate = exports.HyphenDateToUnixTime = exports.HyphenDateToJsDate = exports.ExpectHyphenDate = void 0;
+exports.GetDayOfWeekJapaneseAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishNameFromHyphenDate = exports.GetDayOfWeekNumberFromHyphenDate = exports.HyphenDateToExplicitString = exports.ExpectAmericanSlashString = exports.GetYearFromAmericanSlashString = exports.AmericanSlashStringToHyphenDate = exports.HyphenDateToAmericanSlashString = exports.GetEarliestHyphenDate = exports.GetLatestHyphenDate = exports.UnixTimeToHyphenDate = exports.SetHyphenDateDayOfMonthNumber = exports.MaybeGetDayOfMonthNumberFromHyphenDate = exports.MaybeGetMonthNumberFromHyphenDate = exports.GetYearFromHyphenDate = exports.HyphenDateToUnixWeekDays = exports.GetNetWorkDaysBetweenHyphenDates = exports.GetDifferenceYearsBetweenHyphenDates = exports.GetDifferenceMonthsFromHyphenDate = exports.GetDifferenceWeekdaysBetweenHyphenDates = exports.GetDifferenceDaysBetweenHyphenDates = exports.AddMonthsToHyphenDate = exports.JsDateToHyphenDate = exports.AddWeekdaysToHyphenDate = exports.AddDaysToHyphenDate = exports.HyphenDateToUnixTime = exports.HyphenDateToJsDate = exports.ExpectHyphenDate = void 0;
 const Expect_1 = require("../away/Expect");
 const CommonCharsets_1 = require("../strings/CommonCharsets");
 const Strings_1 = require("../strings/Strings");
@@ -19,6 +19,7 @@ function ExpectHyphenDate(data, onBadData, options) {
     (0, Expect_1.Expect)(data, ``, onBadData);
     (0, Expect_1.Expect)(data.includes("-"), `Expected a hyphen-delimited string: ${data}`, onBadData);
     const [yyyy, mm, dd] = data.split("-");
+    // The year must be four characters long, as per https://en.wikipedia.org/wiki/ISO_8601#Years in the basic representation
     (0, Expect_1.Expect)(yyyy.length === 4, `Did not begin with 4-digit year component: ${data}`, onBadData);
     // ISO 8601 specifies two characters for mm and dd, eg "02" for February, never "2", see: https://en.wikipedia.org/wiki/ISO_8601
     const emptyMonthCheckSuccess = mm !== undefined || !options?.forbidEmptyMonthNumber;
@@ -249,6 +250,40 @@ function HyphenDateToAmericanSlashString(hyphenDate) {
     return `${month}/${day}/${year}`;
 }
 exports.HyphenDateToAmericanSlashString = HyphenDateToAmericanSlashString;
+function AmericanSlashStringToHyphenDate(slashString) {
+    ExpectAmericanSlashString(slashString);
+    let [month, day, _year] = slashString.split("/");
+    let year = (0, Strings_1.PadNumberLeft)(GetYearFromAmericanSlashString(slashString), 4);
+    month = (0, Strings_1.PadNumberLeft)(month, 2);
+    day = (0, Strings_1.PadNumberLeft)(day, 2);
+    return `${year}-${month}-${day}`;
+}
+exports.AmericanSlashStringToHyphenDate = AmericanSlashStringToHyphenDate;
+/** Does the best to get the year from the string. Note that some dates may be ambiguous, for example the '21 could be 2021 or 1921. If number is less than 70, it is assumed to be that many years after 2000. If number is 70~99, is assumed to be that many years after 1900. */
+function GetYearFromAmericanSlashString(slashString) {
+    ExpectAmericanSlashString(slashString);
+    let [_month, _day, year] = slashString.split("/");
+    const yearNumber = (0, Strings_1.StringToInteger)(year);
+    if (yearNumber < 70) {
+        return 2000 + yearNumber;
+    }
+    if (yearNumber >= 70 && yearNumber <= 99) {
+        return 1900 + yearNumber;
+    }
+    return yearNumber;
+}
+exports.GetYearFromAmericanSlashString = GetYearFromAmericanSlashString;
+/** A string in the form "MM/DD/YY" or "MM/DD/YYYY", as (unfortunately) used in American dates around the time of writing (2024). If number is less than 70, it is assumed to be that many years after 2000. If number is 70~99, is assumed to be that many years after 1900. */
+function ExpectAmericanSlashString(slashString, onBadData) {
+    (0, Expect_1.Expect)(slashString.split("/").length === 3, `Expected exactly 2 occurences of "/".`, onBadData);
+    const [month, day, year] = slashString.split(slashString);
+    (0, Expect_1.Expect)(month.length > 0, `Month was empty.`, onBadData);
+    (0, Expect_1.Expect)(month.length <= 2, `Expected month to have 2 or less characters.`, onBadData);
+    (0, Expect_1.Expect)(day.length > 0, `Day was empty.`, onBadData);
+    (0, Expect_1.Expect)(day.length <= 2, `Expected day to have 2 or less characters.`, onBadData);
+    (0, Expect_1.Expect)(year.length >= 0, `Year was empty.`, onBadData);
+}
+exports.ExpectAmericanSlashString = ExpectAmericanSlashString;
 /** The clearest way to write a day (in English) such that it isn't misinterpreted, regardless of which culture the reader comes from. */
 function HyphenDateToExplicitString(hyphenDate) {
     const monthNumber = MaybeGetMonthNumberFromHyphenDate(hyphenDate);

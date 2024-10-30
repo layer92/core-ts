@@ -5,6 +5,9 @@ const Expect_1 = require("../away/Expect");
 const FileFormats_1 = require("./FileFormats/FileFormats");
 const FileNames_1 = require("./FileNames");
 const FileSystemPaths_1 = require("./FileSystemPaths");
+/**
+ * The path of a file, not a folder.
+ */
 function ExpectFilePath(filePath, onFail) {
     (0, FileSystemPaths_1.ExpectFileSystemPath)(filePath, onFail);
     (0, Expect_1.Expect)(!filePath.endsWith("/"), `value: ends with "/"`, onFail);

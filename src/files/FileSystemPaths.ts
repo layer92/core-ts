@@ -7,6 +7,9 @@ import { OnException } from "../away/OnException";
  */
 export type FileSystemPath = string;
 
+/**
+ * A path used in a file system. Not to be confused with filepath, which is the file system path of specifically a file (not a folder)
+ */
 export function ExpectFileSystemPath(path:FileSystemPath,onBadData?:OnException){
     Expect(path!=="",`A file system path cannot be an empty string. Perhaps you meant ".." or "."?`,onBadData);
     Expect(!path.includes("//"),`File system path cannot not have a "//". This may indicate a buggy concatenation.`);

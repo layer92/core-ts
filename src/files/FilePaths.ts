@@ -9,6 +9,9 @@ import { ExpectFileSystemPath, IsFileSystemPathAbsolute, IsFileSystemPathRelativ
  */
 export type FilePath = string;
 
+/**
+ * The path of a file, not a folder.
+ */
 export function ExpectFilePath(
     filePath:FilePath,
     onFail?:OnException
