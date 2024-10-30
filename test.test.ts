@@ -1,7 +1,8 @@
 import { TestArrays } from "./src/arrays/Arrays.test";
 import { TestObjects } from "./src/objects/Objects.test";
 import { TestStrings } from "./src/strings/Strings.test";
-import { TestHyphenatedDate } from "./src/time/HyphenatedDate.test";
+import { TestAmericanSlashDate } from "./src/time/AmericanSlashDate.test";
+import { TestHyphenatedDate } from "./src/time/HyphenDate.test";
 import { TestUrl } from "./src/web/Url.test";
 
 
@@ -14,6 +15,8 @@ TestArrays();
 TestStrings();
 
 TestHyphenatedDate();
+
+TestAmericanSlashDate();
 
 TestUrl();
 

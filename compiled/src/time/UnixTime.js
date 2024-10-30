@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Iso8601DateStringToUnixTime = exports.JsDateToUnixTime = exports.DateStringsToUnixTime = exports.YyyymmddToUnixTime = exports.MaybeMakeUnixTimeFromHyphenDate = exports.UnixTimeToJsDate = exports.UnixTimeFromYearMonthDay = void 0;
 const Expect_1 = require("../away/Expect");
 const DayOfMonthNumber_1 = require("./DayOfMonthNumber");
-const HyphenatedDate_1 = require("./HyphenatedDate");
+const HyphenDate_1 = require("./HyphenDate");
 const MonthNumber_1 = require("./MonthNumber");
 const Year_1 = require("./Year");
 /** Unix time: A number of seconds since Jan 1 1970     */
@@ -26,11 +26,11 @@ exports.UnixTimeToJsDate = UnixTimeToJsDate;
 function MaybeMakeUnixTimeFromHyphenDate(hyphenDate, options) {
     let catchingBadData = false;
     try {
-        (0, HyphenatedDate_1.ExpectHyphenDate)(hyphenDate, () => catchingBadData = true, {
+        (0, HyphenDate_1.ExpectHyphenDate)(hyphenDate, () => catchingBadData = true, {
             forbidEmptyDayOfMonth: options?.forbidEmptyDayOfMonth,
             forbidEmptyMonthNumber: options?.forbidEmptyMonthNumber,
         });
-        return (0, HyphenatedDate_1.HyphenDateToUnixTime)(hyphenDate, {
+        return (0, HyphenDate_1.HyphenDateToUnixTime)(hyphenDate, {
             onBadData: () => catchingBadData = true,
         });
     }

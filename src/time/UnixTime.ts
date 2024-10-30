@@ -1,7 +1,7 @@
 import { Expect } from "../away/Expect";
 import { OnException } from "../away/OnException";
 import { ExpectDayOfMonthNumber, JsDateToDayOfMonthNumber, StringToDayOfMonthNumber } from "./DayOfMonthNumber";
-import { ExpectHyphenDate, GetYearFromHyphenDate, HyphenDateToUnixTime, MaybeGetDayOfMonthNumberFromHyphenDate, MaybeGetMonthNumberFromHyphenDate } from "./HyphenatedDate";
+import { ExpectHyphenDate, GetYearFromHyphenDate, HyphenDateToUnixTime, MaybeGetDayOfMonthNumberFromHyphenDate, MaybeGetMonthNumberFromHyphenDate } from "./HyphenDate";
 import { ExpectMonthNumber, GetMonthNumberFromJsDate, StringToMonthNumber } from "./MonthNumber";
 import { GetYearFromJsDate, StringToYear } from "./Year";
 import { PadNumberLeft } from "../strings/Strings";

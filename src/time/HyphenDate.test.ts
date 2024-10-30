@@ -1,6 +1,5 @@
-import assert = require("assert");
-
-import {HyphenDateToUnixWeekDays, GetDifferenceWeekdaysBetweenHyphenDates, GetDifferenceDaysBetweenHyphenDates, GetNetWorkDaysBetweenHyphenDates, UnixTimeToHyphenDate} from "./HyphenatedDate";
+import assert from "assert";
+import {HyphenDateToUnixWeekDays, GetDifferenceWeekdaysBetweenHyphenDates, GetDifferenceDaysBetweenHyphenDates, GetNetWorkDaysBetweenHyphenDates, UnixTimeToHyphenDate} from "./HyphenDate";
 
 const _2019_01_01 = ("2019-01-01");
 const Wed_2020_01_01 = ("2020-01-01");
@@ -41,7 +40,7 @@ const Mon_1970_01_19 = ("1970-01-19");
 const Tue_1970_01_20 = ("1970-01-20");
 
 export function TestHyphenatedDate() {
-    console.log("\t HyphenatedDateBox");
+    console.log("\t HyphenDate");
     TestFromUnixTime();
     TestGetDifferenceDays();
     TestToUnixWeekDays();

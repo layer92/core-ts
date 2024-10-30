@@ -1,5 +1,5 @@
 import { GetCurrentUnixTime } from "./GetCurrentUnixTime";
-import { UnixTimeToHyphenDate, GetDifferenceYearsBetweenHyphenDates, GetDifferenceMonthsFromHyphenDate } from "./HyphenatedDate";
+import { UnixTimeToHyphenDate, GetDifferenceYearsBetweenHyphenDates, GetDifferenceMonthsFromHyphenDate } from "./HyphenDate";
 
 ///// Moved to separate file from UnixTime.ts to avoid circular dependency issue in a downstream create-react-app project
 
