@@ -663,3 +663,10 @@ export function StringToFloat(string:string,options?:{onBadData?:OnException}){
     Expect(!isNaN(float),"Unable to convert string to integer (received expression that was not a number).",options?.onBadData);
     return float;
 }
+
+export function CapitalizeFirstLetter(string:string){
+    if(string.length===0){
+        return "";
+    }
+    return string[0].toUpperCase()+string.slice(1);
+}

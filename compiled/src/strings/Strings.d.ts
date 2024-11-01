@@ -124,3 +124,4 @@ export declare function StringToInteger(string: string, options?: {
 export declare function StringToFloat(string: string, options?: {
     onBadData?: OnException;
 }): number;
+export declare function CapitalizeFirstLetter(string: string): string;
