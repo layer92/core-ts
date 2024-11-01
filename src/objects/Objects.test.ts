@@ -1,5 +1,5 @@
 import { Expect } from "../away/Expect";
-import { Pick } from "./Objects";
+import { Pick, PickPartial } from "./Objects";
 import {EqualsByJsonStringify} from "../arrays/EqualsByJsonStringify";
 export function TestObjects(){
     console.log("\t Objects");
@@ -9,10 +9,11 @@ export function TestObjects(){
 
 // compile-time test
 {
-    const ABC_to_C = ["a","c"] as const;
+    const ABC_to_AC = ["a","c"] as const;
     const abc = {a:1,b:"b",c:[3]};
-    const ac = Pick(abc,ABC_to_C);
+    const ac = Pick(abc,ABC_to_AC);
     ac.a;
+    // ac.b;//should give compiler error
     ac.c;
 }
 
@@ -61,4 +62,17 @@ function TestPick(){
         const ok = EqualsByJsonStringify(result,test.result);
         Expect(ok,"Test failed: "+JSON.stringify(test)+" ACTUAL RESULT:"+JSON.stringify(result));
     }
+}
+
+
+
+// compile-time test
+{
+    const ABC_to_CD = ["c","d"] as const;
+    const abc = {a:1,b:"b",c:[3]};
+    const ac = PickPartial(abc,ABC_to_CD);
+    // ac.a;//should give compiler error
+    // ac.b;//should give compiler error
+    ac.c;
+    // ac.d;//should give compiler error
 }
