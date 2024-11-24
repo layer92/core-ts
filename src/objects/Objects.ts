@@ -13,7 +13,7 @@ export function Pick<SourceObject,Key extends keyof SourceObject>(object:Readonl
 }
 
 
-/** Returns a version of the source object that only has picked keys, but doesn't necessarily have all of those keys, or fewer. Keys that aren't in the source object won't be included in the returned object. */
+/** Returns a version of the source object that only has picked keys, but doesn't necessarily have all of those keys. Keys that aren't in the source object won't be included in the returned object. */
 export function PickIntersection<SourceObject,Key extends keyof any>(object:Readonly<SourceObject>,keys:Readonly<Key[]>):PickedType<any,Key&(keyof SourceObject)>{
     const result:Partial<PickedType<any,Key>> = {};
     for(const key of keys){

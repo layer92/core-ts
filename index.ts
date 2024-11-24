@@ -32,6 +32,7 @@ export * from "./src/iso/Iso6391LanguageCode";
 export * from "./src/math/Bytes";
 export * from "./src/math/DegreesToRadians";
 export * from "./src/math/Modulo";
+export * from "./src/math/Fractions";
 export * from "./src/math/RadiansToDegrees";
 export * from "./src/objects/Objects";
 export * from "./src/sleep/SleepAsync";

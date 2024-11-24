@@ -10,7 +10,7 @@ function Pick(object, keys) {
     return result;
 }
 exports.Pick = Pick;
-/** Returns a version of the source object that only has picked keys, but doesn't necessarily have all of those keys, or fewer. Keys that aren't in the source object won't be included in the returned object. */
+/** Returns a version of the source object that only has picked keys, but doesn't necessarily have all of those keys. Keys that aren't in the source object won't be included in the returned object. */
 function PickIntersection(object, keys) {
     const result = {};
     for (const key of keys) {

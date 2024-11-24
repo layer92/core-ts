@@ -47,6 +47,7 @@ __exportStar(require("./src/iso/Iso6391LanguageCode"), exports);
 __exportStar(require("./src/math/Bytes"), exports);
 __exportStar(require("./src/math/DegreesToRadians"), exports);
 __exportStar(require("./src/math/Modulo"), exports);
+__exportStar(require("./src/math/Fractions"), exports);
 __exportStar(require("./src/math/RadiansToDegrees"), exports);
 __exportStar(require("./src/objects/Objects"), exports);
 __exportStar(require("./src/sleep/SleepAsync"), exports);
