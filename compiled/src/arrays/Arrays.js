@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
+exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.MaybeRemoveItem = exports.RemoveItem = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
@@ -101,6 +101,20 @@ function GetItemByIndex(array, index) {
     return array[index];
 }
 exports.GetItemByIndex = GetItemByIndex;
+function RemoveItem(array, item) {
+    const index = array.indexOf(item);
+    (0, Expect_1.Expect)(index >= 0, `Item not found in array.`);
+    array.splice(index, 1);
+}
+exports.RemoveItem = RemoveItem;
+function MaybeRemoveItem(array, item) {
+    const index = array.indexOf(item);
+    if (index === -1) {
+        return;
+    }
+    array.splice(index, 1);
+}
+exports.MaybeRemoveItem = MaybeRemoveItem;
 function ExpectIndexIsInRange(array, index, onOutOfRange) {
     const makeMessage = () => `Index out of range: ${index}`;
     (0, Expect_1.Expect)(index >= 0, makeMessage, onOutOfRange);

@@ -18,6 +18,8 @@ export declare function GetArrayExclusion<Item>(array: Readonly<Item[]>, itemsTo
 export declare function GetArrayIntersection<Item>(array: Readonly<Item[]>, b: Readonly<any[]>, compare?: Relation): Item[];
 export declare function DoArraysIntersect(a: Readonly<any[]>, b: Readonly<any[]>, compare?: Relation): boolean;
 export declare function GetItemByIndex<Item>(array: Readonly<Item[]>, index: number): Item;
+export declare function RemoveItem<Item>(array: Item[], item: Item): void;
+export declare function MaybeRemoveItem<Item>(array: Item[], item: Item): void;
 export declare function ExpectIndexIsInRange(array: Readonly<any[]>, index: number, onOutOfRange?: OnException): void;
 export declare function DoesArrayContainDuplicates(array: Readonly<any[]>, compare?: Relation): boolean;
 export declare function GetArraySum(array: Readonly<any[]>): any;

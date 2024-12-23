@@ -112,6 +112,20 @@ export function GetItemByIndex<Item>(array:Readonly<Item[]>, index:number){
     return array[index];
 }
 
+export function RemoveItem<Item>(array:Item[], item:Item){
+    const index = array.indexOf(item);
+    Expect(index>=0,`Item not found in array.`);
+    array.splice(index,1);
+}
+
+export function MaybeRemoveItem<Item>(array:Item[], item:Item){
+    const index = array.indexOf(item);
+    if(index===-1){
+        return;
+    }
+    array.splice(index,1);
+}
+
 export function ExpectIndexIsInRange(array:Readonly<any[]>,index:number,onOutOfRange?:OnException){
     const makeMessage = ()=>`Index out of range: ${index}`;
     Expect(index>=0, makeMessage, onOutOfRange);
