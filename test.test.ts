@@ -1,4 +1,5 @@
 import { TestArrays } from "./src/arrays/Arrays.test";
+import { TestFolderPaths } from "./src/files/FolderPaths.test";
 import { TestFractions } from "./src/math/Fractions.test";
 import { TestObjects } from "./src/objects/Objects.test";
 import { TestStrings } from "./src/strings/Strings.test";
@@ -8,6 +9,8 @@ import { TestUrl } from "./src/web/Url.test";
 
 
 console.log("Running tests...")
+
+TestFolderPaths();
 
 TestFractions();
 

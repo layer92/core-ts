@@ -27,7 +27,12 @@ function IsFolderPathRelative(folderPath) {
     return (0, FileSystemPaths_1.IsFileSystemPathRelative)(folderPath);
 }
 exports.IsFolderPathRelative = IsFolderPathRelative;
-/** Returns undefined if the folder has no name. Might return ".." or "." if that is the name used in the path. */
+/**
+ * FolderName: The very last node in the folder path
+ * Example: "foo/bar/" --> "bar"
+ * Returns undefined if the folder has no name.
+ * Might return ".." or "." if that is the name used in the path.
+ * */
 function MaybeGetFolderPathFolderName(folderPath) {
     if (folderPath === "/") {
         return undefined;
@@ -39,8 +44,9 @@ function MaybeGetFolderPathFolderName(folderPath) {
         return undefined;
     }
     // note that a path in the form "foo/" will have lastNode be "foo"
-    if (lastNode === "." || lastNode === "..")
-        return lastNode;
+    // if(lastNode==="."||lastNode===".."){
+    // }
+    return lastNode;
 }
 exports.MaybeGetFolderPathFolderName = MaybeGetFolderPathFolderName;
 /** @returns the folder path one level up from the given folder path, or undefined if the path has no parent */

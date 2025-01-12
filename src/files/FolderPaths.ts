@@ -37,8 +37,13 @@ export function IsFolderPathRelative(folderPath:FolderPath){
     return IsFileSystemPathRelative(folderPath);
 }
 
-/** Returns undefined if the folder has no name. Might return ".." or "." if that is the name used in the path. */
-export function MaybeGetFolderPathFolderName(folderPath:FolderPath):FolderName{
+/**
+ * FolderName: The very last node in the folder path
+ * Example: "foo/bar/" --> "bar"
+ * Returns undefined if the folder has no name.
+ * Might return ".." or "." if that is the name used in the path.
+ * */
+export function MaybeGetFolderPathFolderName(folderPath:FolderPath):FolderName|undefined{
     if(folderPath==="/"){
         return undefined;
     }
@@ -49,7 +54,9 @@ export function MaybeGetFolderPathFolderName(folderPath:FolderPath):FolderName{
         return undefined;
     }
     // note that a path in the form "foo/" will have lastNode be "foo"
-    if(lastNode==="."||lastNode==="..")
+    // if(lastNode==="."||lastNode===".."){
+
+    // }
     return lastNode;
 }
 

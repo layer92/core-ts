@@ -16,8 +16,13 @@ export type FolderPath = string;
 export declare function ExpectFolderPath(folderPath: FolderPath, onFail?: OnException): void;
 export declare function IsFolderPathAbsolute(folderPath: FolderPath): boolean;
 export declare function IsFolderPathRelative(folderPath: FolderPath): boolean;
-/** Returns undefined if the folder has no name. Might return ".." or "." if that is the name used in the path. */
-export declare function MaybeGetFolderPathFolderName(folderPath: FolderPath): FolderName;
+/**
+ * FolderName: The very last node in the folder path
+ * Example: "foo/bar/" --> "bar"
+ * Returns undefined if the folder has no name.
+ * Might return ".." or "." if that is the name used in the path.
+ * */
+export declare function MaybeGetFolderPathFolderName(folderPath: FolderPath): FolderName | undefined;
 /** @returns the folder path one level up from the given folder path, or undefined if the path has no parent */
 export declare function MaybeGetFolderPathParentPath(folderPath: FolderPath): string;
 /** Note that might not doesn't work if the path has .. or . inside of it, as we can't know the parentage in such case without access to the file system. */
