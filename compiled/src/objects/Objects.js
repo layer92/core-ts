@@ -29,7 +29,7 @@ exports.PickIntersection = PickIntersection;
  * // ERROR: `Object literal may only specify known properties, and 'a' does not exist in type 'Omit<Foo, "a">'.`
  * const bar:Omit<Foo,"a"> = {...foo,a:undefined};
  * // instead do this
- * const bar:Omit<Foo,"a"> = Omit(foo,"a");
+ * const bar:Omit<Foo,"a"> = Omit(foo,["a"]);
 */
 function Omit(object, omitKeys) {
     const result = { ...object };

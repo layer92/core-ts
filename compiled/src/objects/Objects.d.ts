@@ -13,7 +13,7 @@ export declare function PickIntersection<SourceObject, Key extends keyof any>(ob
  * // ERROR: `Object literal may only specify known properties, and 'a' does not exist in type 'Omit<Foo, "a">'.`
  * const bar:Omit<Foo,"a"> = {...foo,a:undefined};
  * // instead do this
- * const bar:Omit<Foo,"a"> = Omit(foo,"a");
+ * const bar:Omit<Foo,"a"> = Omit(foo,["a"]);
 */
 export declare function Omit<SourceObject, Key extends keyof SourceObject>(object: Readonly<SourceObject>, omitKeys: Readonly<Key[]>): Omit<SourceObject, Key>;
 export {};
