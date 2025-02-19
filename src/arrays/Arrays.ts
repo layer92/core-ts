@@ -119,6 +119,13 @@ export function RemoveItems<Item>(array:Item[], items:Item[]){
     }
 }
 
+export function MaybeRemoveItems<Item>(array:Item[], items:Item[]){
+    // TODO: optimize
+    for(const item of items){
+        MaybeRemoveItem(array,item);
+    }
+}
+
 export function RemoveItem<Item>(array:Item[], item:Item){
     const index = array.indexOf(item);
     Expect(index>=0,`Item not found in array.`);

@@ -19,6 +19,7 @@ export declare function GetArrayIntersection<Item>(array: Readonly<Item[]>, b: R
 export declare function DoArraysIntersect(a: Readonly<any[]>, b: Readonly<any[]>, compare?: Relation): boolean;
 export declare function GetItemByIndex<Item>(array: Readonly<Item[]>, index: number): Item;
 export declare function RemoveItems<Item>(array: Item[], items: Item[]): void;
+export declare function MaybeRemoveItems<Item>(array: Item[], items: Item[]): void;
 export declare function RemoveItem<Item>(array: Item[], item: Item): void;
 export declare function MaybeRemoveItem<Item>(array: Item[], item: Item): void;
 export declare function ExpectIndexIsInRange(array: Readonly<any[]>, index: number, onOutOfRange?: OnException): void;
