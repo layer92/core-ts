@@ -112,11 +112,19 @@ export function GetItemByIndex<Item>(array:Readonly<Item[]>, index:number){
     return array[index];
 }
 
+export function RemoveItems<Item>(array:Item[], items:Item[]){
+    // TODO: optimize
+    for(const item of items){
+        RemoveItem(array,item);
+    }
+}
+
 export function RemoveItem<Item>(array:Item[], item:Item){
     const index = array.indexOf(item);
     Expect(index>=0,`Item not found in array.`);
     array.splice(index,1);
 }
+
 
 export function MaybeRemoveItem<Item>(array:Item[], item:Item){
     const index = array.indexOf(item);
