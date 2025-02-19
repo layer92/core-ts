@@ -30,6 +30,7 @@ export * from "./src/files/FolderPaths";
 export * from "./src/iso/Iso6391CountryCode";
 export * from "./src/iso/Iso6391LanguageCode";
 export * from "./src/math/Bytes";
+export * from "./src/math/Clamp";
 export * from "./src/math/DegreesToRadians";
 export * from "./src/math/Modulo";
 export * from "./src/math/Fractions";
