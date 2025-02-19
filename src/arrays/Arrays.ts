@@ -120,6 +120,9 @@ export function RemoveItems<Item>(array:Item[], items:Item[]){
 }
 
 export function MaybeRemoveItems<Item>(array:Item[], items:Item[]){
+    if(!array.length){
+        return;
+    }
     // TODO: optimize
     for(const item of items){
         MaybeRemoveItem(array,item);

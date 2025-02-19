@@ -109,6 +109,9 @@ function RemoveItems(array, items) {
 }
 exports.RemoveItems = RemoveItems;
 function MaybeRemoveItems(array, items) {
+    if (!array.length) {
+        return;
+    }
     // TODO: optimize
     for (const item of items) {
         MaybeRemoveItem(array, item);
