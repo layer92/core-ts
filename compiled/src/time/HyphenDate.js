@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetDayOfWeekJapaneseAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishNameFromHyphenDate = exports.GetDayOfWeekNumberFromHyphenDate = exports.HyphenDateToAmericanSlashDate = exports.GetEarliestHyphenDate = exports.GetLatestHyphenDate = exports.UnixTimeToHyphenDate = exports.SetHyphenDateDayOfMonthNumber = exports.MaybeGetDayOfMonthNumberFromHyphenDate = exports.MaybeGetMonthNumberFromHyphenDate = exports.GetYearFromHyphenDate = exports.HyphenDateToUnixWeekDays = exports.GetNetWorkDaysBetweenHyphenDates = exports.GetDifferenceYearsBetweenHyphenDates = exports.GetDifferenceMonthsFromHyphenDate = exports.GetDifferenceWeekdaysBetweenHyphenDates = exports.GetDifferenceDaysBetweenHyphenDates = exports.AddMonthsToHyphenDate = exports.JsDateToHyphenDate = exports.AddWeekdaysToHyphenDate = exports.AddDaysToHyphenDate = exports.HyphenDateToUnixTime = exports.HyphenDateToJsDate = exports.ExpectHyphenDate = void 0;
+exports.GetWeekdayOrdinalInMonth = exports.GetDayOfWeekJapaneseAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishNameFromHyphenDate = exports.GetWeekdayIndexFromHyphenDate = exports.HyphenDateToAmericanSlashDate = exports.GetEarliestHyphenDate = exports.GetLatestHyphenDate = exports.UnixTimeToHyphenDate = exports.SetHyphenDateDayOfMonthNumber = exports.MaybeGetDayOfMonthNumberFromHyphenDate = exports.MaybeGetMonthNumberFromHyphenDate = exports.GetYearFromHyphenDate = exports.HyphenDateToUnixWeekDays = exports.GetNetWorkDaysBetweenHyphenDates = exports.GetDifferenceYearsBetweenHyphenDates = exports.GetDifferenceMonthsFromHyphenDate = exports.GetDifferenceWeekdaysBetweenHyphenDates = exports.GetDifferenceDaysBetweenHyphenDates = exports.AddMonthsToHyphenDate = exports.JsDateToHyphenDate = exports.AddWeekdaysToHyphenDate = exports.AddDaysToHyphenDate = exports.HyphenDateToUnixTime = exports.HyphenDateToJsDate = exports.ExpectHyphenDate = void 0;
 const Expect_1 = require("../away/Expect");
 const CommonCharsets_1 = require("../strings/CommonCharsets");
 const Strings_1 = require("../strings/Strings");
@@ -249,6 +249,7 @@ function HyphenDateToAmericanSlashDate(hyphenDate) {
 }
 exports.HyphenDateToAmericanSlashDate = HyphenDateToAmericanSlashDate;
 /**
+ * Same as Javascript's date's UTCDay:
  * 0: Sunday
  * 1: Monday
  * 2: Tuesday
@@ -257,23 +258,38 @@ exports.HyphenDateToAmericanSlashDate = HyphenDateToAmericanSlashDate;
  * 5: Friday
  * 6: Saturday
  **/
-function GetDayOfWeekNumberFromHyphenDate(hyphenDate) {
+function GetWeekdayIndexFromHyphenDate(hyphenDate) {
     return HyphenDateToJsDate(hyphenDate).getUTCDay();
 }
-exports.GetDayOfWeekNumberFromHyphenDate = GetDayOfWeekNumberFromHyphenDate;
+exports.GetWeekdayIndexFromHyphenDate = GetWeekdayIndexFromHyphenDate;
 function GetDayOfWeekEnglishNameFromHyphenDate(hyphenDate) {
-    const dayOfWeekNumber = GetDayOfWeekNumberFromHyphenDate(hyphenDate);
-    return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][dayOfWeekNumber];
+    const weekdayIndex = GetWeekdayIndexFromHyphenDate(hyphenDate);
+    return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][weekdayIndex];
 }
 exports.GetDayOfWeekEnglishNameFromHyphenDate = GetDayOfWeekEnglishNameFromHyphenDate;
 /** A 3-character abbreviation of the weekday. */
 function GetDayOfWeekEnglishAbbreviationFromHyphenDate(hyphenDate) {
-    const dayOfWeekNumber = GetDayOfWeekNumberFromHyphenDate(hyphenDate);
-    return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][dayOfWeekNumber];
+    const weekdayIndex = GetWeekdayIndexFromHyphenDate(hyphenDate);
+    return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][weekdayIndex];
 }
 exports.GetDayOfWeekEnglishAbbreviationFromHyphenDate = GetDayOfWeekEnglishAbbreviationFromHyphenDate;
 function GetDayOfWeekJapaneseAbbreviationFromHyphenDate(hyphenDate) {
-    const dayOfWeekNumber = GetDayOfWeekNumberFromHyphenDate(hyphenDate);
-    return ["日", "月", "火", "水", "木", "金", "土"][dayOfWeekNumber];
+    const weekdayIndex = GetWeekdayIndexFromHyphenDate(hyphenDate);
+    return ["日", "月", "火", "水", "木", "金", "土"][weekdayIndex];
 }
 exports.GetDayOfWeekJapaneseAbbreviationFromHyphenDate = GetDayOfWeekJapaneseAbbreviationFromHyphenDate;
+/** Eg, if it's the first friday of the month, returns 1, if it's the 3rd thursday, returns 3*/
+function GetWeekdayOrdinalInMonth(hyphenDate) {
+    let count = 0;
+    const weekdayIndex = GetWeekdayIndexFromHyphenDate(hyphenDate);
+    const monthNumber = MaybeGetMonthNumberFromHyphenDate(hyphenDate);
+    (0, Expect_1.Expect)(monthNumber);
+    while (MaybeGetMonthNumberFromHyphenDate(hyphenDate) == monthNumber) {
+        if (GetWeekdayIndexFromHyphenDate(hyphenDate) === weekdayIndex) {
+            ++count;
+        }
+        hyphenDate = AddDaysToHyphenDate(hyphenDate, -1);
+    }
+    return count;
+}
+exports.GetWeekdayOrdinalInMonth = GetWeekdayOrdinalInMonth;

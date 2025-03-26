@@ -48,6 +48,7 @@ export declare function GetLatestHyphenDate(a: string, b: string): string;
 export declare function GetEarliestHyphenDate(a: string, b: string): string;
 export declare function HyphenDateToAmericanSlashDate(hyphenDate: string): string;
 /**
+ * Same as Javascript's date's UTCDay:
  * 0: Sunday
  * 1: Monday
  * 2: Tuesday
@@ -56,8 +57,10 @@ export declare function HyphenDateToAmericanSlashDate(hyphenDate: string): strin
  * 5: Friday
  * 6: Saturday
  **/
-export declare function GetDayOfWeekNumberFromHyphenDate(hyphenDate: string): number;
+export declare function GetWeekdayIndexFromHyphenDate(hyphenDate: string): number;
 export declare function GetDayOfWeekEnglishNameFromHyphenDate(hyphenDate: string): "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday";
 /** A 3-character abbreviation of the weekday. */
 export declare function GetDayOfWeekEnglishAbbreviationFromHyphenDate(hyphenDate: string): "Sun" | "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat";
 export declare function GetDayOfWeekJapaneseAbbreviationFromHyphenDate(hyphenDate: string): "日" | "月" | "火" | "水" | "木" | "金" | "土";
+/** Eg, if it's the first friday of the month, returns 1, if it's the 3rd thursday, returns 3*/
+export declare function GetWeekdayOrdinalInMonth(hyphenDate: string): number;

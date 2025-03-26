@@ -264,6 +264,7 @@ export function HyphenDateToAmericanSlashDate(hyphenDate:string){
 
 
 /**
+ * Same as Javascript's date's UTCDay:
  * 0: Sunday
  * 1: Monday
  * 2: Tuesday
@@ -272,22 +273,38 @@ export function HyphenDateToAmericanSlashDate(hyphenDate:string){
  * 5: Friday
  * 6: Saturday
  **/
-export function GetDayOfWeekNumberFromHyphenDate(hyphenDate:string){
+export function GetWeekdayIndexFromHyphenDate(hyphenDate:string){
     return HyphenDateToJsDate(hyphenDate).getUTCDay();
 }
 
 export function GetDayOfWeekEnglishNameFromHyphenDate(hyphenDate:string){
-    const dayOfWeekNumber= GetDayOfWeekNumberFromHyphenDate(hyphenDate);
-    return (["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"] as const)[dayOfWeekNumber];
+    const weekdayIndex= GetWeekdayIndexFromHyphenDate(hyphenDate);
+    return (["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"] as const)[weekdayIndex];
 }
 
 /** A 3-character abbreviation of the weekday. */
 export function GetDayOfWeekEnglishAbbreviationFromHyphenDate(hyphenDate:string){
-    const dayOfWeekNumber= GetDayOfWeekNumberFromHyphenDate(hyphenDate);
-    return (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"] as const)[dayOfWeekNumber];
+    const weekdayIndex= GetWeekdayIndexFromHyphenDate(hyphenDate);
+    return (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"] as const)[weekdayIndex];
 }
 
 export function GetDayOfWeekJapaneseAbbreviationFromHyphenDate(hyphenDate:string){
-    const dayOfWeekNumber= GetDayOfWeekNumberFromHyphenDate(hyphenDate);
-    return (["日","月","火","水","木","金","土"] as const)[dayOfWeekNumber];
+    const weekdayIndex= GetWeekdayIndexFromHyphenDate(hyphenDate);
+    return (["日","月","火","水","木","金","土"] as const)[weekdayIndex];
+}
+
+
+/** Eg, if it's the first friday of the month, returns 1, if it's the 3rd thursday, returns 3*/
+export function GetWeekdayOrdinalInMonth(hyphenDate:string){
+    let count = 0;
+    const weekdayIndex = GetWeekdayIndexFromHyphenDate(hyphenDate);
+    const monthNumber = MaybeGetMonthNumberFromHyphenDate(hyphenDate);
+    Expect(monthNumber);
+    while( MaybeGetMonthNumberFromHyphenDate(hyphenDate) == monthNumber ){
+        if( GetWeekdayIndexFromHyphenDate(hyphenDate) === weekdayIndex){
+            ++count;
+        }
+        hyphenDate = AddDaysToHyphenDate(hyphenDate,-1);
+    }
+    return count;
 }

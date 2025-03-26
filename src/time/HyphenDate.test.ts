@@ -1,5 +1,5 @@
 import assert from "assert";
-import {HyphenDateToUnixWeekDays, GetDifferenceWeekdaysBetweenHyphenDates, GetDifferenceDaysBetweenHyphenDates, GetNetWorkDaysBetweenHyphenDates, UnixTimeToHyphenDate} from "./HyphenDate";
+import {HyphenDateToUnixWeekDays, GetDifferenceWeekdaysBetweenHyphenDates, GetDifferenceDaysBetweenHyphenDates, GetNetWorkDaysBetweenHyphenDates, UnixTimeToHyphenDate, GetWeekdayOrdinalInMonth} from "./HyphenDate";
 
 const _2019_01_01 = ("2019-01-01");
 const Wed_2020_01_01 = ("2020-01-01");
@@ -46,6 +46,7 @@ export function TestHyphenatedDate() {
     TestToUnixWeekDays();
     TestGetDifferenceWeekdays();
     TestGetNetWorkDays();
+    TestGetWeekdayOrdinalInMonth();
 }
 
 function TestFromUnixTime(){
@@ -143,4 +144,16 @@ function TestGetNetWorkDays(){
     assert.equal(GetNetWorkDaysBetweenHyphenDates(Wed_2020_01_01, Mon_2020_01_06), 4);
     assert.equal(GetNetWorkDaysBetweenHyphenDates(Wed_2020_01_01, Tue_2020_01_07), 5);
     assert.equal(GetNetWorkDaysBetweenHyphenDates(Wed_2020_01_01, Wed_2020_01_08), 6);
+}
+
+function TestGetWeekdayOrdinalInMonth(){
+    console.log("\t\t GetWeekdayOrdinalInMonth");
+    // first friday
+    assert.equal(GetWeekdayOrdinalInMonth("2025-03-07"), 1);
+    // fourth wednesday
+    assert.equal(GetWeekdayOrdinalInMonth("2025-03-26"), 4);
+    // first saturday
+    assert.equal(GetWeekdayOrdinalInMonth("2025-03-01"), 1);
+    // fifth monday
+    assert.equal(GetWeekdayOrdinalInMonth("2025-03-31"), 5);
 }
