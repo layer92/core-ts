@@ -18,6 +18,7 @@ __exportStar(require("./src/arrays/Arrays"), exports);
 __exportStar(require("./src/arrays/EqualsByJsonStringify"), exports);
 __exportStar(require("./src/arrays/EqualsByThreeEquals"), exports);
 __exportStar(require("./src/arrays/EqualsByValueOf"), exports);
+__exportStar(require("./src/arrays/EqualsByIdFieldThreeEquals"), exports);
 __exportStar(require("./src/arrays/Relation"), exports);
 __exportStar(require("./src/away/Box"), exports);
 __exportStar(require("./src/away/Expect"), exports);

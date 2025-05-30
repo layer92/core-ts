@@ -3,6 +3,7 @@ export * from "./src/arrays/Arrays";
 export * from "./src/arrays/EqualsByJsonStringify";
 export * from "./src/arrays/EqualsByThreeEquals";
 export * from "./src/arrays/EqualsByValueOf";
+export * from "./src/arrays/EqualsByIdFieldThreeEquals";
 export * from "./src/arrays/Relation";
 export * from "./src/away/Box";
 export * from "./src/away/Expect";
