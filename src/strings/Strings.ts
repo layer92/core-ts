@@ -2,6 +2,7 @@ import { AlphanumericCharacters, AlphebeticCharacters, LowercaseAlphabetCharacte
 import { Expect } from "../away/Expect";
 import { GetRandomItem } from "../arrays/Arrays";
 import { OnException } from "../away/OnException";
+import { sep } from "path";
 
 
 export function GetSubstringCount(string:string,substring:string){
@@ -669,4 +670,14 @@ export function CapitalizeFirstLetter(string:string){
         return "";
     }
     return string[0].toUpperCase()+string.slice(1);
+}
+
+
+
+/** Adds another item to a (probably) joined string. If both strings are non-empty, will put the separator between the current content. */
+export function JoinStrings(a:string,b:string,separator:string){
+    if(a.length&&b.length){
+        return a+separator+b;
+    }
+    return a+b;
 }
