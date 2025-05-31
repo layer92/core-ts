@@ -1,3 +1,4 @@
+import { Relation } from "../arrays/Relation";
 type PickedType<Source, Key extends keyof Source> = {
     [key in Key]: Source[key];
 };
@@ -16,4 +17,11 @@ export declare function PickIntersection<SourceObject, Key extends keyof any>(ob
  * const bar:Omit<Foo,"a"> = Omit(foo,["a"]);
 */
 export declare function Omit<SourceObject, Key extends keyof SourceObject>(object: Readonly<SourceObject>, omitKeys: Readonly<Key[]>): Omit<SourceObject, Key>;
+/** Keys don't need to be in the same order. Note that {} has keys [] and {b:undefined} has keys ["b"]. */
+export declare function DoObjectsHaveSameKeys(a: object, b: object): boolean;
+/**
+ * Returns true if a[x]===b[x] for every key x in the keys of a and b. Order of object keys doesn't matter. Compares by the value of a[x], meaning that DoObjectsHaveSameSubValues(c:undefined},{})===true   Default compare is by ===
+ *
+*/
+export declare function DoObjectsHaveSameSubValues(a: object, b: object, compare?: Relation): boolean;
 export {};

@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Omit = exports.PickIntersection = exports.Pick = void 0;
+exports.DoObjectsHaveSameSubValues = exports.DoObjectsHaveSameKeys = exports.Omit = exports.PickIntersection = exports.Pick = void 0;
+const Arrays_1 = require("../arrays/Arrays");
+const EqualsByThreeEquals_1 = require("../arrays/EqualsByThreeEquals");
 /** Returns a version of the source object that only has the picked keys. The source object must have every key specified in the keys array. */
 function Pick(object, keys) {
     const result = {};
@@ -39,3 +41,39 @@ function Omit(object, omitKeys) {
     return result;
 }
 exports.Omit = Omit;
+/** Keys don't need to be in the same order. Note that {} has keys [] and {b:undefined} has keys ["b"]. */
+function DoObjectsHaveSameKeys(a, b) {
+    console.debug(Object.keys(a), Object.keys(b));
+    return (0, Arrays_1.UnsortedArrayEquals)(Object.keys(a), Object.keys(b));
+}
+exports.DoObjectsHaveSameKeys = DoObjectsHaveSameKeys;
+/**
+ * Returns true if a[x]===b[x] for every key x in the keys of a and b. Order of object keys doesn't matter. Compares by the value of a[x], meaning that DoObjectsHaveSameSubValues(c:undefined},{})===true   Default compare is by ===
+ *
+*/
+function DoObjectsHaveSameSubValues(a, b, compare) {
+    // for ===, it's faster to simply go through both sides
+    if (!compare || compare === EqualsByThreeEquals_1.EqualsByThreeEquals) {
+        for (const [aKey, aValue] of Object.entries(a)) {
+            if (aValue !== b[aKey]) {
+                return false;
+            }
+        }
+        for (const [bKey, bValue] of Object.entries(b)) {
+            if (a[bKey] !== bValue) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // optimization for other compares, as compare may be expensive
+    const commonKeys = Object.keys(a);
+    (0, Arrays_1.PushManyIfNotIncludes)(commonKeys, Object.keys(b));
+    for (const key of commonKeys) {
+        if (!compare(a[key], b[key])) {
+            return false;
+        }
+    }
+    return true;
+}
+exports.DoObjectsHaveSameSubValues = DoObjectsHaveSameSubValues;

@@ -1,3 +1,6 @@
+import { MakeUniqueArray, PushManyIfNotIncludes, UnsortedArrayEquals } from "../arrays/Arrays";
+import { EqualsByThreeEquals } from "../arrays/EqualsByThreeEquals";
+import { Relation } from "../arrays/Relation";
 
 type PickedType<Source,Key extends keyof Source> = {
     [key in Key]:Source[key]
@@ -43,4 +46,40 @@ export function Omit<SourceObject,Key extends keyof SourceObject>(object:Readonl
         delete result[omitKey];
     }
     return result;
+}
+
+/** Keys don't need to be in the same order. Note that {} has keys [] and {b:undefined} has keys ["b"]. */
+export function DoObjectsHaveSameKeys(a:object,b:object){
+    console.debug(Object.keys(a),Object.keys(b))
+    return UnsortedArrayEquals(Object.keys(a),Object.keys(b));
+}
+
+/**
+ * Returns true if a[x]===b[x] for every key x in the keys of a and b. Order of object keys doesn't matter. Compares by the value of a[x], meaning that DoObjectsHaveSameSubValues(c:undefined},{})===true   Default compare is by ===
+ * 
+*/
+export function DoObjectsHaveSameSubValues(a:object,b:object,compare?:Relation){
+    // for ===, it's faster to simply go through both sides
+    if( !compare || compare===EqualsByThreeEquals ){
+        for(const [aKey,aValue] of Object.entries(a)){
+            if(aValue!==b[aKey]){
+                return false;
+            }
+        }
+        for(const [bKey,bValue] of Object.entries(b)){
+            if(a[bKey]!==bValue){
+                return false;
+            }
+        }
+        return true;
+    }
+    // optimization for other compares, as compare may be expensive
+    const commonKeys = Object.keys(a);
+    PushManyIfNotIncludes(commonKeys,Object.keys(b));
+    for(const key of commonKeys){
+        if(!compare(a[key],b[key])){
+            return false;
+        }
+    }
+    return true;
 }
