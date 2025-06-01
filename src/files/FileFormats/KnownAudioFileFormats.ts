@@ -8,4 +8,5 @@ export const KnownAudioFileFormats = [
     "aif",
     "alac",
     "mpc",
+    "m4a",
 ];

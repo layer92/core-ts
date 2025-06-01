@@ -11,4 +11,5 @@ exports.KnownAudioFileFormats = [
     "aif",
     "alac",
     "mpc",
+    "m4a",
 ];
