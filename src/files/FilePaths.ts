@@ -1,6 +1,6 @@
 import { Expect } from "../away/Expect";
 import { OnException } from "../away/OnException";
-import { FileFormatToExtension } from "./FileFormats/FileFormats";
+import { FileFormatToExtension, IsFileFormatProbablyAudioFile } from "./FileFormats/FileFormats";
 import { ExpectFileName, FileName } from "./FileNames";
 import { ExpectFileSystemPath, IsFileSystemPathAbsolute, IsFileSystemPathRelative, MaybeGetFileSystemPathParentPath } from "./FileSystemPaths";
 
@@ -47,6 +47,14 @@ export function MaybeGetFilePathFileFormat(filePath:FilePath){
         return undefined;
     }
     return format;
+}
+
+export function IsFilePathProbablyAudioFile(filePath:FilePath){
+    const format = MaybeGetFilePathFileFormat(filePath);
+    if(!format){
+        return false;
+    }
+    return IsFileFormatProbablyAudioFile(format);
 }
 
 /** Returns the fileName at the end of the filePath */

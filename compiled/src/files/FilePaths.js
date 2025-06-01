@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RenameFilePathFileName = exports.MaybeGetFilePathParentPath = exports.GetFilePathFileName = exports.MaybeGetFilePathFileFormat = exports.MaybeGetFilePathFileExtension = exports.IsFilePathRelative = exports.IsFilePathAbsolute = exports.ExpectFilePath = void 0;
+exports.RenameFilePathFileName = exports.MaybeGetFilePathParentPath = exports.GetFilePathFileName = exports.IsFilePathProbablyAudioFile = exports.MaybeGetFilePathFileFormat = exports.MaybeGetFilePathFileExtension = exports.IsFilePathRelative = exports.IsFilePathAbsolute = exports.ExpectFilePath = void 0;
 const Expect_1 = require("../away/Expect");
 const FileFormats_1 = require("./FileFormats/FileFormats");
 const FileNames_1 = require("./FileNames");
@@ -42,6 +42,14 @@ function MaybeGetFilePathFileFormat(filePath) {
     return format;
 }
 exports.MaybeGetFilePathFileFormat = MaybeGetFilePathFileFormat;
+function IsFilePathProbablyAudioFile(filePath) {
+    const format = MaybeGetFilePathFileFormat(filePath);
+    if (!format) {
+        return false;
+    }
+    return (0, FileFormats_1.IsFileFormatProbablyAudioFile)(format);
+}
+exports.IsFilePathProbablyAudioFile = IsFilePathProbablyAudioFile;
 /** Returns the fileName at the end of the filePath */
 function GetFilePathFileName(filePath) {
     ExpectFilePath(filePath);
