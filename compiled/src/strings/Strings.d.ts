@@ -9,7 +9,7 @@ export declare function GetBetween(string: string, leftDelimiter: string, rightD
 }): string;
 export declare function MaybeGetBetween(string: string, leftDelimiter: string, rightDelimiter: string, options?: {
     searchDirection?: "leftToRight";
-}): string;
+}): string | undefined;
 /**
 * Returns any substrings that occur between the left & right delimiters.
 * */

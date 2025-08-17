@@ -27,7 +27,7 @@ export function GetBetween(
         // TODO: add "rightToLeft" as a supported search direction
         searchDirection?:"leftToRight",
     }
-){
+):string{
     const searchDirection = options?.searchDirection||"leftToRight";
     let leftIndex = string.indexOf(leftDelimiter);
     Expect(leftIndex!==-1,()=>"Delimiter not found: "+leftDelimiter);
@@ -46,7 +46,7 @@ export function MaybeGetBetween(
         // TODO: add "rightToLeft" as a supported search direction
         searchDirection?:"leftToRight",
     }
-){
+):string|undefined{
     const searchDirection = options?.searchDirection||"leftToRight";
     let leftIndex = string.indexOf(leftDelimiter);
     if(leftIndex==-1){
@@ -72,7 +72,7 @@ export function GetAnyBetween(
         // TODO: add "rightToLeft" as a supported search direction
         searchDirection?:"leftToRight",
     }
-){
+):string[]{
     const searchDirection = options?.searchDirection||"leftToRight";
     const results:string[] = [];
     let remainder = string;
