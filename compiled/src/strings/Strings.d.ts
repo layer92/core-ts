@@ -127,3 +127,10 @@ export declare function StringToFloat(string: string, options?: {
 export declare function CapitalizeFirstLetter(string: string): string;
 /** Adds another item to a (probably) joined string. If both strings are non-empty, will put the separator between the current content. */
 export declare function JoinStrings(a: string, b: string, separator: string): string;
+/**
+ * @returns a if a is a lengthy string. If a is undefined or empty string, returns b. Does the same for an array.
+ * Equivalent to `a?.length === 0 ? b : (a ?? b)`
+ * */
+export declare function LengthCoalesce<A extends string | undefined | any[], B>(a: A, b: B): (A | B);
+/** Returns either a lengthy string/array or undefined. (in other words, if the string/array is empty, returns undefined.) */
+export declare function ToLengthyOrUndefined<A extends string | undefined | any[]>(a: A): A | undefined;
