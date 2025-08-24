@@ -132,5 +132,3 @@ export declare function JoinStrings(a: string, b: string, separator: string): st
  * Equivalent to `a?.length === 0 ? b : (a ?? b)`
  * */
 export declare function LengthCoalesce<A extends string | undefined | any[], B>(a: A, b?: B): (A | B);
-/** Returns either a lengthy string/array or undefined. (in other words, if the string/array is empty, returns undefined.) */
-export declare function ToLengthyOrUndefined<A extends string | undefined | any[]>(a: A): A | undefined;

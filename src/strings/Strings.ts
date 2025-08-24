@@ -690,7 +690,3 @@ export function LengthCoalesce<A extends string|undefined|any[],B>(a:A,b:B=undef
     return a?.length===0 ? b : (a ?? b);
 }
 
-/** Returns either a lengthy string/array or undefined. (in other words, if the string/array is empty, returns undefined.) */
-export function ToLengthyOrUndefined<A extends string|undefined|any[]>(a:A):A|undefined{
-    return a?.length===0 ? undefined : a;
-}
