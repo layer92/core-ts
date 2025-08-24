@@ -541,10 +541,10 @@ function JoinStrings(a, b, separator) {
 }
 exports.JoinStrings = JoinStrings;
 /**
- * @returns a if a is a lengthy string. If a is undefined or empty string, returns b. Does the same for an array.
+ * @returns a if a is a lengthy string/array. If a is undefined or empty string/array, returns b.
  * Equivalent to `a?.length === 0 ? b : (a ?? b)`
  * */
-function LengthCoalesce(a, b) {
+function LengthCoalesce(a, b = undefined) {
     return a?.length === 0 ? b : (a ?? b);
 }
 exports.LengthCoalesce = LengthCoalesce;

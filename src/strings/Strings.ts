@@ -683,10 +683,10 @@ export function JoinStrings(a:string,b:string,separator:string){
 }
 
 /**
- * @returns a if a is a lengthy string. If a is undefined or empty string, returns b. Does the same for an array.
+ * @returns a if a is a lengthy string/array. If a is undefined or empty string/array, returns b.
  * Equivalent to `a?.length === 0 ? b : (a ?? b)`
  * */
-export function LengthCoalesce<A extends string|undefined|any[],B>(a:A,b:B):(A|B){
+export function LengthCoalesce<A extends string|undefined|any[],B>(a:A,b:B=undefined):(A|B){
     return a?.length===0 ? b : (a ?? b);
 }
 
