@@ -15,7 +15,7 @@ export declare function GetHostFromUrl(url: string): string;
 export declare function GetPathFromUrl(url: string): string;
 /** Returns the path, and if the path has any "/" at the end, removes that from the path */
 export declare function GetPathSansTrailingSlashFromUrl(url: string): string;
-export declare function GasPathFromUrl(url: string): number;
+export declare function HasPathFromUrl(url: string): number;
 export declare function GetLastPathNodeFromUrl(url: string): string;
 /** The query portion of the URL, including the `?` if it has one */
 export declare function GetSearchFromUrl(url: string): string;

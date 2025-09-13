@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetLeftOfUrlPath = exports.GetNextNodeInUrl = exports.GetFragmentFromUrl = exports.GetHashFromUrl = exports.GetQueryFromUrl = exports.GetSearchFromUrl = exports.GetLastPathNodeFromUrl = exports.GasPathFromUrl = exports.GetPathSansTrailingSlashFromUrl = exports.GetPathFromUrl = exports.GetHostFromUrl = exports.GetAuthorityFromUrl = exports.GetSchemeFromUrl = exports.ExpectUrl = void 0;
+exports.GetLeftOfUrlPath = exports.GetNextNodeInUrl = exports.GetFragmentFromUrl = exports.GetHashFromUrl = exports.GetQueryFromUrl = exports.GetSearchFromUrl = exports.GetLastPathNodeFromUrl = exports.HasPathFromUrl = exports.GetPathSansTrailingSlashFromUrl = exports.GetPathFromUrl = exports.GetHostFromUrl = exports.GetAuthorityFromUrl = exports.GetSchemeFromUrl = exports.ExpectUrl = void 0;
 const Expect_1 = require("../away/Expect");
 // note that URL is not imported in this package, it's the built-in Javascript URL
 /**
@@ -56,10 +56,10 @@ function GetPathSansTrailingSlashFromUrl(url) {
     return path;
 }
 exports.GetPathSansTrailingSlashFromUrl = GetPathSansTrailingSlashFromUrl;
-function GasPathFromUrl(url) {
+function HasPathFromUrl(url) {
     return GetPathFromUrl(url).length;
 }
-exports.GasPathFromUrl = GasPathFromUrl;
+exports.HasPathFromUrl = HasPathFromUrl;
 function GetLastPathNodeFromUrl(url) {
     return GetPathFromUrl(url).split("/").slice(-1)[0];
 }

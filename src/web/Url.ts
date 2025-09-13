@@ -57,7 +57,7 @@ export function GetPathSansTrailingSlashFromUrl(url:string){
     return path;
 }
 
-export function GasPathFromUrl(url:string){
+export function HasPathFromUrl(url:string){
     return GetPathFromUrl(url).length;
 }
 
