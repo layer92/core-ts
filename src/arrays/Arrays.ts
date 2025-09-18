@@ -350,3 +350,25 @@ export function MakeRotatedArray<Item>(array:Readonly<Item[]>, offset=-1){
     // it might be faster to use array.slice() than the above method (for example if the browser implements slice natively), but the above algorithm is just fine in linear time
 }
 
+
+/** Calls and awaits the callback for each item, consecutively.  */
+export async function MapAsync<Item,ResultItem>(array:Readonly<Item[]>, callback:(item:Item,index:number)=>Promise<ResultItem>):Promise<ResultItem[]>{
+    const result = [];
+    for(let i=0,n=array.length;i<n;++i){
+        result.push(await callback(array[i],i));
+    }
+    return result;
+}
+
+/** Calls and awaits the callback for each item, consecutively.  */
+export async function FilterAsync<Item>(array:Readonly<Item[]>, callback:(item:Item,index:number)=>Promise<any>):Promise<Item[]>{
+    const result = [];
+    let item:Item;
+    for(let i=0,n=array.length;i<n;++i){
+        item = array[i];
+        if(await callback(item,i)){
+            result.push(item);
+        }
+    }
+    return result;
+}
