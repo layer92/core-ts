@@ -53,3 +53,7 @@ export declare function MakePowerSet<Item>(array: Readonly<Item[]>): Item[][];
  * @returns
  */
 export declare function MakeRotatedArray<Item>(array: Readonly<Item[]>, offset?: number): any[];
+/** Calls and awaits the callback for each item, consecutively.  */
+export declare function MapAsync<Item, ResultItem>(array: Readonly<Item[]>, callback: (item: Item, index: number) => Promise<ResultItem>): Promise<ResultItem[]>;
+/** Calls and awaits the callback for each item, consecutively.  */
+export declare function FilterAsync<Item>(array: Readonly<Item[]>, callback: (item: Item, index: number) => Promise<any>): Promise<Item[]>;
