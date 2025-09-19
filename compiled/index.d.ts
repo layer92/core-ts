@@ -47,6 +47,7 @@ export * from "./src/strings/Strings";
 export * from "./src/time/DayOfMonthNumber";
 export * from "./src/time/GetCurrentHyphenDate";
 export * from "./src/time/GetCurrentUnixTime";
+export * from "./src/time/GetCurrentUnixTimeMs";
 export * from "./src/time/HyphenDate";
 export * from "./src/time/AmericanSlashDate";
 export * from "./src/time/MonthNumber";

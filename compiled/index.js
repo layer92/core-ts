@@ -63,6 +63,7 @@ __exportStar(require("./src/strings/Strings"), exports);
 __exportStar(require("./src/time/DayOfMonthNumber"), exports);
 __exportStar(require("./src/time/GetCurrentHyphenDate"), exports);
 __exportStar(require("./src/time/GetCurrentUnixTime"), exports);
+__exportStar(require("./src/time/GetCurrentUnixTimeMs"), exports);
 __exportStar(require("./src/time/HyphenDate"), exports);
 __exportStar(require("./src/time/AmericanSlashDate"), exports);
 __exportStar(require("./src/time/MonthNumber"), exports);
