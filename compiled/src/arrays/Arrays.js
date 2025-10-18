@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FilterAsync = exports.MapAsync = exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.MaybeRemoveItem = exports.RemoveItem = exports.MaybeRemoveItems = exports.RemoveItems = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
+exports.ArrayToMatrix = exports.FilterAsync = exports.MapAsync = exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.MaybeRemoveItem = exports.RemoveItem = exports.MaybeRemoveItems = exports.RemoveItems = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
@@ -359,3 +359,18 @@ async function FilterAsync(array, callback) {
     return result;
 }
 exports.FilterAsync = FilterAsync;
+/** Given array and width, returns a matrix with the specified width. Eg ([1,2,3,4,5,6,7,8], 3) --> [[1,2,3], [4,5,6], [7,8]] */
+function ArrayToMatrix(array, width) {
+    const result = [];
+    let row = [];
+    result.push(row);
+    for (let i = 0, n = array.length; i < n; ++i) {
+        row.push(array[i]);
+        if (row.length === width) {
+            row = [];
+            result.push(row);
+        }
+    }
+    return result;
+}
+exports.ArrayToMatrix = ArrayToMatrix;

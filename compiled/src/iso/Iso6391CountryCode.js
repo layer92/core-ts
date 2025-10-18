@@ -15,6 +15,7 @@ function ExpectAssignedIso31661A2CountryCode(data, onBadData) {
     (0, Expect_1.Expect)(exports.AssignedIso31661A2CountryCodes.includes(data), `Not a valid assigned Iso3166A2 country code.`);
 }
 exports.ExpectAssignedIso31661A2CountryCode = ExpectAssignedIso31661A2CountryCode;
+/** Returns the name (hopefully). Will throw if you don't provide a valid country code. Will not throw if you simply provide an unassigned countrycode. */
 function MaybeGetIso31661A2CountryCodeEnglishName(countryCode) {
     ExpectIso31661A2CountryCode(countryCode);
     return dataMap[countryCode.toUpperCase()]?.englishName;

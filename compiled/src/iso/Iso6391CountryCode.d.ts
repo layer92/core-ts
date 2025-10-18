@@ -2,6 +2,7 @@ import { OnException } from "../away/OnException";
 /** see: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 */
 export declare function ExpectIso31661A2CountryCode(data: string, onBadData?: OnException): void;
 export declare function ExpectAssignedIso31661A2CountryCode(data: string, onBadData?: OnException): void;
+/** Returns the name (hopefully). Will throw if you don't provide a valid country code. Will not throw if you simply provide an unassigned countrycode. */
 export declare function MaybeGetIso31661A2CountryCodeEnglishName(countryCode: string): string | undefined;
 /** Officially assigned codes. see: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 */
 export type AssignedIso31661A2CountryCode = typeof AssignedIso31661A2CountryCodes[number];

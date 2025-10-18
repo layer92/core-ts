@@ -15,7 +15,7 @@ export function ExpectAssignedIso31661A2CountryCode(data:string,onBadData?:OnExc
     Expect(AssignedIso31661A2CountryCodes.includes(data as any),`Not a valid assigned Iso3166A2 country code.`);
 }
 
-
+/** Returns the name (hopefully). Will throw if you don't provide a valid country code. Will not throw if you simply provide an unassigned countrycode. */
 export function MaybeGetIso31661A2CountryCodeEnglishName(countryCode:string):string|undefined{
     ExpectIso31661A2CountryCode(countryCode);
     return dataMap[countryCode.toUpperCase()]?.englishName;

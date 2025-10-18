@@ -57,3 +57,5 @@ export declare function MakeRotatedArray<Item>(array: Readonly<Item[]>, offset?:
 export declare function MapAsync<Item, ResultItem>(array: Readonly<Item[]>, callback: (item: Item, index: number) => Promise<ResultItem>): Promise<ResultItem[]>;
 /** Calls and awaits the callback for each item, consecutively.  */
 export declare function FilterAsync<Item>(array: Readonly<Item[]>, callback: (item: Item, index: number) => Promise<any>): Promise<Item[]>;
+/** Given array and width, returns a matrix with the specified width. Eg ([1,2,3,4,5,6,7,8], 3) --> [[1,2,3], [4,5,6], [7,8]] */
+export declare function ArrayToMatrix<Item>(array: Readonly<Item[]>, width: number): Item[][];

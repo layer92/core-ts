@@ -372,3 +372,18 @@ export async function FilterAsync<Item>(array:Readonly<Item[]>, callback:(item:I
     }
     return result;
 }
+
+/** Given array and width, returns a matrix with the specified width. Eg ([1,2,3,4,5,6,7,8], 3) --> [[1,2,3], [4,5,6], [7,8]] */
+export function ArrayToMatrix<Item>(array:Readonly<Item[]>, width:number):Item[][]{
+    const result:Item[][] = [];
+    let row:Item[] = [];
+    result.push(row);
+    for(let i=0,n=array.length; i<n; ++i){
+        row.push(array[i]);
+        if(row.length===width){
+            row = [];
+            result.push(row);
+        }
+    }
+    return result;
+}
