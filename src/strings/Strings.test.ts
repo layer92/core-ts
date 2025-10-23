@@ -1,10 +1,11 @@
 import { Expect } from "../away/Expect";
-import { PadRight, SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
+import { GetBetween, MaybeGetBetween, PadRight, SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
 
 export function TestStrings(){
     console.log("\t Strings");
-    TestSplitByRepeatingDelimiter();
+    TestGetBetween();
     TestSetBetween();
+    TestSplitByRepeatingDelimiter();
     TestPadRight();
 }
 
@@ -142,6 +143,57 @@ function TestSetBetween(){
 
 }
 
+function TestGetBetween(){
+
+    console.log("\t\t GetBetween");
+    const tests = [
+        {
+            input: "ab[c]d[e]fg",
+            args: ["[","]","leftToRight"],
+            expectedResult: "c",
+        },
+        {
+            input: "ab[c]d[e]fg",
+            args: ["[","]","rightToLeft"],
+            expectedResult: "e",
+        },
+        {
+            input: "ab123c456d123e456fg",
+            args: ["123","456","rightToLeft"],
+            expectedResult: "e",
+        },
+    ] as const;
+
+    for(const test of tests){
+        const result = GetBetween(
+            test.input,
+            test.args[0],
+            test.args[1],
+            {
+                searchDirection: test.args[2],
+            }
+        );
+        Expect(
+            result===test.expectedResult,
+            JSON.stringify({...test,result}),
+            ()=>{}
+        );
+        const result2 = MaybeGetBetween(
+            test.input,
+            test.args[0],
+            test.args[1],
+            {
+                searchDirection: test.args[2],
+            }
+        );
+        Expect(
+            result2===test.expectedResult,
+            JSON.stringify({...test,result2}),
+            ()=>{}
+        );
+    
+    }
+}
 
 
 
@@ -157,6 +209,7 @@ function TestPadRight(){
         },
         {
             input: ["abc","x",3],
+            
             result: "abc",
         },
         {

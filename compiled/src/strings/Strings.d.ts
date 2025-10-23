@@ -5,10 +5,10 @@ export declare function MultiReplace(string: string, replacementPairs: [string, 
 * Returns the substring between the first pair of left & right delimiters.
 * */
 export declare function GetBetween(string: string, leftDelimiter: string, rightDelimiter: string, options?: {
-    searchDirection?: "leftToRight";
+    searchDirection?: "leftToRight" | "rightToLeft";
 }): string;
 export declare function MaybeGetBetween(string: string, leftDelimiter: string, rightDelimiter: string, options?: {
-    searchDirection?: "leftToRight";
+    searchDirection?: "leftToRight" | "rightToLeft";
 }): string | undefined;
 /**
 * Returns any substrings that occur between the left & right delimiters.

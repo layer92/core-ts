@@ -25,14 +25,21 @@ export function GetBetween(
     rightDelimiter:string,
     options?:{
         // TODO: add "rightToLeft" as a supported search direction
-        searchDirection?:"leftToRight",
+        searchDirection?:"leftToRight"|"rightToLeft",
     }
 ):string{
     const searchDirection = options?.searchDirection||"leftToRight";
-    let leftIndex = string.indexOf(leftDelimiter);
+    let leftIndex,rightIndex;
+    if(searchDirection==="leftToRight"){
+        leftIndex = string.indexOf(leftDelimiter);
+        leftIndex += leftDelimiter.length;
+        rightIndex = string.indexOf(rightDelimiter,leftIndex);
+    }else{
+        rightIndex = string.lastIndexOf(rightDelimiter);
+        leftIndex = string.lastIndexOf(leftDelimiter,rightIndex);
+        leftIndex += leftDelimiter.length;
+    }
     Expect(leftIndex!==-1,()=>"Delimiter not found: "+leftDelimiter);
-    leftIndex += leftDelimiter.length;
-    const rightIndex = string.indexOf(rightDelimiter,leftIndex);
     Expect(rightIndex!==-1,()=>"Delimiter not found: "+rightDelimiter);
     return string.slice(leftIndex,rightIndex);
 }
@@ -44,18 +51,31 @@ export function MaybeGetBetween(
     rightDelimiter:string,
     options?:{
         // TODO: add "rightToLeft" as a supported search direction
-        searchDirection?:"leftToRight",
+        searchDirection?:"leftToRight"|"rightToLeft",
     }
 ):string|undefined{
     const searchDirection = options?.searchDirection||"leftToRight";
-    let leftIndex = string.indexOf(leftDelimiter);
-    if(leftIndex==-1){
-        return undefined;
-    }
-    leftIndex += leftDelimiter.length;
-    const rightIndex = string.indexOf(rightDelimiter,leftIndex);
-    if(rightIndex==-1){
-        return undefined;
+    let leftIndex,rightIndex;
+    if(searchDirection==="leftToRight"){
+        leftIndex = string.indexOf(leftDelimiter);
+        if(leftIndex==-1){
+            return undefined;
+        }
+        leftIndex += leftDelimiter.length;
+        rightIndex = string.indexOf(rightDelimiter,leftIndex);
+        if(rightIndex==-1){
+            return undefined;
+        }
+    }else{
+        rightIndex = string.lastIndexOf(rightDelimiter);
+        if(rightIndex===-1){
+            return undefined;
+        }
+        leftIndex = string.lastIndexOf(leftDelimiter,rightIndex);
+        if(leftIndex===-1){
+            return undefined;
+        }
+        leftIndex += leftDelimiter.length;
     }
     return string.slice(leftIndex,rightIndex);
 }
