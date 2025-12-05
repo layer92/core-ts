@@ -16,6 +16,14 @@ export declare function MaybeGetBetween(string: string, leftDelimiter: string, r
 export declare function GetAnyBetween(string: string, leftDelimiter: string, rightDelimiter: string, options?: {
     searchDirection?: "leftToRight";
 }): string[];
+/**
+* Removes any substrings that occur between the left & right delimiters.
+* @param options.removeDelimiters Will also remove the delimiters from the result.
+* */
+export declare function RemoveBetween(string: string, leftDelimiter: string, rightDelimiter: string, options?: {
+    searchDirection?: "leftToRight";
+    removeDelimiters?: boolean;
+}): string;
 /** Returns the remainder of the string after the first occurence of the delimiter. */
 export declare function GetRightOfSubstring(string: string, delimiter: string, options?: {
     searchDirection?: "leftToRight";

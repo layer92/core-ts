@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StringToFloat = exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadRight = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromStart = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringIntersects = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
-exports.LengthFallback = exports.JoinStrings = exports.CapitalizeFirstLetter = void 0;
+exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadRight = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromStart = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringIntersects = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.RemoveBetween = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
+exports.LengthFallback = exports.JoinStrings = exports.CapitalizeFirstLetter = exports.StringToFloat = void 0;
 const CommonCharsets_1 = require("./CommonCharsets");
 const Expect_1 = require("../away/Expect");
 const Arrays_1 = require("../arrays/Arrays");
@@ -89,6 +89,37 @@ function GetAnyBetween(string, leftDelimiter, rightDelimiter, options) {
     return results;
 }
 exports.GetAnyBetween = GetAnyBetween;
+/**
+* Removes any substrings that occur between the left & right delimiters.
+* @param options.removeDelimiters Will also remove the delimiters from the result.
+* */
+function RemoveBetween(string, leftDelimiter, rightDelimiter, options) {
+    const searchDirection = options?.searchDirection || "leftToRight";
+    const includeDelimiters = !options?.removeDelimiters;
+    let result = "";
+    let remainder = string;
+    while (true) {
+        const leftDelimiterIndex = remainder.indexOf(leftDelimiter);
+        if (leftDelimiterIndex === -1) {
+            result += remainder;
+            break;
+        }
+        const segmentStartIndex = leftDelimiterIndex + leftDelimiter.length;
+        const segmentEndIndex = remainder.indexOf(rightDelimiter, segmentStartIndex);
+        if (segmentEndIndex === -1) {
+            result += remainder;
+            break;
+        }
+        const left = remainder.slice(0, leftDelimiterIndex);
+        result += left;
+        if (includeDelimiters) {
+            result += leftDelimiter + rightDelimiter;
+        }
+        remainder = remainder.slice(segmentEndIndex + rightDelimiter.length);
+    }
+    return result;
+}
+exports.RemoveBetween = RemoveBetween;
 /** Returns the remainder of the string after the first occurence of the delimiter. */
 function GetRightOfSubstring(string, delimiter, options) {
     const searchDirection = options?.searchDirection || "leftToRight";

@@ -113,6 +113,48 @@ export function GetAnyBetween(
     return results;
 }
 
+
+/**
+* Removes any substrings that occur between the left & right delimiters.
+* @param options.removeDelimiters Will also remove the delimiters from the result.
+* */
+export function RemoveBetween(
+    string:string,
+    leftDelimiter:string,
+    rightDelimiter:string,
+    options?:{
+        // TODO: add "rightToLeft" as a supported search direction
+        searchDirection?:"leftToRight",
+        removeDelimiters?:boolean,
+    }
+):string{
+    const searchDirection = options?.searchDirection||"leftToRight";
+    const includeDelimiters = !options?.removeDelimiters;
+    let result = "";
+    let remainder = string;
+    
+    while(true){
+        const leftDelimiterIndex = remainder.indexOf(leftDelimiter);
+        if(leftDelimiterIndex===-1){
+            result += remainder;
+            break;
+        }
+        const segmentStartIndex = leftDelimiterIndex+leftDelimiter.length;
+        const segmentEndIndex = remainder.indexOf(rightDelimiter,segmentStartIndex);
+        if(segmentEndIndex===-1){
+            result += remainder;
+            break;
+        }
+        const left = remainder.slice(0,leftDelimiterIndex);
+        result += left;
+        if(includeDelimiters){
+            result += leftDelimiter + rightDelimiter;
+        }
+        remainder = remainder.slice(segmentEndIndex+rightDelimiter.length);
+    }
+    return result;
+}
+
 /** Returns the remainder of the string after the first occurence of the delimiter. */
 export function GetRightOfSubstring(
     string:string,

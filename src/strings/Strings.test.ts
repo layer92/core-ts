@@ -1,8 +1,9 @@
 import { Expect } from "../away/Expect";
-import { GetBetween, MaybeGetBetween, PadRight, SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
+import { GetBetween, MaybeGetBetween, PadRight, RemoveBetween, SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
 
 export function TestStrings(){
     console.log("\t Strings");
+    TestRemoveBetween();
     TestGetBetween();
     TestSetBetween();
     TestSplitByRepeatingDelimiter();
@@ -192,6 +193,56 @@ function TestGetBetween(){
             ()=>{}
         );
     
+    }
+}
+
+
+function TestRemoveBetween(){
+
+    console.log("\t\t RemoveBetween");
+    const tests = [
+        {
+            input: "ab[c]d",
+            args: ["[","]","leftToRight",false],
+            expectedResult: "ab[]d",
+        },
+        {
+            input: "ab[c]d[e]fg",
+            args: ["[","]","leftToRight",false],
+            expectedResult: "ab[]d[]fg",
+        },
+        {
+            input: "ab[c]d[e]fg",
+            args: ["[","]","leftToRight",true],
+            expectedResult: "abdfg",
+        },
+        {
+            input: "ab[c]d[]ef",
+            args: ["[","]","leftToRight",false],
+            expectedResult: "ab[]d[]ef",
+        },
+        {
+            input: "ab[c][]ef",
+            args: ["[","]","leftToRight",true],
+            expectedResult: "abef",
+        },
+    ] as const;
+
+    for(const test of tests){
+        const result = RemoveBetween(
+            test.input,
+            test.args[0],
+            test.args[1],
+            {
+                searchDirection: test.args[2],
+                removeDelimiters: test.args[3],
+            }
+        );
+        Expect(
+            result===test.expectedResult,
+            JSON.stringify({...test,result}),
+            ()=>{}
+        );
     }
 }
 
