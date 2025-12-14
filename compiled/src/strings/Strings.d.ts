@@ -69,7 +69,7 @@ export declare function SplitStringByMany(string: string, delimiters: string[]):
 /** Splits by the first occurence of the delimiter */
 export declare function SplitStringOnce(string: string, delimiter: string, options?: {
     parseDirection?: "rightToLeft" | "leftToRight";
-}): [string, string];
+}): [string, string] | [string];
 export declare function RemoveSubstring(string: string, remove: string): string;
 export declare function ReplaceSubstring(string: string, remove: string, insert: string): string;
 export declare function MaybeReplaceEnding(string: string, remove: string, insert: string): string;

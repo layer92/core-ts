@@ -24,4 +24,5 @@ export declare function DoObjectsHaveSameKeys(a: object, b: object): boolean;
  *
 */
 export declare function DoObjectsHaveSameSubValues(a: object, b: object, compare?: Relation): boolean;
+export declare function ObjectsToMatrix(objects: any[]): string[][];
 export {};

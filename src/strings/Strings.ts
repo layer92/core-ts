@@ -441,9 +441,12 @@ export function SplitStringOnce(
     options?:{
         parseDirection?:"rightToLeft"|"leftToRight"
     }
-):[string,string]{
+):[string,string]|[string]{
     const parseDirection = options?.parseDirection||"leftToRight";
     const index = parseDirection === "leftToRight" ? string.indexOf(delimiter) : string.lastIndexOf(delimiter);
+    if(index===-1){
+        return [string];
+    }
     const left = string.slice(0,index);
     const right = string.slice(index+delimiter.length);
     return [left,right];

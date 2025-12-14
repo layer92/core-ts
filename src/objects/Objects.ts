@@ -83,3 +83,17 @@ export function DoObjectsHaveSameSubValues(a:object,b:object,compare?:Relation){
     }
     return true;
 }
+
+
+export function ObjectsToMatrix(objects:any[]){
+    const keys = MakeUniqueArray(
+        objects.flatMap(a=>Object.keys(a))
+    );
+    const matrix = [keys];
+    for(const object of objects){
+        matrix.push(
+            keys.map(key=>object[key]??"")
+        );
+    }
+    return matrix;
+}

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DoObjectsHaveSameSubValues = exports.DoObjectsHaveSameKeys = exports.Omit = exports.PickIntersection = exports.Pick = void 0;
+exports.ObjectsToMatrix = exports.DoObjectsHaveSameSubValues = exports.DoObjectsHaveSameKeys = exports.Omit = exports.PickIntersection = exports.Pick = void 0;
 const Arrays_1 = require("../arrays/Arrays");
 const EqualsByThreeEquals_1 = require("../arrays/EqualsByThreeEquals");
 /** Returns a version of the source object that only has the picked keys. The source object must have every key specified in the keys array. */
@@ -77,3 +77,12 @@ function DoObjectsHaveSameSubValues(a, b, compare) {
     return true;
 }
 exports.DoObjectsHaveSameSubValues = DoObjectsHaveSameSubValues;
+function ObjectsToMatrix(objects) {
+    const keys = (0, Arrays_1.MakeUniqueArray)(objects.flatMap(a => Object.keys(a)));
+    const matrix = [keys];
+    for (const object of objects) {
+        matrix.push(keys.map(key => object[key] ?? ""));
+    }
+    return matrix;
+}
+exports.ObjectsToMatrix = ObjectsToMatrix;

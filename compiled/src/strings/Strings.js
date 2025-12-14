@@ -330,6 +330,9 @@ exports.SplitStringByMany = SplitStringByMany;
 function SplitStringOnce(string, delimiter, options) {
     const parseDirection = options?.parseDirection || "leftToRight";
     const index = parseDirection === "leftToRight" ? string.indexOf(delimiter) : string.lastIndexOf(delimiter);
+    if (index === -1) {
+        return [string];
+    }
     const left = string.slice(0, index);
     const right = string.slice(index + delimiter.length);
     return [left, right];

@@ -1,8 +1,9 @@
 import { Expect } from "../away/Expect";
-import { GetBetween, MaybeGetBetween, PadRight, RemoveBetween, SetBetween, SplitStringByRepeatingDelimiters } from "./Strings";
+import { GetBetween, MaybeGetBetween, PadRight, RemoveBetween, SetBetween, SplitStringByRepeatingDelimiters, SplitStringOnce } from "./Strings";
 
 export function TestStrings(){
     console.log("\t Strings");
+    TestSplitStringOnce();
     TestRemoveBetween();
     TestGetBetween();
     TestSetBetween();
@@ -293,3 +294,48 @@ function TestPadRight(){
 
 }
 
+
+
+
+function TestSplitStringOnce(){
+
+    console.log("\t\t SplitStringOnce");
+    const tests = [
+        {
+            input: ["foo:bar",":",{parseDirection:"leftToRight"}] as Parameters<typeof SplitStringOnce>,
+            expectedResult: ["foo","bar"],
+        },
+        {
+            input: ["foo:bar",":",{parseDirection:"rightToLeft"}] as Parameters<typeof SplitStringOnce>,
+            expectedResult: ["foo","bar"],
+        },
+        {
+            input: ["foo:bar:baz",":",{parseDirection:"leftToRight"}] as Parameters<typeof SplitStringOnce>,
+            expectedResult: ["foo","bar:baz"],
+        },
+        {
+            input: ["foo:bar:baz",":",{parseDirection:"rightToLeft"}] as Parameters<typeof SplitStringOnce>,
+            expectedResult: ["foo:bar","baz"],
+        },
+        {
+            input: ["foo",":",{parseDirection:"leftToRight"}] as Parameters<typeof SplitStringOnce>,
+            expectedResult: ["foo"],
+        },
+        {
+            input: ["foo",":",{parseDirection:"rightToLeft"}] as Parameters<typeof SplitStringOnce>,
+            expectedResult: ["foo"],
+        },
+    ] as const;
+
+    for(const test of tests){
+        const result = SplitStringOnce(
+            ...test.input,
+        );
+        Expect(
+            JSON.stringify(result)===JSON.stringify(test.expectedResult),
+            JSON.stringify({...test,result}),
+            ()=>{}
+        );
+    
+    }
+}
