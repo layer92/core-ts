@@ -61,7 +61,7 @@ export function HyphenDateToUnixTime(
 export function AddDaysToHyphenDate(hyphenDate:string,days:number){
     const jsDate = HyphenDateToJsDate(hyphenDate);
     // a negative or overflow dateOfMonth value here will cause the month to decrement/increment accordingly
-    jsDate.setDate(jsDate.getUTCDate()+days);
+    jsDate.setUTCDate(jsDate.getUTCDate()+days);
     return JsDateToHyphenDate(jsDate);
 }
 
@@ -300,7 +300,9 @@ export function GetWeekdayOrdinalInMonth(hyphenDate:string){
     const weekdayIndex = GetWeekdayIndexFromHyphenDate(hyphenDate);
     const monthNumber = MaybeGetMonthNumberFromHyphenDate(hyphenDate);
     Expect(monthNumber);
+    console.debug(weekdayIndex,monthNumber)
     while( MaybeGetMonthNumberFromHyphenDate(hyphenDate) == monthNumber ){
+        console.debug(hyphenDate, GetWeekdayIndexFromHyphenDate(hyphenDate))
         if( GetWeekdayIndexFromHyphenDate(hyphenDate) === weekdayIndex){
             ++count;
         }
