@@ -32,10 +32,14 @@ function MaybeGetFormatFromFileName(fileName) {
     return format;
 }
 exports.MaybeGetFormatFromFileName = MaybeGetFormatFromFileName;
-/** Returns the file name without the extension. NOTE that the extension is the very last .foo in the name. For example, the extension of "bar.tar.gz" is ".gz", so the basename would be "bar.tar" If a filename ends with a ".", it is considered part of the extension, as "." is not a valid extension and thus must be part of the base name (a filename is made of a base name optinally followed by an extension.). */
+/** Returns the file name without the extension. NOTE that the extension is the very last .foo in the name. For example, the extension of "bar.tar.gz" is ".gz", so the basename would be "bar.tar" If a filename ends with a ".", it is considered part of the base name, as "." is not a valid extension and thus must be part of the base name (a filename is made of a base name optinally followed by an extension.). */
 function GetBaseNameFromFileName(fileName) {
-    const extensionString = MaybeGetFileNameExtension(fileName) || "";
-    const data = fileName.slice(0, -extensionString.length);
+    const extension = MaybeGetFileNameExtension(fileName);
+    if (!extension?.length) {
+        return fileName;
+    }
+    // note that this only works if extension.length > 0, otherwise you get slice(0,0)
+    const data = fileName.slice(0, -extension.length);
     return data;
 }
 exports.GetBaseNameFromFileName = GetBaseNameFromFileName;
