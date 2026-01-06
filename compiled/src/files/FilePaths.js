@@ -82,7 +82,6 @@ function AppendToFilePathBaseFileName(filePath, append) {
     if (!extension?.length) {
         return filePath + append;
     }
-    console.debug({ filePath, extension });
     const pathUpToExtension = filePath.slice(0, -extension.length);
     return pathUpToExtension + append + extension;
 }

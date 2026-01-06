@@ -90,7 +90,6 @@ export function AppendToFilePathBaseFileName(filePath:string,append:string){
     if(!extension?.length){
         return filePath+append;
     }
-    console.debug({filePath,extension})
     const pathUpToExtension = filePath.slice(0,-extension.length);
     return pathUpToExtension+append+extension;
 }
