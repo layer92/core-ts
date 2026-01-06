@@ -50,7 +50,6 @@ export function Omit<SourceObject,Key extends keyof SourceObject>(object:Readonl
 
 /** Keys don't need to be in the same order. Note that {} has keys [] and {b:undefined} has keys ["b"]. */
 export function DoObjectsHaveSameKeys(a:object,b:object){
-    console.debug(Object.keys(a),Object.keys(b))
     return UnsortedArrayEquals(Object.keys(a),Object.keys(b));
 }
 

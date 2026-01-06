@@ -15,7 +15,7 @@ export function ExpectFileName(data:FileName,onBadData?:OnException){
 
 
 /** @returns the extension, if it exists in the fileName. Will return undefined for files that don't have an extension (ie they don't have a "." or they end with a ".") */
-export function MaybeGetFileNameExtension(fileName:FileName){
+export function MaybeGetFileNameExtension(fileName:FileName):string|undefined{
     ExpectFileName(fileName);
     const format = MaybeGetFormatFromFileName(fileName);
     if(format===undefined){
@@ -25,7 +25,7 @@ export function MaybeGetFileNameExtension(fileName:FileName){
 }
 
 /** @returns the format, if it exists in the fileName. Will return undefined for files that don't have an format in the name (ie they don't have a "." or they end with a ".") */
-export function MaybeGetFormatFromFileName(fileName:FileName){
+export function MaybeGetFormatFromFileName(fileName:FileName):string|undefined{
     const split = fileName.split(".");
     if(split.length===1){
         return undefined;
@@ -38,7 +38,7 @@ export function MaybeGetFormatFromFileName(fileName:FileName){
 }
 
 /** Returns the file name without the extension. NOTE that the extension is the very last .foo in the name. For example, the extension of "bar.tar.gz" is ".gz", so the basename would be "bar.tar" If a filename ends with a ".", it is considered part of the base name, as "." is not a valid extension and thus must be part of the base name (a filename is made of a base name optinally followed by an extension.). */
-export function GetBaseNameFromFileName(fileName:FileName){
+export function GetBaseNameFromFileName(fileName:FileName):string{
     const extension = MaybeGetFileNameExtension(fileName);
     if(!extension?.length){
         return fileName;

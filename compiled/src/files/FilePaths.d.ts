@@ -10,8 +10,8 @@ export type FilePath = string;
 export declare function ExpectFilePath(filePath: FilePath, onFail?: OnException): void;
 export declare function IsFilePathAbsolute(filePath: FilePath): boolean;
 export declare function IsFilePathRelative(filePath: FilePath): boolean;
-export declare function MaybeGetFilePathFileExtension(filePath: FilePath): string;
-export declare function MaybeGetFilePathFileFormat(filePath: FilePath): string;
+export declare function MaybeGetFilePathFileExtension(filePath: FilePath): string | undefined;
+export declare function MaybeGetFilePathFileFormat(filePath: FilePath): string | undefined;
 export declare function IsFilePathProbablyAudioFile(filePath: FilePath): boolean;
 /** Returns the fileName at the end of the filePath */
 export declare function GetFilePathFileName(filePath: FilePath): FileName;
@@ -19,3 +19,5 @@ export declare function GetFilePathFileName(filePath: FilePath): FileName;
 export declare function MaybeGetFilePathParentPath(filePath: FilePath): string | undefined;
 /** Returns a filepath with the filename renamed  */
 export declare function RenameFilePathFileName(filePath: FilePath, toFileName: string): string;
+/** changes, eg ("foo/bar/baz.buzz","ABC") --> "/foo/bar/bazABC.buzz" Note that ("foo/bar.tar.gz","ABC")-->("foo/bar.tarABC.gz")*/
+export declare function AppendToFilePathBaseFileName(filePath: string, append: string): string;

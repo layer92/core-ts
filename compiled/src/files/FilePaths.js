@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RenameFilePathFileName = exports.MaybeGetFilePathParentPath = exports.GetFilePathFileName = exports.IsFilePathProbablyAudioFile = exports.MaybeGetFilePathFileFormat = exports.MaybeGetFilePathFileExtension = exports.IsFilePathRelative = exports.IsFilePathAbsolute = exports.ExpectFilePath = void 0;
+exports.AppendToFilePathBaseFileName = exports.RenameFilePathFileName = exports.MaybeGetFilePathParentPath = exports.GetFilePathFileName = exports.IsFilePathProbablyAudioFile = exports.MaybeGetFilePathFileFormat = exports.MaybeGetFilePathFileExtension = exports.IsFilePathRelative = exports.IsFilePathAbsolute = exports.ExpectFilePath = void 0;
 const Expect_1 = require("../away/Expect");
 const FileFormats_1 = require("./FileFormats/FileFormats");
 const FileNames_1 = require("./FileNames");
@@ -35,7 +35,11 @@ exports.MaybeGetFilePathFileExtension = MaybeGetFilePathFileExtension;
 function MaybeGetFilePathFileFormat(filePath) {
     ExpectFilePath(filePath);
     const [lastNode] = filePath.split("/").slice(-1);
-    const format = lastNode.split(".").slice(-1)[0];
+    const lastNodeSplit = lastNode.split(".");
+    if (lastNodeSplit.length === 1) {
+        return undefined;
+    }
+    const format = lastNodeSplit.slice(-1)[0];
     if (format === undefined || format === "") {
         return undefined;
     }
@@ -72,3 +76,14 @@ function RenameFilePathFileName(filePath, toFileName) {
     return toFolder + toFileName;
 }
 exports.RenameFilePathFileName = RenameFilePathFileName;
+/** changes, eg ("foo/bar/baz.buzz","ABC") --> "/foo/bar/bazABC.buzz" Note that ("foo/bar.tar.gz","ABC")-->("foo/bar.tarABC.gz")*/
+function AppendToFilePathBaseFileName(filePath, append) {
+    const extension = MaybeGetFilePathFileExtension(filePath);
+    if (!extension?.length) {
+        return filePath + append;
+    }
+    console.debug({ filePath, extension });
+    const pathUpToExtension = filePath.slice(0, -extension.length);
+    return pathUpToExtension + append + extension;
+}
+exports.AppendToFilePathBaseFileName = AppendToFilePathBaseFileName;

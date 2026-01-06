@@ -43,7 +43,6 @@ function Omit(object, omitKeys) {
 exports.Omit = Omit;
 /** Keys don't need to be in the same order. Note that {} has keys [] and {b:undefined} has keys ["b"]. */
 function DoObjectsHaveSameKeys(a, b) {
-    console.debug(Object.keys(a), Object.keys(b));
     return (0, Arrays_1.UnsortedArrayEquals)(Object.keys(a), Object.keys(b));
 }
 exports.DoObjectsHaveSameKeys = DoObjectsHaveSameKeys;
