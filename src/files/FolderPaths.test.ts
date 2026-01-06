@@ -1,6 +1,5 @@
 import assert from "assert";
 import { MaybeGetFolderPathFolderName } from "./FolderPaths";
-import exp from "constants";
 
 export function TestFolderPaths() {
     console.log("\t FolderPaths");

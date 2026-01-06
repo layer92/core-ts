@@ -300,9 +300,7 @@ export function GetWeekdayOrdinalInMonth(hyphenDate:string){
     const weekdayIndex = GetWeekdayIndexFromHyphenDate(hyphenDate);
     const monthNumber = MaybeGetMonthNumberFromHyphenDate(hyphenDate);
     Expect(monthNumber);
-    console.debug(weekdayIndex,monthNumber)
     while( MaybeGetMonthNumberFromHyphenDate(hyphenDate) == monthNumber ){
-        console.debug(hyphenDate, GetWeekdayIndexFromHyphenDate(hyphenDate))
         if( GetWeekdayIndexFromHyphenDate(hyphenDate) === weekdayIndex){
             ++count;
         }

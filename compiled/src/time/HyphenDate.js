@@ -284,9 +284,7 @@ function GetWeekdayOrdinalInMonth(hyphenDate) {
     const weekdayIndex = GetWeekdayIndexFromHyphenDate(hyphenDate);
     const monthNumber = MaybeGetMonthNumberFromHyphenDate(hyphenDate);
     (0, Expect_1.Expect)(monthNumber);
-    console.debug(weekdayIndex, monthNumber);
     while (MaybeGetMonthNumberFromHyphenDate(hyphenDate) == monthNumber) {
-        console.debug(hyphenDate, GetWeekdayIndexFromHyphenDate(hyphenDate));
         if (GetWeekdayIndexFromHyphenDate(hyphenDate) === weekdayIndex) {
             ++count;
         }

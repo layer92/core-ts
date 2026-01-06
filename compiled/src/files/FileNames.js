@@ -21,7 +21,11 @@ function MaybeGetFileNameExtension(fileName) {
 exports.MaybeGetFileNameExtension = MaybeGetFileNameExtension;
 /** @returns the format, if it exists in the fileName. Will return undefined for files that don't have an format in the name (ie they don't have a "." or they end with a ".") */
 function MaybeGetFormatFromFileName(fileName) {
-    const format = fileName.split(".").slice(-1)[0];
+    const split = fileName.split(".");
+    if (split.length === 1) {
+        return undefined;
+    }
+    const format = split.slice(-1)[0];
     if (format === undefined || format === "") {
         return undefined;
     }
