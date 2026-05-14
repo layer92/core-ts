@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AssignedIso31661A2CountryCodes = exports.MaybeGetIso31661A2CountryCodeEnglishName = exports.ExpectAssignedIso31661A2CountryCode = exports.ExpectIso31661A2CountryCode = void 0;
+exports.AssignedIso31661A2CountryCodes = exports.MaybeGetIso31661A2CountryCodeFlagEmoji = exports.MaybeGetIso31661A2CountryCodeEnglishName = exports.ExpectAssignedIso31661A2CountryCode = exports.ExpectIso31661A2CountryCode = void 0;
 const Expect_1 = require("../away/Expect");
 const Strings_1 = require("../strings/Strings");
 const EscapeCode = "00";
@@ -21,6 +21,12 @@ function MaybeGetIso31661A2CountryCodeEnglishName(countryCode) {
     return dataMap[countryCode.toUpperCase()]?.en;
 }
 exports.MaybeGetIso31661A2CountryCodeEnglishName = MaybeGetIso31661A2CountryCodeEnglishName;
+/** Returns the name (hopefully). Will throw if you don't provide a valid country code. Will not throw if you simply provide an unassigned countrycode. */
+function MaybeGetIso31661A2CountryCodeFlagEmoji(countryCode) {
+    ExpectIso31661A2CountryCode(countryCode);
+    return dataMap[countryCode.toUpperCase()]?.flagEmoji;
+}
+exports.MaybeGetIso31661A2CountryCodeFlagEmoji = MaybeGetIso31661A2CountryCodeFlagEmoji;
 /** Officially assigned codes. */
 exports.AssignedIso31661A2CountryCodes = [
     "AD",
@@ -466,7 +472,7 @@ const dataMap = {
     "RE": { en: "Réunion", flagEmoji: "🇷🇪" },
     "RO": { en: "Romania", flagEmoji: "🇷🇴" },
     "RS": { en: "Serbia", flagEmoji: "🇷🇸" },
-    "RU": { en: "Russian", flagEmoji: "🇷🇺" },
+    "RU": { en: "Russia", flagEmoji: "🇷🇺" },
     "RW": { en: "Rwanda", flagEmoji: "🇷🇼" },
     "SA": { en: "Saudi Arabia", flagEmoji: "🇸🇦" },
     "SB": { en: "Solomon Islands", flagEmoji: "🇸🇧" },

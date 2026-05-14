@@ -21,6 +21,12 @@ export function MaybeGetIso31661A2CountryCodeEnglishName(countryCode:string):str
     return dataMap[countryCode.toUpperCase()]?.en;
 }
 
+/** Returns the name (hopefully). Will throw if you don't provide a valid country code. Will not throw if you simply provide an unassigned countrycode. */
+export function MaybeGetIso31661A2CountryCodeFlagEmoji(countryCode:string):string|undefined{
+    ExpectIso31661A2CountryCode(countryCode);
+    return dataMap[countryCode.toUpperCase()]?.flagEmoji;
+}
+
 /** Officially assigned codes. see: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 */
 export type AssignedIso31661A2CountryCode = typeof AssignedIso31661A2CountryCodes[number];
 /** Officially assigned codes. */
@@ -474,7 +480,7 @@ const dataMap:{
     "RE": {en: "Réunion", flagEmoji:"🇷🇪"}, 
     "RO": {en: "Romania", flagEmoji:"🇷🇴"}, 
     "RS": {en: "Serbia", flagEmoji:"🇷🇸"}, 
-    "RU": {en: "Russian", flagEmoji:"🇷🇺"}, 
+    "RU": {en: "Russia", flagEmoji:"🇷🇺"}, 
     "RW": {en: "Rwanda", flagEmoji:"🇷🇼"}, 
     "SA": {en: "Saudi Arabia", flagEmoji:"🇸🇦"}, 
     "SB": {en: "Solomon Islands", flagEmoji:"🇸🇧"}, 
