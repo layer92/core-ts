@@ -8,6 +8,7 @@ import { TestStrings } from "./src/strings/Strings.test";
 import { TestAmericanSlashDate } from "./src/time/AmericanSlashDate.test";
 import { TestHyphenatedDate } from "./src/time/HyphenDate.test";
 import { TestUrl } from "./src/web/Url.test";
+import { MaybeGetIso31661A2CountryCodeEnglishName } from "./src/iso/Iso6391CountryCode";
 
 
 console.log("Running tests...")
@@ -32,3 +33,6 @@ TestUrl();
 
 
 console.log("All tests passed.");
+
+
+MaybeGetIso31661A2CountryCodeEnglishName("US");
