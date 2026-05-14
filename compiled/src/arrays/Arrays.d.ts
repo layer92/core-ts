@@ -20,8 +20,13 @@ export declare function DoArraysIntersect(a: Readonly<any[]>, b: Readonly<any[]>
 export declare function GetItemByIndex<Item>(array: Readonly<Item[]>, index: number): Item;
 export declare function RemoveItems<Item>(array: Item[], items: Item[]): void;
 export declare function MaybeRemoveItems<Item>(array: Item[], items: Item[]): void;
+/** Removes the item from the array (in-place) */
 export declare function RemoveItem<Item>(array: Item[], item: Item): void;
 export declare function MaybeRemoveItem<Item>(array: Item[], item: Item): void;
+/** Replaces the item from the array (in-place) with the provided item(s) */
+export declare function ReplaceItem<Item>(array: Item[], remove: Item, ...inserts: Item[]): void;
+/** Replaces the item from the array (in-place) with the provided item(s), if the item exists in the array. Otherwise does nothing. */
+export declare function MaybeReplaceItem<Item>(array: Item[], remove: Item, ...inserts: Item[]): void;
 export declare function ExpectIndexIsInRange(array: Readonly<any[]>, index: number, onOutOfRange?: OnException): void;
 export declare function DoesArrayContainDuplicates(array: Readonly<any[]>, compare?: Relation): boolean;
 export declare function GetArraySum(array: Readonly<any[]>): any;

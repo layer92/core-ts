@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArrayToMatrix = exports.FilterAsync = exports.MapAsync = exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.MaybeRemoveItem = exports.RemoveItem = exports.MaybeRemoveItems = exports.RemoveItems = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
+exports.ArrayToMatrix = exports.FilterAsync = exports.MapAsync = exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.MaybeReplaceItem = exports.ReplaceItem = exports.MaybeRemoveItem = exports.RemoveItem = exports.MaybeRemoveItems = exports.RemoveItems = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
@@ -118,6 +118,7 @@ function MaybeRemoveItems(array, items) {
     }
 }
 exports.MaybeRemoveItems = MaybeRemoveItems;
+/** Removes the item from the array (in-place) */
 function RemoveItem(array, item) {
     const index = array.indexOf(item);
     (0, Expect_1.Expect)(index >= 0, `Item not found in array.`);
@@ -132,6 +133,22 @@ function MaybeRemoveItem(array, item) {
     array.splice(index, 1);
 }
 exports.MaybeRemoveItem = MaybeRemoveItem;
+/** Replaces the item from the array (in-place) with the provided item(s) */
+function ReplaceItem(array, remove, ...inserts) {
+    const index = array.indexOf(remove);
+    (0, Expect_1.Expect)(index >= 0, `Item not found in array.`);
+    array.splice(index, 1, ...inserts);
+}
+exports.ReplaceItem = ReplaceItem;
+/** Replaces the item from the array (in-place) with the provided item(s), if the item exists in the array. Otherwise does nothing. */
+function MaybeReplaceItem(array, remove, ...inserts) {
+    const index = array.indexOf(remove);
+    if (index === -1) {
+        return;
+    }
+    array.splice(index, 1, ...inserts);
+}
+exports.MaybeReplaceItem = MaybeReplaceItem;
 function ExpectIndexIsInRange(array, index, onOutOfRange) {
     const makeMessage = () => `Index out of range: ${index}`;
     (0, Expect_1.Expect)(index >= 0, makeMessage, onOutOfRange);

@@ -129,6 +129,7 @@ export function MaybeRemoveItems<Item>(array:Item[], items:Item[]){
     }
 }
 
+/** Removes the item from the array (in-place) */
 export function RemoveItem<Item>(array:Item[], item:Item){
     const index = array.indexOf(item);
     Expect(index>=0,`Item not found in array.`);
@@ -142,6 +143,22 @@ export function MaybeRemoveItem<Item>(array:Item[], item:Item){
         return;
     }
     array.splice(index,1);
+}
+
+/** Replaces the item from the array (in-place) with the provided item(s) */
+export function ReplaceItem<Item>(array:Item[], remove:Item, ...inserts:Item[]){
+    const index = array.indexOf(remove);
+    Expect(index>=0,`Item not found in array.`);
+    array.splice(index,1,...inserts);
+}
+
+/** Replaces the item from the array (in-place) with the provided item(s), if the item exists in the array. Otherwise does nothing. */
+export function MaybeReplaceItem<Item>(array:Item[], remove:Item, ...inserts:Item[]){
+    const index = array.indexOf(remove);
+    if(index===-1){
+        return;
+    }
+    array.splice(index,1,...inserts);
 }
 
 export function ExpectIndexIsInRange(array:Readonly<any[]>,index:number,onOutOfRange?:OnException){
