@@ -165,8 +165,8 @@ function DoesArrayContainDuplicates(array, compare = EqualsByThreeEquals_1.Equal
     return false;
 }
 exports.DoesArrayContainDuplicates = DoesArrayContainDuplicates;
+/** Returns the sum of the array. Returns 0 for an empty array. */
 function GetArraySum(array) {
-    (0, Expect_1.Expect)(array.length, "Array was empty.");
     return array.reduce((sum, current) => sum + current, 0);
 }
 exports.GetArraySum = GetArraySum;

@@ -179,8 +179,8 @@ export function DoesArrayContainDuplicates(array:Readonly<any[]>, compare:Relati
     return false;
 }
 
+/** Returns the sum of the array. Returns 0 for an empty array. */
 export function GetArraySum(array:Readonly<any[]>){
-    Expect(array.length,"Array was empty.");
     return array.reduce(
         (sum,current)=>sum+current,
         0

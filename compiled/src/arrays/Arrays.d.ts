@@ -29,6 +29,7 @@ export declare function ReplaceItem<Item>(array: Item[], remove: Item, ...insert
 export declare function MaybeReplaceItem<Item>(array: Item[], remove: Item, ...inserts: Item[]): void;
 export declare function ExpectIndexIsInRange(array: Readonly<any[]>, index: number, onOutOfRange?: OnException): void;
 export declare function DoesArrayContainDuplicates(array: Readonly<any[]>, compare?: Relation): boolean;
+/** Returns the sum of the array. Returns 0 for an empty array. */
 export declare function GetArraySum(array: Readonly<any[]>): any;
 export declare function GetArrayAverage(array: Readonly<any[]>): number;
 export declare function GetArrayMax(array: Readonly<any[]>): number;
