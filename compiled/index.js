@@ -47,6 +47,7 @@ __exportStar(require("./src/iso/Iso6391CountryCode"), exports);
 __exportStar(require("./src/iso/Iso6391LanguageCode"), exports);
 __exportStar(require("./src/math/Bytes"), exports);
 __exportStar(require("./src/math/Clamp"), exports);
+__exportStar(require("./src/math/Snap"), exports);
 __exportStar(require("./src/math/DegreesToRadians"), exports);
 __exportStar(require("./src/math/Modulo"), exports);
 __exportStar(require("./src/math/Fractions"), exports);

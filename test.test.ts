@@ -9,9 +9,12 @@ import { TestAmericanSlashDate } from "./src/time/AmericanSlashDate.test";
 import { TestHyphenatedDate } from "./src/time/HyphenDate.test";
 import { TestUrl } from "./src/web/Url.test";
 import { MaybeGetIso31661A2CountryCodeEnglishName } from "./src/iso/Iso6391CountryCode";
+import { TestSnap } from "./src/math/Snap.test";
 
 
 console.log("Running tests...")
+
+TestSnap();
 
 TestFilePaths();
 TestFileNames();
