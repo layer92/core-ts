@@ -103,6 +103,13 @@ export function GetFragmentFromUrl(url:string){
     return hash;
 }
 
+/** Returns the "foo.com" of "https://bar.foo.com/baz", known as Registrable domain or eTLD+1
+ * https://developer.mozilla.org/en-US/docs/Glossary/Registrable_domain
+ * */
+export function GetRegistrableDomainFromUrl(url:string){
+    return GetHostFromUrl(url).split(".").slice(-2).join(".");
+}
+
 /** GetNextNodeInUrl("/foo/ABC/bar/baz", "foo") returns "ABC" */
 export function GetNextNodeInUrl(url:string,startNode:string,options?:{onNodeNotFound?:OnException}){
     const nodes = GetPathFromUrl(url).split("/");
@@ -119,3 +126,5 @@ export function GetLeftOfUrlPath(url:string){
     Expect(url.endsWith(pathAndRight));
     return url.slice(0,-pathAndRight.length);
 }
+
+

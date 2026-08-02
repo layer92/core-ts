@@ -25,6 +25,10 @@ export declare function GetQueryFromUrl(url: string): string;
 export declare function GetHashFromUrl(url: string): string;
 /** Does not include the `#` */
 export declare function GetFragmentFromUrl(url: string): string;
+/** Returns the "foo.com" of "https://bar.foo.com/baz", known as Registrable domain or eTLD+1
+ * https://developer.mozilla.org/en-US/docs/Glossary/Registrable_domain
+ * */
+export declare function GetRegistrableDomainFromUrl(url: string): string;
 /** GetNextNodeInUrl("/foo/ABC/bar/baz", "foo") returns "ABC" */
 export declare function GetNextNodeInUrl(url: string, startNode: string, options?: {
     onNodeNotFound?: OnException;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetLeftOfUrlPath = exports.GetNextNodeInUrl = exports.GetFragmentFromUrl = exports.GetHashFromUrl = exports.GetQueryFromUrl = exports.GetSearchFromUrl = exports.GetLastPathNodeFromUrl = exports.HasPathFromUrl = exports.GetPathSansTrailingSlashFromUrl = exports.GetPathFromUrl = exports.GetHostFromUrl = exports.GetAuthorityFromUrl = exports.GetSchemeFromUrl = exports.ExpectUrl = void 0;
+exports.GetLeftOfUrlPath = exports.GetNextNodeInUrl = exports.GetRegistrableDomainFromUrl = exports.GetFragmentFromUrl = exports.GetHashFromUrl = exports.GetQueryFromUrl = exports.GetSearchFromUrl = exports.GetLastPathNodeFromUrl = exports.HasPathFromUrl = exports.GetPathSansTrailingSlashFromUrl = exports.GetPathFromUrl = exports.GetHostFromUrl = exports.GetAuthorityFromUrl = exports.GetSchemeFromUrl = exports.ExpectUrl = void 0;
 const Expect_1 = require("../away/Expect");
 // note that URL is not imported in this package, it's the built-in Javascript URL
 /**
@@ -103,6 +103,13 @@ function GetFragmentFromUrl(url) {
     return hash;
 }
 exports.GetFragmentFromUrl = GetFragmentFromUrl;
+/** Returns the "foo.com" of "https://bar.foo.com/baz", known as Registrable domain or eTLD+1
+ * https://developer.mozilla.org/en-US/docs/Glossary/Registrable_domain
+ * */
+function GetRegistrableDomainFromUrl(url) {
+    return GetHostFromUrl(url).split(".").slice(-2).join(".");
+}
+exports.GetRegistrableDomainFromUrl = GetRegistrableDomainFromUrl;
 /** GetNextNodeInUrl("/foo/ABC/bar/baz", "foo") returns "ABC" */
 function GetNextNodeInUrl(url, startNode, options) {
     const nodes = GetPathFromUrl(url).split("/");
