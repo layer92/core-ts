@@ -434,7 +434,7 @@ export function SplitStringByMany(string:string,delimiters:string[]){
     return result;
 }
 
-/** Splits by the first occurence of the delimiter */
+/** Splits by the first occurence of the delimiter. If the delimiter isn't found, the returned array will have a single item.*/
 export function SplitStringOnce(
     string:string,
     delimiter:string,

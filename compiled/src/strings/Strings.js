@@ -326,7 +326,7 @@ function SplitStringByMany(string, delimiters) {
     return result;
 }
 exports.SplitStringByMany = SplitStringByMany;
-/** Splits by the first occurence of the delimiter */
+/** Splits by the first occurence of the delimiter. If the delimiter isn't found, the returned array will have a single item.*/
 function SplitStringOnce(string, delimiter, options) {
     const parseDirection = options?.parseDirection || "leftToRight";
     const index = parseDirection === "leftToRight" ? string.indexOf(delimiter) : string.lastIndexOf(delimiter);

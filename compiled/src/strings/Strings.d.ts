@@ -66,7 +66,7 @@ export declare function RemoveWhitespaceFromEnds(string: string): string;
  * Example: SplitStringbyMany("abcabc", ["ab","bc"]) returns ["c","c"], instead of ["ca"]
 */
 export declare function SplitStringByMany(string: string, delimiters: string[]): string[];
-/** Splits by the first occurence of the delimiter */
+/** Splits by the first occurence of the delimiter. If the delimiter isn't found, the returned array will have a single item.*/
 export declare function SplitStringOnce(string: string, delimiter: string, options?: {
     parseDirection?: "rightToLeft" | "leftToRight";
 }): [string, string] | [string];
