@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArrayToMatrix = exports.FilterAsync = exports.MapAsync = exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.MaybeReplaceItem = exports.ReplaceItem = exports.MaybeRemoveItem = exports.RemoveItem = exports.MaybeRemoveItems = exports.RemoveItems = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
+exports.ArrayToMatrix = exports.FilterAsync = exports.MapAsync = exports.MakeRotatedArray = exports.MakePowerSet = exports.UnsortedArrayEquals = exports.SortedArrayEquals = exports.ToggleInclusion = exports.GetIndexByItem = exports.MaybeGetPreviousItemInCycle = exports.GetPreviousItemInCycle = exports.GetNextItemInCycle = exports.MaybeGetNextItemInCycle = exports.MaybeGetRelativeItem = exports.GetRelativeItem = exports.GetArrayMin = exports.GetIndexOfMinItem = exports.GetIndexOfMaxItem = exports.GetArrayMax = exports.GetArrayAverage = exports.GetArraySum = exports.DoesArrayContainDuplicates = exports.ExpectIndexIsInRange = exports.MaybeReplaceItem = exports.ReplaceItem = exports.MaybeRemoveItem = exports.RemoveItem = exports.MaybeRemoveItems = exports.RemoveItems = exports.GetItemByIndex = exports.DoArraysIntersect = exports.GetArrayIntersection = exports.GetArrayExclusion = exports.MakeUniqueArray = exports.GetButRemoveAnyFromEndOfArray = exports.GetRandomItem = exports.MaybeGetLastItem = exports.GetLastItem = exports.GetFirstItem = exports.PushMany = exports.PushManyIfNotIncludes = exports.PushIfNotIncludes = exports.DoesArrayInclude = void 0;
 const EqualsByThreeEquals_1 = require("./EqualsByThreeEquals");
 const Expect_1 = require("../away/Expect");
 const Modulo_1 = require("../math/Modulo");
@@ -240,6 +240,17 @@ function GetRelativeItem(array, fromItem, offset, loop) {
     return array[index];
 }
 exports.GetRelativeItem = GetRelativeItem;
+function MaybeGetRelativeItem(array, fromItem, offset, loop) {
+    if (!array.includes(fromItem)) {
+        return undefined;
+    }
+    return GetRelativeItem(array, fromItem, offset, loop);
+}
+exports.MaybeGetRelativeItem = MaybeGetRelativeItem;
+function MaybeGetNextItemInCycle(array, fromItem) {
+    return MaybeGetRelativeItem(array, fromItem, 1, true);
+}
+exports.MaybeGetNextItemInCycle = MaybeGetNextItemInCycle;
 function GetNextItemInCycle(array, fromItem) {
     return GetRelativeItem(array, fromItem, 1, true);
 }
@@ -248,6 +259,10 @@ function GetPreviousItemInCycle(array, fromItem) {
     return GetRelativeItem(array, fromItem, -1, true);
 }
 exports.GetPreviousItemInCycle = GetPreviousItemInCycle;
+function MaybeGetPreviousItemInCycle(array, fromItem) {
+    return MaybeGetRelativeItem(array, fromItem, -1, true);
+}
+exports.MaybeGetPreviousItemInCycle = MaybeGetPreviousItemInCycle;
 /** Throws an error if the item isn't in the array. */
 function GetIndexByItem(array, item) {
     const oldIndex = array.indexOf(item);

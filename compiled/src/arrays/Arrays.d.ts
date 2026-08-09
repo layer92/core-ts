@@ -37,8 +37,11 @@ export declare function GetIndexOfMaxItem(array: Readonly<any[]>): number;
 export declare function GetIndexOfMinItem(array: Readonly<any[]>): number;
 export declare function GetArrayMin(array: Readonly<any[]>): number;
 export declare function GetRelativeItem<Item>(array: Readonly<Item[]>, fromItem: Item | Readonly<Item>, offset: number, loop: boolean): Item;
+export declare function MaybeGetRelativeItem<Item>(array: Readonly<Item[]>, fromItem: Item | Readonly<Item>, offset: number, loop: boolean): Item;
+export declare function MaybeGetNextItemInCycle<Item>(array: Readonly<Item[]>, fromItem: Item): Item;
 export declare function GetNextItemInCycle<Item>(array: Readonly<Item[]>, fromItem: Item): Item;
 export declare function GetPreviousItemInCycle<Item>(array: Readonly<Item[]>, fromItem: Item): Item;
+export declare function MaybeGetPreviousItemInCycle<Item>(array: Readonly<Item[]>, fromItem: Item): Item;
 /** Throws an error if the item isn't in the array. */
 export declare function GetIndexByItem<Item>(array: Readonly<Item[]>, item: Item): number;
 /** If the item is included in the array, removes it from the array. If the item isn't include in the array, pushes it to the array. */
