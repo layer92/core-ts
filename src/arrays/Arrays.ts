@@ -255,6 +255,17 @@ export function GetRelativeItem<Item>(array:Readonly<Item[]>, fromItem:Item|Read
     return array[index];
 }
 
+export function MaybeGetRelativeItem<Item>(array:Readonly<Item[]>, fromItem:Item|Readonly<Item>, offset:number, loop:boolean){
+    if(!array.includes(fromItem)){
+        return undefined;
+    }
+    return GetRelativeItem(array,fromItem,offset,loop);
+}
+
+
+export function MaybeGetNextItemInCycle<Item>(array:Readonly<Item[]>, fromItem:Item){
+    return MaybeGetRelativeItem(array,fromItem,1,true);
+}
 
 export function GetNextItemInCycle<Item>(array:Readonly<Item[]>, fromItem:Item){
     return GetRelativeItem(array,fromItem,1,true);
@@ -263,6 +274,11 @@ export function GetNextItemInCycle<Item>(array:Readonly<Item[]>, fromItem:Item){
 export function GetPreviousItemInCycle<Item>(array:Readonly<Item[]>, fromItem:Item){
     return GetRelativeItem(array,fromItem,-1,true);
 }
+
+export function MaybeGetPreviousItemInCycle<Item>(array:Readonly<Item[]>, fromItem:Item){
+    return MaybeGetRelativeItem(array,fromItem,-1,true);
+}
+
 /** Throws an error if the item isn't in the array. */
 export function GetIndexByItem<Item>(array:Readonly<Item[]>, item:Item){
     const oldIndex = array.indexOf(item);
