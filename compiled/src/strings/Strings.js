@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadRight = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromStart = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringIntersects = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.RemoveBetween = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
-exports.LengthFallback = exports.JoinStrings = exports.CapitalizeFirstLetter = exports.StringToFloat = void 0;
+exports.JoinEnglishTerms = exports.LengthFallback = exports.JoinStrings = exports.CapitalizeFirstLetter = exports.StringToFloat = void 0;
 const CommonCharsets_1 = require("./CommonCharsets");
 const Expect_1 = require("../away/Expect");
 const Arrays_1 = require("../arrays/Arrays");
@@ -32,8 +32,8 @@ function GetBetween(string, leftDelimiter, rightDelimiter, options) {
         leftIndex = string.lastIndexOf(leftDelimiter, rightIndex);
         leftIndex += leftDelimiter.length;
     }
-    (0, Expect_1.Expect)(leftIndex !== -1, () => "Delimiter not found: " + leftDelimiter);
-    (0, Expect_1.Expect)(rightIndex !== -1, () => "Delimiter not found: " + rightDelimiter);
+    (0, Expect_1.Expect)(leftIndex !== -1, () => "Left delimiter not found: " + leftDelimiter);
+    (0, Expect_1.Expect)(rightIndex !== -1, () => "Right delimiter not found: " + rightDelimiter);
     return string.slice(leftIndex, rightIndex);
 }
 exports.GetBetween = GetBetween;
@@ -604,3 +604,22 @@ function LengthFallback(a, b = undefined) {
     return a?.length === 0 ? b : (a ?? b);
 }
 exports.LengthFallback = LengthFallback;
+/**
+ * Lets you join terms in a grammatically-correct way. Defaults to JoinEnglishTerms(["a","b","c"]) = "a, b, and c"
+ *
+ * https://en.wikipedia.org/wiki/Serial_comma
+ * @param array
+ * @param baseSeparator Defaults to ", "
+ * @param finalSeparator Defaults ", and "
+ */
+function JoinEnglishTerms(array, baseSeparator, finalSeparator) {
+    baseSeparator = baseSeparator ?? ", ";
+    finalSeparator = finalSeparator ?? ", and ";
+    if (array.length <= 2) {
+        return array.join(baseSeparator);
+    }
+    const left = array.slice(0, -1);
+    const last = (0, Arrays_1.GetLastItem)(array);
+    return left.join(baseSeparator) + finalSeparator + last;
+}
+exports.JoinEnglishTerms = JoinEnglishTerms;

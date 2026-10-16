@@ -1,8 +1,9 @@
 import { Expect } from "../away/Expect";
-import { GetBetween, MaybeGetBetween, PadRight, RemoveBetween, SetBetween, SplitStringByRepeatingDelimiters, SplitStringOnce } from "./Strings";
+import { GetBetween, JoinEnglishTerms, MaybeGetBetween, PadRight, RemoveBetween, SetBetween, SplitStringByRepeatingDelimiters, SplitStringOnce } from "./Strings";
 
 export function TestStrings(){
     console.log("\t Strings");
+    TestJoinEnglishTerms();
     TestSplitStringOnce();
     TestRemoveBetween();
     TestGetBetween();
@@ -329,6 +330,35 @@ function TestSplitStringOnce(){
 
     for(const test of tests){
         const result = SplitStringOnce(
+            ...test.input,
+        );
+        Expect(
+            JSON.stringify(result)===JSON.stringify(test.expectedResult),
+            JSON.stringify({...test,result}),
+            ()=>{}
+        );
+    
+    }
+}
+
+
+
+function TestJoinEnglishTerms(){
+
+    console.log("\t\t JoinEnglishTerms");
+    const tests = [
+        {
+            input: [["a","b","c"]] as Parameters<typeof JoinEnglishTerms>,
+            expectedResult: "a, b, and c",
+        },
+        {
+            input: [["a","b","c"],",","_"] as Parameters<typeof JoinEnglishTerms>,
+            expectedResult: "a,b_c",
+        },
+    ] as const;
+
+    for(const test of tests){
+        const result = JoinEnglishTerms(
             ...test.input,
         );
         Expect(

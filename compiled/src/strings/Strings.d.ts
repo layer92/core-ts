@@ -140,3 +140,12 @@ export declare function JoinStrings(a: string, b: string, separator: string): st
  * Equivalent to `a?.length === 0 ? b : (a ?? b)`
  * */
 export declare function LengthFallback<A extends string | undefined | any[], B>(a: A, b?: B): (A | B);
+/**
+ * Lets you join terms in a grammatically-correct way. Defaults to JoinEnglishTerms(["a","b","c"]) = "a, b, and c"
+ *
+ * https://en.wikipedia.org/wiki/Serial_comma
+ * @param array
+ * @param baseSeparator Defaults to ", "
+ * @param finalSeparator Defaults ", and "
+ */
+export declare function JoinEnglishTerms(array: string[], baseSeparator?: string, finalSeparator?: string): string;

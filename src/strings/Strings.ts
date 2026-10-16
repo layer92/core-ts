@@ -1,6 +1,6 @@
 import { AlphanumericCharacters, AlphebeticCharacters, LowercaseAlphabetCharacters, NumericCharacters, UppercaseAlphabetCharacters, WhitespaceCharacters } from "./CommonCharsets";
 import { Expect } from "../away/Expect";
-import { GetRandomItem } from "../arrays/Arrays";
+import { GetLastItem, GetRandomItem } from "../arrays/Arrays";
 import { OnException } from "../away/OnException";
 import { sep } from "path";
 
@@ -39,8 +39,8 @@ export function GetBetween(
         leftIndex = string.lastIndexOf(leftDelimiter,rightIndex);
         leftIndex += leftDelimiter.length;
     }
-    Expect(leftIndex!==-1,()=>"Delimiter not found: "+leftDelimiter);
-    Expect(rightIndex!==-1,()=>"Delimiter not found: "+rightDelimiter);
+    Expect(leftIndex!==-1,()=>"Left delimiter not found: "+leftDelimiter);
+    Expect(rightIndex!==-1,()=>"Right delimiter not found: "+rightDelimiter);
     return string.slice(leftIndex,rightIndex);
 }
 
@@ -755,3 +755,21 @@ export function LengthFallback<A extends string|undefined|any[],B>(a:A,b:B=undef
     return a?.length===0 ? b : (a ?? b);
 }
 
+/**
+ * Lets you join terms in a grammatically-correct way. Defaults to JoinEnglishTerms(["a","b","c"]) = "a, b, and c"
+ * 
+ * https://en.wikipedia.org/wiki/Serial_comma
+ * @param array 
+ * @param baseSeparator Defaults to ", "
+ * @param finalSeparator Defaults ", and "
+ */
+export function JoinEnglishTerms(array:string[],baseSeparator?:string,finalSeparator?:string){
+    baseSeparator = baseSeparator ?? ", ";
+    finalSeparator = finalSeparator ?? ", and ";
+    if(array.length<=2){
+        return array.join(baseSeparator);
+    }
+    const left = array.slice(0,-1);
+    const last = GetLastItem(array);
+    return left.join(baseSeparator) + finalSeparator + last;
+}
