@@ -149,3 +149,7 @@ export declare function LengthFallback<A extends string | undefined | any[], B>(
  * @param finalSeparator Defaults ", and "
  */
 export declare function JoinEnglishTerms(array: string[], baseSeparator?: string, finalSeparator?: string): string;
+/**
+ * Returns the correct word based on the quantity. Note that -1 is treated as plural.
+ */
+export declare function PluralizeEnglish(singular: string, plural: string, quantity: number): string;

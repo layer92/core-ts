@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadRight = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromStart = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringIntersects = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.RemoveBetween = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
-exports.JoinEnglishTerms = exports.LengthFallback = exports.JoinStrings = exports.CapitalizeFirstLetter = exports.StringToFloat = void 0;
+exports.PluralizeEnglish = exports.JoinEnglishTerms = exports.LengthFallback = exports.JoinStrings = exports.CapitalizeFirstLetter = exports.StringToFloat = void 0;
 const CommonCharsets_1 = require("./CommonCharsets");
 const Expect_1 = require("../away/Expect");
 const Arrays_1 = require("../arrays/Arrays");
@@ -623,3 +623,10 @@ function JoinEnglishTerms(array, baseSeparator, finalSeparator) {
     return left.join(baseSeparator) + finalSeparator + last;
 }
 exports.JoinEnglishTerms = JoinEnglishTerms;
+/**
+ * Returns the correct word based on the quantity. Note that -1 is treated as plural.
+ */
+function PluralizeEnglish(singular, plural, quantity) {
+    return quantity === 1 ? singular : plural;
+}
+exports.PluralizeEnglish = PluralizeEnglish;
