@@ -146,9 +146,10 @@ export declare function LengthFallback<A extends string | undefined | any[], B>(
  * https://en.wikipedia.org/wiki/Serial_comma
  * @param array
  * @param baseSeparator Defaults to ", "
+ * @param baseSeparator Defaults to " and " Used when there are exactly two items.
  * @param finalSeparator Defaults ", and "
  */
-export declare function JoinEnglishTerms(array: string[], baseSeparator?: string, finalSeparator?: string): string;
+export declare function JoinEnglishTerms(array: string[], baseSeparator?: string, twoSeparator?: string, finalSeparator?: string): string;
 /**
  * Returns the correct word based on the quantity. Note that -1 is treated as plural.
  */

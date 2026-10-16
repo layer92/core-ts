@@ -352,8 +352,20 @@ function TestJoinEnglishTerms(){
             expectedResult: "a, b, and c",
         },
         {
-            input: [["a","b","c"],",","_"] as Parameters<typeof JoinEnglishTerms>,
+            input: [["a","b","c"],",","+","_"] as Parameters<typeof JoinEnglishTerms>,
             expectedResult: "a,b_c",
+        },
+        {
+            input: [["a","b"],",","+","_"] as Parameters<typeof JoinEnglishTerms>,
+            expectedResult: "a+b",
+        },
+        {
+            input: [["a"],",","+","_"] as Parameters<typeof JoinEnglishTerms>,
+            expectedResult: "a",
+        },
+        {
+            input: [[],",","+","_"] as Parameters<typeof JoinEnglishTerms>,
+            expectedResult: "",
         },
     ] as const;
 

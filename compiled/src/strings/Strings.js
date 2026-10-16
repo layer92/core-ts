@@ -610,13 +610,21 @@ exports.LengthFallback = LengthFallback;
  * https://en.wikipedia.org/wiki/Serial_comma
  * @param array
  * @param baseSeparator Defaults to ", "
+ * @param baseSeparator Defaults to " and " Used when there are exactly two items.
  * @param finalSeparator Defaults ", and "
  */
-function JoinEnglishTerms(array, baseSeparator, finalSeparator) {
+function JoinEnglishTerms(array, baseSeparator, twoSeparator, finalSeparator) {
+    const length = array.length;
+    if (length === 0) {
+        return "";
+    }
+    if (length === 1) {
+        return array[0];
+    }
     baseSeparator = baseSeparator ?? ", ";
     finalSeparator = finalSeparator ?? ", and ";
-    if (array.length <= 2) {
-        return array.join(baseSeparator);
+    if (length === 2) {
+        return array.join(twoSeparator);
     }
     const left = array.slice(0, -1);
     const last = (0, Arrays_1.GetLastItem)(array);

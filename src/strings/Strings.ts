@@ -755,19 +755,28 @@ export function LengthFallback<A extends string|undefined|any[],B>(a:A,b:B=undef
     return a?.length===0 ? b : (a ?? b);
 }
 
+
 /**
  * Lets you join terms in a grammatically-correct way. Defaults to JoinEnglishTerms(["a","b","c"]) = "a, b, and c"
  * 
  * https://en.wikipedia.org/wiki/Serial_comma
  * @param array 
  * @param baseSeparator Defaults to ", "
+ * @param baseSeparator Defaults to " and " Used when there are exactly two items. 
  * @param finalSeparator Defaults ", and "
  */
-export function JoinEnglishTerms(array:string[],baseSeparator?:string,finalSeparator?:string){
+export function JoinEnglishTerms(array:string[],baseSeparator?:string,twoSeparator?:string,finalSeparator?:string){
+    const length = array.length;
+    if(length===0){
+        return "";
+    }
+    if(length===1){
+        return array[0];
+    }
     baseSeparator = baseSeparator ?? ", ";
     finalSeparator = finalSeparator ?? ", and ";
-    if(array.length<=2){
-        return array.join(baseSeparator);
+    if(length===2){
+        return array.join(twoSeparator);
     }
     const left = array.slice(0,-1);
     const last = GetLastItem(array);
