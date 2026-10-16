@@ -19,7 +19,7 @@ function UnixTimeToRelativeEnglishPhrase(targetTime, referenceTime) {
 exports.UnixTimeToRelativeEnglishPhrase = UnixTimeToRelativeEnglishPhrase;
 function _UnixTimeToEnglishFromNowString(targetTime, referenceTime) {
     const makePhrase = (number, singular) => {
-        const noun = (0, Strings_1.PluralizeEnglish)(singular, number, singular + "s");
+        const noun = (0, Strings_1.PluralizeEnglish)(singular, singular + "s", number);
         return `${number} ${noun} from now`;
     };
     const secondsFromNow = targetTime - referenceTime;
@@ -49,7 +49,7 @@ function _UnixTimeToEnglishFromNowString(targetTime, referenceTime) {
 }
 function _UnixTimeToEnglishAgoString(targetTime, referenceTime) {
     const makePhrase = (number, singular) => {
-        const noun = (0, Strings_1.PluralizeEnglish)(singular, number, singular + "s");
+        const noun = (0, Strings_1.PluralizeEnglish)(singular, singular + "s", number);
         return `${number} ${noun} ago`;
     };
     const secondsAgo = referenceTime - targetTime;

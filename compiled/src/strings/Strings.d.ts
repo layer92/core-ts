@@ -153,4 +153,4 @@ export declare function JoinEnglishTerms(array: string[], baseSeparator?: string
 /**
  * Returns the correct word based on the quantity. Note that -1 is treated as plural.
  */
-export declare function PluralizeEnglish(singular: string, quantity: number, plural: string): string;
+export declare function PluralizeEnglish(singular: string, plural: string, quantity: number): string;
