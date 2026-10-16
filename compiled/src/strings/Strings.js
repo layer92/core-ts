@@ -626,7 +626,7 @@ exports.JoinEnglishTerms = JoinEnglishTerms;
 /**
  * Returns the correct word based on the quantity. Note that -1 is treated as plural.
  */
-function PluralizeEnglish(singular, plural, quantity) {
+function PluralizeEnglish(singular, quantity, plural) {
     return quantity === 1 ? singular : plural;
 }
 exports.PluralizeEnglish = PluralizeEnglish;

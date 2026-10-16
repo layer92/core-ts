@@ -777,6 +777,6 @@ export function JoinEnglishTerms(array:string[],baseSeparator?:string,finalSepar
 /**
  * Returns the correct word based on the quantity. Note that -1 is treated as plural.
  */
-export function PluralizeEnglish(singular:string,plural:string,quantity:number){
+export function PluralizeEnglish(singular:string,quantity:number,plural:string){
     return quantity===1 ? singular : plural;
 }

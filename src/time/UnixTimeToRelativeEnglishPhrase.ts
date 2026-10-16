@@ -1,3 +1,4 @@
+import { PluralizeEnglish } from "../strings/Strings";
 import { GetCurrentUnixTime } from "./GetCurrentUnixTime";
 import { UnixTimeToHyphenDate, GetDifferenceYearsBetweenHyphenDates, GetDifferenceMonthsFromHyphenDate } from "./HyphenDate";
 
@@ -15,17 +16,21 @@ export function UnixTimeToRelativeEnglishPhrase(targetTime: number, referenceTim
     return _UnixTimeToEnglishFromNowString(targetTime, referenceTime);
 }
 function _UnixTimeToEnglishFromNowString(targetTime: number, referenceTime: number) {
+    const makePhrase = (number:number,singular:string)=>{
+        const noun = PluralizeEnglish(singular,number,singular+"s");
+        return `${number} ${noun} from now`;
+    }
     const secondsFromNow = targetTime - referenceTime;
     if (secondsFromNow < 60) {
-        return `${secondsFromNow} seconds from now`;
+        return makePhrase(secondsFromNow,"second");
     }
     const minutesFromNow = Math.round(secondsFromNow / 60);
     if (minutesFromNow < 60) {
-        return `${minutesFromNow} minutes from now`;
+        return makePhrase(minutesFromNow,"minute");
     }
     const hoursFromNow = Math.round(minutesFromNow / 60);
     if (hoursFromNow < 24) {
-        return `${hoursFromNow} hours from now`;
+        return makePhrase(hoursFromNow,"hour");
     }
     const startDate = UnixTimeToHyphenDate(referenceTime);
     const endDate = UnixTimeToHyphenDate(targetTime);
@@ -34,25 +39,29 @@ function _UnixTimeToEnglishFromNowString(targetTime: number, referenceTime: numb
     const monthsFromNow = GetDifferenceMonthsFromHyphenDate(endDate, startDate);
     if (monthsFromNow < 1) {
         const daysFromNow = Math.round(hoursFromNow / 24);
-        return `${daysFromNow} days from now`;
+        return makePhrase(daysFromNow,"day");
     }
     if (yearsFromNow < 1) {
-        return `${monthsFromNow} months from now`;
+        return makePhrase(monthsFromNow,"month");
     }
-    return `${yearsFromNow} years from now`;
+    return makePhrase(yearsFromNow,"year");
 }
 function _UnixTimeToEnglishAgoString(targetTime: number, referenceTime: number) {
+    const makePhrase = (number:number,singular:string)=>{
+        const noun = PluralizeEnglish(singular,number,singular+"s");
+        return `${number} ${noun} ago`;
+    }
     const secondsAgo = referenceTime - targetTime;
     if (secondsAgo < 60) {
-        return `${secondsAgo} seconds ago`;
+        return makePhrase(secondsAgo,"second");
     }
     const minutesAgo = Math.round(secondsAgo / 60);
     if (minutesAgo < 60) {
-        return `${minutesAgo} minutes ago`;
+        return makePhrase(minutesAgo,"minute");
     }
     const hoursAgo = Math.round(minutesAgo / 60);
     if (hoursAgo < 24) {
-        return `${hoursAgo} hours ago`;
+        return makePhrase(hoursAgo,"hour");
     }
     const startDate = UnixTimeToHyphenDate(targetTime);
     const endDate = UnixTimeToHyphenDate(referenceTime);
@@ -61,10 +70,10 @@ function _UnixTimeToEnglishAgoString(targetTime: number, referenceTime: number) 
     const monthsAgo = GetDifferenceMonthsFromHyphenDate(endDate, startDate);
     if (monthsAgo < 1) {
         const daysAgo = Math.round(hoursAgo / 24);
-        return `${daysAgo} days ago`;
+        return makePhrase(daysAgo,"day");
     }
     if (yearsAgo < 1) {
-        return `${monthsAgo} months ago`;
+        return makePhrase(monthsAgo,"month");
     }
-    return `${yearsAgo} years ago`;
+    return makePhrase(yearsAgo,"year");
 }
