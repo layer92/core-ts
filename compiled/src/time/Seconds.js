@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MillisecondsToSeconds = exports.SecondsToTypicalHoursMinutesSecondsString = exports.SecondsToEnglishApproximateTimeString = exports.SecondsToMilliseconds = exports.MinutesToSeconds = exports.SecondsToMinutes = exports.HoursToSeconds = exports.SecondsToHours = exports.DaysToSeconds = exports.SecondsToDays = exports.SecondsToWeeks = exports.FromWeeks = void 0;
+exports.MillisecondsToSeconds = exports.SecondsToTypicalHoursMinutesSecondsString = exports.SecondsToApproximateTimeString = exports.SecondsToEnglishApproximateTimeString = exports.SecondsToMilliseconds = exports.MinutesToSeconds = exports.SecondsToMinutes = exports.HoursToSeconds = exports.SecondsToHours = exports.DaysToSeconds = exports.SecondsToDays = exports.SecondsToWeeks = exports.FromWeeks = void 0;
 const Strings_1 = require("../strings/Strings");
 function FromWeeks(weeks) {
     return DaysToSeconds(weeks * 7);
@@ -38,8 +38,13 @@ function SecondsToMilliseconds(seconds) {
     return seconds * 1000;
 }
 exports.SecondsToMilliseconds = SecondsToMilliseconds;
-/** will return something like 24 seconds, 3 minutes, 4 days, etc... depending on the length of time */
+/** DEPRECATED - use SecondsToApproximateTimeString */
 function SecondsToEnglishApproximateTimeString(seconds) {
+    return SecondsToEnglishApproximateTimeString(seconds);
+}
+exports.SecondsToEnglishApproximateTimeString = SecondsToEnglishApproximateTimeString;
+/** will return something like 24 seconds, 3 minutes, 4 days, etc... depending on the length of time */
+function SecondsToApproximateTimeString(seconds) {
     let unit;
     let value;
     if (seconds < 60) {
@@ -64,7 +69,7 @@ function SecondsToEnglishApproximateTimeString(seconds) {
     }
     return `${value} ${unit}`;
 }
-exports.SecondsToEnglishApproximateTimeString = SecondsToEnglishApproximateTimeString;
+exports.SecondsToApproximateTimeString = SecondsToApproximateTimeString;
 /**
  *  Returns hh:mm:ss, omitting hours if empty, not omitting minutes if not empty
  *  This is the same format found in several places, such as on Wikipedia when listing album length and track length.

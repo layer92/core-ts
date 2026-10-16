@@ -36,8 +36,12 @@ export function SecondsToMilliseconds(seconds:number){
     return seconds*1000;
 }
 
-/** will return something like 24 seconds, 3 minutes, 4 days, etc... depending on the length of time */
+/** DEPRECATED - use SecondsToApproximateTimeString */
 export function SecondsToEnglishApproximateTimeString(seconds:number){
+    return SecondsToEnglishApproximateTimeString(seconds);
+}
+/** will return something like 24 seconds, 3 minutes, 4 days, etc... depending on the length of time */
+export function SecondsToApproximateTimeString(seconds:number){
     let unit:string;
     let value:number;
     if(seconds < 60){

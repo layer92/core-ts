@@ -3,7 +3,7 @@ import { OnException } from "../away/OnException";
 import { NumberToOrdinalIndicator } from "../english/NumberToEnglishOrdinalIndicator";
 import { PadNumberLeft, StringToInteger } from "../strings/Strings";
 import { MaybeGetMonthNumberFromHyphenDate, MaybeGetDayOfMonthNumberFromHyphenDate, GetYearFromHyphenDate } from "./HyphenDate";
-import { MonthNumberToEnglishMonthName } from "./MonthNumber";
+import { MonthNumberToMonthName } from "./MonthNumber";
 
 
 
@@ -44,7 +44,7 @@ export function ExpectAmericanSlashDate(slashString: string, onBadData?: OnExcep
 
 export function HyphenDateToExplicitString(hyphenDate: string) {
     const monthNumber = MaybeGetMonthNumberFromHyphenDate(hyphenDate);
-    let result = monthNumber ? MonthNumberToEnglishMonthName(monthNumber) : ``;
+    let result = monthNumber ? MonthNumberToMonthName(monthNumber) : ``;
     const dayOfMonthNumberBox = MaybeGetDayOfMonthNumberFromHyphenDate(hyphenDate);
     if (dayOfMonthNumberBox) {
         Expect(monthNumber, `Cannot make a clear string from this date: ${hyphenDate}`);

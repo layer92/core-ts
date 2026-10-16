@@ -7,7 +7,7 @@ export const ThreeLetterMonthStrings = ["jan","feb","mar","apr","may","jun","jul
 
 export type LowercaseThreeLetterMonthString = typeof LowercaseThreeLetterMonthStrings[number];
 
-export const EnglishMonthNames = [
+export const MonthNames = [
     "January",
     "February",
     "March",
@@ -21,8 +21,12 @@ export const EnglishMonthNames = [
     "November",
     "December"
 ] as const;
+/** DEPRECATED - use MonthNames */
+export const EnglishMonthNames = MonthNames;
 
-export type EnglishMonthName = typeof EnglishMonthNames[number];
+export type MonthName = typeof MonthNames[number];
+/** DEPRECATED - use MonthName */
+export type EnglishMonthName = MonthName;
 
 
 /** 1-12 */
@@ -43,7 +47,11 @@ export function StringToMonthNumber(MM:string,onBadData?:OnException){
     return monthNumber;
 }
 
+/** DEPRECATED - use ThreeLetterMonthStringToMonthNumber */
 export function ThreeLetterEnglishMonthStringToMonthNumber(month3:string,onBadData?:OnException){
+    return ThreeLetterMonthStringToMonthNumber(month3,onBadData);
+}
+export function ThreeLetterMonthStringToMonthNumber(month3:string,onBadData?:OnException){
     const index = [
         "jan",
         "feb",
@@ -67,7 +75,11 @@ export function MonthNumberToMonthIndex(monthNumber:number){
     return monthNumber-1;
 }
 
+/** DEPRECATED - use MonthNumberToMonthName */
 export function MonthNumberToEnglishMonthName(monthNumber:number){
+    return MonthNumberToMonthName(monthNumber);
+}
+export function MonthNumberToMonthName(monthNumber:number){
     ExpectMonthNumber(monthNumber);
-    return EnglishMonthNames[monthNumber-1];
+    return MonthNames[monthNumber-1];
 }

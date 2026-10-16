@@ -1,9 +1,9 @@
 import { Expect } from "../away/Expect";
-import { GetBetween, JoinEnglishTerms, MaybeGetBetween, PadRight, RemoveBetween, SetBetween, SplitStringByRepeatingDelimiters, SplitStringOnce } from "./Strings";
+import { GetBetween, JoinTerms, MaybeGetBetween, PadRight, RemoveBetween, SetBetween, SplitStringByRepeatingDelimiters, SplitStringOnce } from "./Strings";
 
 export function TestStrings(){
     console.log("\t Strings");
-    TestJoinEnglishTerms();
+    TestJoinTerms();
     TestSplitStringOnce();
     TestRemoveBetween();
     TestGetBetween();
@@ -343,34 +343,34 @@ function TestSplitStringOnce(){
 
 
 
-function TestJoinEnglishTerms(){
+function TestJoinTerms(){
 
-    console.log("\t\t JoinEnglishTerms");
+    console.log("\t\t JoinTerms");
     const tests = [
         {
-            input: [["a","b","c"]] as Parameters<typeof JoinEnglishTerms>,
+            input: [["a","b","c"]] as Parameters<typeof JoinTerms>,
             expectedResult: "a, b, and c",
         },
         {
-            input: [["a","b","c"],",","+","_"] as Parameters<typeof JoinEnglishTerms>,
+            input: [["a","b","c"],",","+","_"] as Parameters<typeof JoinTerms>,
             expectedResult: "a,b_c",
         },
         {
-            input: [["a","b"],",","+","_"] as Parameters<typeof JoinEnglishTerms>,
+            input: [["a","b"],",","+","_"] as Parameters<typeof JoinTerms>,
             expectedResult: "a+b",
         },
         {
-            input: [["a"],",","+","_"] as Parameters<typeof JoinEnglishTerms>,
+            input: [["a"],",","+","_"] as Parameters<typeof JoinTerms>,
             expectedResult: "a",
         },
         {
-            input: [[],",","+","_"] as Parameters<typeof JoinEnglishTerms>,
+            input: [[],",","+","_"] as Parameters<typeof JoinTerms>,
             expectedResult: "",
         },
     ] as const;
 
     for(const test of tests){
-        const result = JoinEnglishTerms(
+        const result = JoinTerms(
             ...test.input,
         );
         Expect(

@@ -1,23 +1,28 @@
-import { PluralizeEnglish } from "../strings/Strings";
+import { Pluralize } from "../strings/Strings";
 import { GetCurrentUnixTime } from "./GetCurrentUnixTime";
 import { UnixTimeToHyphenDate, GetDifferenceYearsBetweenHyphenDates, GetDifferenceMonthsFromHyphenDate } from "./HyphenDate";
 
 ///// Moved to separate file from UnixTime.ts to avoid circular dependency issue in a downstream create-react-app project
 
+/** DEPERECATED NAME ue UnixTimeToRelativePhrase isntead */
+export function UnixTimeToRelativeEnglishPhrase(targetTime:number,referenceTime?:number){
+    return UnixTimeToRelativePhrase(targetTime,referenceTime);
+}
+
 /** Returns how the targetTime relates to the reference time (current time). For example "5 days ago" or "60 seconds from now" If not referenceTime is not defined, defaults to the current unix time. */
-export function UnixTimeToRelativeEnglishPhrase(targetTime: number, referenceTime?: number) {
+export function UnixTimeToRelativePhrase(targetTime: number, referenceTime?: number) {
     referenceTime = referenceTime ?? GetCurrentUnixTime();
     if (targetTime === referenceTime) {
         return "now";
     }
     if (targetTime < referenceTime) {
-        return _UnixTimeToEnglishAgoString(targetTime, referenceTime);
+        return _UnixTimeToAgoString(targetTime, referenceTime);
     }
-    return _UnixTimeToEnglishFromNowString(targetTime, referenceTime);
+    return _UnixTimeToFromNowString(targetTime, referenceTime);
 }
-function _UnixTimeToEnglishFromNowString(targetTime: number, referenceTime: number) {
+function _UnixTimeToFromNowString(targetTime: number, referenceTime: number) {
     const makePhrase = (number:number,singular:string)=>{
-        const noun = PluralizeEnglish(singular,singular+"s",number);
+        const noun = Pluralize(singular,singular+"s",number);
         return `${number} ${noun} from now`;
     }
     const secondsFromNow = targetTime - referenceTime;
@@ -46,9 +51,9 @@ function _UnixTimeToEnglishFromNowString(targetTime: number, referenceTime: numb
     }
     return makePhrase(yearsFromNow,"year");
 }
-function _UnixTimeToEnglishAgoString(targetTime: number, referenceTime: number) {
+function _UnixTimeToAgoString(targetTime: number, referenceTime: number) {
     const makePhrase = (number:number,singular:string)=>{
-        const noun = PluralizeEnglish(singular,singular+"s",number);
+        const noun = Pluralize(singular,singular+"s",number);
         return `${number} ${noun} ago`;
     }
     const secondsAgo = referenceTime - targetTime;

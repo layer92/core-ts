@@ -43,7 +43,7 @@ exports.ExpectAmericanSlashDate = ExpectAmericanSlashDate;
 /** The clearest way to write a day (in English) such that it isn't misinterpreted, regardless of which culture the reader comes from. */
 function HyphenDateToExplicitString(hyphenDate) {
     const monthNumber = (0, HyphenDate_1.MaybeGetMonthNumberFromHyphenDate)(hyphenDate);
-    let result = monthNumber ? (0, MonthNumber_1.MonthNumberToEnglishMonthName)(monthNumber) : ``;
+    let result = monthNumber ? (0, MonthNumber_1.MonthNumberToMonthName)(monthNumber) : ``;
     const dayOfMonthNumberBox = (0, HyphenDate_1.MaybeGetDayOfMonthNumberFromHyphenDate)(hyphenDate);
     if (dayOfMonthNumberBox) {
         (0, Expect_1.Expect)(monthNumber, `Cannot make a clear string from this date: ${hyphenDate}`);

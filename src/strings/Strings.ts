@@ -757,7 +757,7 @@ export function LengthFallback<A extends string|undefined|any[],B>(a:A,b:B=undef
 
 
 /**
- * Lets you join terms in a grammatically-correct way. Defaults to JoinEnglishTerms(["a","b","c"]) = "a, b, and c"
+ * Lets you join terms in a grammatically-correct way according to the English language. Defaults to JoinTerms(["a","b","c"]) = "a, b, and c"
  * 
  * https://en.wikipedia.org/wiki/Serial_comma
  * @param array 
@@ -765,7 +765,7 @@ export function LengthFallback<A extends string|undefined|any[],B>(a:A,b:B=undef
  * @param baseSeparator Defaults to " and " Used when there are exactly two items. 
  * @param finalSeparator Defaults ", and "
  */
-export function JoinEnglishTerms(array:string[],baseSeparator?:string,twoSeparator?:string,finalSeparator?:string){
+export function JoinTerms(array:string[],baseSeparator?:string,twoSeparator?:string,finalSeparator?:string){
     const length = array.length;
     if(length===0){
         return "";
@@ -786,6 +786,6 @@ export function JoinEnglishTerms(array:string[],baseSeparator?:string,twoSeparat
 /**
  * Returns the correct word based on the quantity. Note that -1 is treated as plural.
  */
-export function PluralizeEnglish(singular:string,plural:string,quantity:number){
+export function Pluralize(singular:string,plural:string,quantity:number){
     return quantity===1 ? singular : plural;
 }

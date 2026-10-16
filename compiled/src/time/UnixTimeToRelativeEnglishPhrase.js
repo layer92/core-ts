@@ -1,25 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UnixTimeToRelativeEnglishPhrase = void 0;
+exports.UnixTimeToRelativePhrase = exports.UnixTimeToRelativeEnglishPhrase = void 0;
 const Strings_1 = require("../strings/Strings");
 const GetCurrentUnixTime_1 = require("./GetCurrentUnixTime");
 const HyphenDate_1 = require("./HyphenDate");
 ///// Moved to separate file from UnixTime.ts to avoid circular dependency issue in a downstream create-react-app project
-/** Returns how the targetTime relates to the reference time (current time). For example "5 days ago" or "60 seconds from now" If not referenceTime is not defined, defaults to the current unix time. */
+/** DEPERECATED NAME ue UnixTimeToRelativePhrase isntead */
 function UnixTimeToRelativeEnglishPhrase(targetTime, referenceTime) {
+    return UnixTimeToRelativePhrase(targetTime, referenceTime);
+}
+exports.UnixTimeToRelativeEnglishPhrase = UnixTimeToRelativeEnglishPhrase;
+/** Returns how the targetTime relates to the reference time (current time). For example "5 days ago" or "60 seconds from now" If not referenceTime is not defined, defaults to the current unix time. */
+function UnixTimeToRelativePhrase(targetTime, referenceTime) {
     referenceTime = referenceTime ?? (0, GetCurrentUnixTime_1.GetCurrentUnixTime)();
     if (targetTime === referenceTime) {
         return "now";
     }
     if (targetTime < referenceTime) {
-        return _UnixTimeToEnglishAgoString(targetTime, referenceTime);
+        return _UnixTimeToAgoString(targetTime, referenceTime);
     }
-    return _UnixTimeToEnglishFromNowString(targetTime, referenceTime);
+    return _UnixTimeToFromNowString(targetTime, referenceTime);
 }
-exports.UnixTimeToRelativeEnglishPhrase = UnixTimeToRelativeEnglishPhrase;
-function _UnixTimeToEnglishFromNowString(targetTime, referenceTime) {
+exports.UnixTimeToRelativePhrase = UnixTimeToRelativePhrase;
+function _UnixTimeToFromNowString(targetTime, referenceTime) {
     const makePhrase = (number, singular) => {
-        const noun = (0, Strings_1.PluralizeEnglish)(singular, singular + "s", number);
+        const noun = (0, Strings_1.Pluralize)(singular, singular + "s", number);
         return `${number} ${noun} from now`;
     };
     const secondsFromNow = targetTime - referenceTime;
@@ -47,9 +52,9 @@ function _UnixTimeToEnglishFromNowString(targetTime, referenceTime) {
     }
     return makePhrase(yearsFromNow, "year");
 }
-function _UnixTimeToEnglishAgoString(targetTime, referenceTime) {
+function _UnixTimeToAgoString(targetTime, referenceTime) {
     const makePhrase = (number, singular) => {
-        const noun = (0, Strings_1.PluralizeEnglish)(singular, singular + "s", number);
+        const noun = (0, Strings_1.Pluralize)(singular, singular + "s", number);
         return `${number} ${noun} ago`;
     };
     const secondsAgo = referenceTime - targetTime;

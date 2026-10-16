@@ -141,7 +141,7 @@ export declare function JoinStrings(a: string, b: string, separator: string): st
  * */
 export declare function LengthFallback<A extends string | undefined | any[], B>(a: A, b?: B): (A | B);
 /**
- * Lets you join terms in a grammatically-correct way. Defaults to JoinEnglishTerms(["a","b","c"]) = "a, b, and c"
+ * Lets you join terms in a grammatically-correct way according to the English language. Defaults to JoinTerms(["a","b","c"]) = "a, b, and c"
  *
  * https://en.wikipedia.org/wiki/Serial_comma
  * @param array
@@ -149,8 +149,8 @@ export declare function LengthFallback<A extends string | undefined | any[], B>(
  * @param baseSeparator Defaults to " and " Used when there are exactly two items.
  * @param finalSeparator Defaults ", and "
  */
-export declare function JoinEnglishTerms(array: string[], baseSeparator?: string, twoSeparator?: string, finalSeparator?: string): string;
+export declare function JoinTerms(array: string[], baseSeparator?: string, twoSeparator?: string, finalSeparator?: string): string;
 /**
  * Returns the correct word based on the quantity. Note that -1 is treated as plural.
  */
-export declare function PluralizeEnglish(singular: string, plural: string, quantity: number): string;
+export declare function Pluralize(singular: string, plural: string, quantity: number): string;

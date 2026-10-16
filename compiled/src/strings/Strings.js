@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringToInteger = exports.IsUppercaseAlphabetic = exports.IsLowercaseAlphabetic = exports.IsNumeric = exports.IsAlphanumeric = exports.IsAlphabetic = exports.PadRight = exports.PadNumberLeft = exports.PadLeft = exports.GetIndexOfMulti = exports.GetIndicesOfMulti = exports.GetIndicesOf = exports.IsInCharset = exports.JoinArrayByRepeatingDelimiters = exports.ReplaceCharactersOutsideCharset = exports.ReplaceCharacters = exports.RemoveCharacters = exports.ReplaceSubstrings = exports.ReplaceSubstringExactlyOnce = exports.ReplaceFirstSubstring = exports.MaybeReplaceEnding = exports.ReplaceSubstring = exports.RemoveSubstring = exports.SplitStringOnce = exports.SplitStringByMany = exports.RemoveWhitespaceFromEnds = exports.CanBeParsedAsFloat = exports.MakeRandom = exports.RemoveCharactersFromStart = exports.RemoveCharactersFromEnds = exports.RemoveCharactersFromEnd = exports.RemoveWord = exports.IsLowerCase = exports.StringIntersects = exports.MultiRemoveAnyFromStart = exports.RemoveAnyFromEnds = exports.RemoveExactlyOnceFromStart = exports.RemoveAnyFromStart = exports.RemoveExactlyOnceFromEnd = exports.RemoveAnyFromEnd = exports.ReverseString = exports.SplitStringByRepeatingDelimiters = exports.SetBetween = exports.GetRightOfSubstring = exports.RemoveBetween = exports.GetAnyBetween = exports.MaybeGetBetween = exports.GetBetween = exports.MultiReplace = exports.GetSubstringCount = void 0;
-exports.PluralizeEnglish = exports.JoinEnglishTerms = exports.LengthFallback = exports.JoinStrings = exports.CapitalizeFirstLetter = exports.StringToFloat = void 0;
+exports.Pluralize = exports.JoinTerms = exports.LengthFallback = exports.JoinStrings = exports.CapitalizeFirstLetter = exports.StringToFloat = void 0;
 const CommonCharsets_1 = require("./CommonCharsets");
 const Expect_1 = require("../away/Expect");
 const Arrays_1 = require("../arrays/Arrays");
@@ -605,7 +605,7 @@ function LengthFallback(a, b = undefined) {
 }
 exports.LengthFallback = LengthFallback;
 /**
- * Lets you join terms in a grammatically-correct way. Defaults to JoinEnglishTerms(["a","b","c"]) = "a, b, and c"
+ * Lets you join terms in a grammatically-correct way according to the English language. Defaults to JoinTerms(["a","b","c"]) = "a, b, and c"
  *
  * https://en.wikipedia.org/wiki/Serial_comma
  * @param array
@@ -613,7 +613,7 @@ exports.LengthFallback = LengthFallback;
  * @param baseSeparator Defaults to " and " Used when there are exactly two items.
  * @param finalSeparator Defaults ", and "
  */
-function JoinEnglishTerms(array, baseSeparator, twoSeparator, finalSeparator) {
+function JoinTerms(array, baseSeparator, twoSeparator, finalSeparator) {
     const length = array.length;
     if (length === 0) {
         return "";
@@ -630,11 +630,11 @@ function JoinEnglishTerms(array, baseSeparator, twoSeparator, finalSeparator) {
     const last = (0, Arrays_1.GetLastItem)(array);
     return left.join(baseSeparator) + finalSeparator + last;
 }
-exports.JoinEnglishTerms = JoinEnglishTerms;
+exports.JoinTerms = JoinTerms;
 /**
  * Returns the correct word based on the quantity. Note that -1 is treated as plural.
  */
-function PluralizeEnglish(singular, plural, quantity) {
+function Pluralize(singular, plural, quantity) {
     return quantity === 1 ? singular : plural;
 }
-exports.PluralizeEnglish = PluralizeEnglish;
+exports.Pluralize = Pluralize;
