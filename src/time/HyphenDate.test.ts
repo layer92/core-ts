@@ -184,6 +184,18 @@ export function TestIsHyphenDate() {
             expectedResult: false,
         },
         {
+            input: ["2026-1-31", {allowSingleDigits:true}] as Parameters<typeof IsHyphenDate>,
+            expectedResult: true,
+        },
+        {
+            input: ["2026-02-1"] as Parameters<typeof IsHyphenDate>,
+            expectedResult: false,
+        },
+        {
+            input: ["2026-02-1", {allowSingleDigits:true}] as Parameters<typeof IsHyphenDate>,
+            expectedResult: true,
+        },
+        {
             input: ["2026-110-31"] as Parameters<typeof IsHyphenDate>,
             expectedResult: false,
         },
@@ -198,9 +210,9 @@ export function TestIsHyphenDate() {
     ] as const;
 
     for(const test of tests){
-        // if(test.expectedResult===true){
-        //     (ExpectHyphenDate as any)(...test.input);
-        // }
+        if(test.expectedResult===true){
+            (ExpectHyphenDate as any)(test.input[0],undefined,test.input[1]);
+        }
         const result = IsHyphenDate(...test.input);
         Expect(
             result===test.expectedResult,

@@ -9,18 +9,18 @@ import { GetYearFromJsDate } from "./Year";
 import { JsDateToDayOfMonthNumber } from "./DayOfMonthNumber";
 
 const DaysPerMonth = {
-    "01":31,
-    "02":29,
-    "03":31,
-    "04":30,
-    "05":31,
-    "06":30,
-    "07":31,
-    "08":31,
-    "09":30,
-    "10":31,
-    "11":30,
-    "12":31,
+    1:31,
+    2:29,
+    3:31,
+    4:30,
+    5:31,
+    6:30,
+    7:31,
+    8:31,
+    9:30,
+    10:31,
+    11:30,
+    12:31,
 };
 
 /**
@@ -31,10 +31,13 @@ const DaysPerMonth = {
  * - "2023-01-01"
  * 
  * Note that this doesn't check leap year, Feb 29 is always considered valid.
+ * 
+ * allowSingleDigits: if set, will allow, eg 2026-1-1, even though this violates ISO 8601
 */
 export function ExpectHyphenDate(data:string,onBadData?:OnException,options?:{
     forbidEmptyMonthNumber?:true,
     forbidEmptyDayOfMonth?:true,
+    allowSingleDigits?:true,
 }){
     Expect(data,``,onBadData);
     Expect(data.includes("-"),`Expected a hyphen-delimited string: ${data}`,onBadData);
@@ -50,15 +53,16 @@ export function ExpectHyphenDate(data:string,onBadData?:OnException,options?:{
     Expect(IsInCharset(yyyy,NumericCharacters),`Year (${yyyy}) is not a numeric value: ${data}`,onBadData);    
     
     if(mm?.length){
-        Expect(mm.length===2,`Month component was not 2 digits long: ${data}`,onBadData);
+        Expect(mm.length===2 || options?.allowSingleDigits,`Month component was not 2 digits long: ${data}`,onBadData);
         Expect(IsInCharset(mm,NumericCharacters),`Month (${mm}) is not a numeric value: ${data}`,onBadData);
         const month = StringToInteger(mm);
         Expect(month>=1&&month<=12,`Month (${mm}) is outside of range 1~12: ${data}`,onBadData);
     }
     if(dd?.length){
-        Expect(dd.length===2,`Day component was not 2 digits long: ${data}`,onBadData);
+        Expect(dd.length===2 || options?.allowSingleDigits,`Day component was not 2 digits long: ${data}`,onBadData);
         Expect(IsInCharset(dd,NumericCharacters),`Day (${dd}) is not a numeric value: ${data}`,onBadData);
-        const daysInMonth = DaysPerMonth[mm];
+        const month = StringToInteger(mm);
+        const daysInMonth = DaysPerMonth[month];
         Expect(daysInMonth);
         const day = StringToInteger(dd);
         Expect(day>=1&&day<=daysInMonth,`Day (${dd}) is outside of range for month (${mm}), should be in range 1~${daysInMonth}: ${data}`,onBadData);
@@ -70,6 +74,7 @@ export function ExpectHyphenDate(data:string,onBadData?:OnException,options?:{
 export function IsHyphenDate(value:string|undefined,options?: {
     forbidEmptyMonthNumber?: true;
     forbidEmptyDayOfMonth?: true;
+    allowSingleDigits?:true,
 }){
     if(value===undefined){
         return false;

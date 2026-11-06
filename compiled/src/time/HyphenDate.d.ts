@@ -7,14 +7,18 @@ import { OnException } from "../away/OnException";
  * - "2023-01-01"
  *
  * Note that this doesn't check leap year, Feb 29 is always considered valid.
+ *
+ * allowSingleDigits: if set, will allow, eg 2026-1-1, even though this violates ISO 8601
 */
 export declare function ExpectHyphenDate(data: string, onBadData?: OnException, options?: {
     forbidEmptyMonthNumber?: true;
     forbidEmptyDayOfMonth?: true;
+    allowSingleDigits?: true;
 }): void;
 export declare function IsHyphenDate(value: string | undefined, options?: {
     forbidEmptyMonthNumber?: true;
     forbidEmptyDayOfMonth?: true;
+    allowSingleDigits?: true;
 }): boolean;
 export declare function HyphenDateToJsDate(hyphenDate: string): Date;
 /**

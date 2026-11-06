@@ -7,18 +7,18 @@ const Strings_1 = require("../strings/Strings");
 const Seconds_1 = require("./Seconds");
 const UnixTime_1 = require("./UnixTime");
 const DaysPerMonth = {
-    "01": 31,
-    "02": 29,
-    "03": 31,
-    "04": 30,
-    "05": 31,
-    "06": 30,
-    "07": 31,
-    "08": 31,
-    "09": 30,
-    "10": 31,
-    "11": 30,
-    "12": 31,
+    1: 31,
+    2: 29,
+    3: 31,
+    4: 30,
+    5: 31,
+    6: 30,
+    7: 31,
+    8: 31,
+    9: 30,
+    10: 31,
+    11: 30,
+    12: 31,
 };
 /**
  * basically a subset of https://en.wikipedia.org/wiki/ISO_8601, with only support for year, month, and date, and hyphen required.
@@ -28,6 +28,8 @@ const DaysPerMonth = {
  * - "2023-01-01"
  *
  * Note that this doesn't check leap year, Feb 29 is always considered valid.
+ *
+ * allowSingleDigits: if set, will allow, eg 2026-1-1, even though this violates ISO 8601
 */
 function ExpectHyphenDate(data, onBadData, options) {
     (0, Expect_1.Expect)(data, ``, onBadData);
@@ -40,15 +42,16 @@ function ExpectHyphenDate(data, onBadData, options) {
     (0, Expect_1.Expect)(!options?.forbidEmptyDayOfMonth || dd !== undefined, `Day component was empty: ${data}`, onBadData);
     (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(yyyy, CommonCharsets_1.NumericCharacters), `Year (${yyyy}) is not a numeric value: ${data}`, onBadData);
     if (mm?.length) {
-        (0, Expect_1.Expect)(mm.length === 2, `Month component was not 2 digits long: ${data}`, onBadData);
+        (0, Expect_1.Expect)(mm.length === 2 || options?.allowSingleDigits, `Month component was not 2 digits long: ${data}`, onBadData);
         (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(mm, CommonCharsets_1.NumericCharacters), `Month (${mm}) is not a numeric value: ${data}`, onBadData);
         const month = (0, Strings_1.StringToInteger)(mm);
         (0, Expect_1.Expect)(month >= 1 && month <= 12, `Month (${mm}) is outside of range 1~12: ${data}`, onBadData);
     }
     if (dd?.length) {
-        (0, Expect_1.Expect)(dd.length === 2, `Day component was not 2 digits long: ${data}`, onBadData);
+        (0, Expect_1.Expect)(dd.length === 2 || options?.allowSingleDigits, `Day component was not 2 digits long: ${data}`, onBadData);
         (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(dd, CommonCharsets_1.NumericCharacters), `Day (${dd}) is not a numeric value: ${data}`, onBadData);
-        const daysInMonth = DaysPerMonth[mm];
+        const month = (0, Strings_1.StringToInteger)(mm);
+        const daysInMonth = DaysPerMonth[month];
         (0, Expect_1.Expect)(daysInMonth);
         const day = (0, Strings_1.StringToInteger)(dd);
         (0, Expect_1.Expect)(day >= 1 && day <= daysInMonth, `Day (${dd}) is outside of range for month (${mm}), should be in range 1~${daysInMonth}: ${data}`, onBadData);
