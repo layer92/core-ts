@@ -172,6 +172,30 @@ export function TestIsHyphenDate() {
     console.log("\t IsHyphenDate");
     const tests = [
         {
+            input: ["2026"] as Parameters<typeof IsHyphenDate>,
+            expectedResult: true,
+        },
+        {
+            input: ["2026",{forbidEmptyMonthNumber:true}] as Parameters<typeof IsHyphenDate>,
+            expectedResult: false,
+        },
+        {
+            input: ["2026",{forbidEmptyDayOfMonth:true}] as Parameters<typeof IsHyphenDate>,
+            expectedResult: false,
+        },
+        {
+            input: ["2026-02"] as Parameters<typeof IsHyphenDate>,
+            expectedResult: true,
+        },
+        {
+            input: ["2026-02",{forbidEmptyMonthNumber:true}] as Parameters<typeof IsHyphenDate>,
+            expectedResult: true,
+        },
+        {
+            input: ["2026-02",{forbidEmptyDayOfMonth:true}] as Parameters<typeof IsHyphenDate>,
+            expectedResult: false,
+        },
+        {
             input: ["2026-12-31"] as Parameters<typeof IsHyphenDate>,
             expectedResult: true,
         },

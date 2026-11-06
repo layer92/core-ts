@@ -33,7 +33,8 @@ const DaysPerMonth = {
 */
 function ExpectHyphenDate(data, onBadData, options) {
     (0, Expect_1.Expect)(data, ``, onBadData);
-    (0, Expect_1.Expect)(data.includes("-"), `Expected a hyphen-delimited string: ${data}`, onBadData);
+    const allowHyphenless = !options?.forbidEmptyDayOfMonth && !options?.forbidEmptyDayOfMonth;
+    (0, Expect_1.Expect)(allowHyphenless || data.includes("-"), `Expected a hyphen-delimited string: ${data}`, onBadData);
     const [yyyy, mm, dd] = data.split("-");
     // The year must be four characters long, as per https://en.wikipedia.org/wiki/ISO_8601#Years in the basic representation
     (0, Expect_1.Expect)(yyyy.length === 4, `Did not begin with 4-digit year component: ${data}`, onBadData);

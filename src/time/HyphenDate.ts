@@ -40,7 +40,8 @@ export function ExpectHyphenDate(data:string,onBadData?:OnException,options?:{
     allowSingleDigits?:true,
 }){
     Expect(data,``,onBadData);
-    Expect(data.includes("-"),`Expected a hyphen-delimited string: ${data}`,onBadData);
+    const allowHyphenless = !options?.forbidEmptyDayOfMonth && !options?.forbidEmptyDayOfMonth;
+    Expect(allowHyphenless || data.includes("-"),`Expected a hyphen-delimited string: ${data}`,onBadData);
     const [yyyy,mm,dd] = data.split("-");
     // The year must be four characters long, as per https://en.wikipedia.org/wiki/ISO_8601#Years in the basic representation
     Expect(yyyy.length===4,`Did not begin with 4-digit year component: ${data}`,onBadData);
