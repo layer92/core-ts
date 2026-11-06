@@ -40,6 +40,8 @@ export function ExpectHyphenDate(data:string,onBadData?:OnException,options?:{
     allowSingleDigits?:true,
 }){
     Expect(data,``,onBadData);
+    const allowEmptyMonth = !options?.forbidEmptyMonthNumber;
+    const allowEmptyDay = !options?.forbidEmptyDayOfMonth;
     const allowHyphenless = !options?.forbidEmptyDayOfMonth && !options?.forbidEmptyDayOfMonth;
     Expect(allowHyphenless || data.includes("-"),`Expected a hyphen-delimited string: ${data}`,onBadData);
     const [yyyy,mm,dd] = data.split("-");
@@ -48,8 +50,8 @@ export function ExpectHyphenDate(data:string,onBadData?:OnException,options?:{
 
 
     // ISO 8601 specifies two characters for mm and dd, eg "02" for February, never "2", see: https://en.wikipedia.org/wiki/ISO_8601
-    Expect(!options?.forbidEmptyMonthNumber || mm!==undefined,`Month component was empty: ${data}`,onBadData);
-    Expect(!options?.forbidEmptyDayOfMonth || dd!==undefined,`Day component was empty: ${data}`,onBadData);
+    Expect(mm!==undefined || allowEmptyMonth,`Month component was empty: ${data}`,onBadData);
+    Expect(dd!==undefined || allowEmptyDay,`Day component was empty: ${data}`,onBadData);
 
     Expect(IsInCharset(yyyy,NumericCharacters),`Year (${yyyy}) is not a numeric value: ${data}`,onBadData);    
     

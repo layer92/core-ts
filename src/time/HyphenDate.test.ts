@@ -196,6 +196,10 @@ export function TestIsHyphenDate() {
             expectedResult: false,
         },
         {
+            input: ["2026-1", {allowSingleDigits:true}] as Parameters<typeof IsHyphenDate>,
+            expectedResult: true,
+        },
+        {
             input: ["2026-12-31"] as Parameters<typeof IsHyphenDate>,
             expectedResult: true,
         },

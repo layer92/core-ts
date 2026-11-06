@@ -33,14 +33,16 @@ const DaysPerMonth = {
 */
 function ExpectHyphenDate(data, onBadData, options) {
     (0, Expect_1.Expect)(data, ``, onBadData);
+    const allowEmptyMonth = !options?.forbidEmptyMonthNumber;
+    const allowEmptyDay = !options?.forbidEmptyDayOfMonth;
     const allowHyphenless = !options?.forbidEmptyDayOfMonth && !options?.forbidEmptyDayOfMonth;
     (0, Expect_1.Expect)(allowHyphenless || data.includes("-"), `Expected a hyphen-delimited string: ${data}`, onBadData);
     const [yyyy, mm, dd] = data.split("-");
     // The year must be four characters long, as per https://en.wikipedia.org/wiki/ISO_8601#Years in the basic representation
     (0, Expect_1.Expect)(yyyy.length === 4, `Did not begin with 4-digit year component: ${data}`, onBadData);
     // ISO 8601 specifies two characters for mm and dd, eg "02" for February, never "2", see: https://en.wikipedia.org/wiki/ISO_8601
-    (0, Expect_1.Expect)(!options?.forbidEmptyMonthNumber || mm !== undefined, `Month component was empty: ${data}`, onBadData);
-    (0, Expect_1.Expect)(!options?.forbidEmptyDayOfMonth || dd !== undefined, `Day component was empty: ${data}`, onBadData);
+    (0, Expect_1.Expect)(mm !== undefined || allowEmptyMonth, `Month component was empty: ${data}`, onBadData);
+    (0, Expect_1.Expect)(dd !== undefined || allowEmptyDay, `Day component was empty: ${data}`, onBadData);
     (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(yyyy, CommonCharsets_1.NumericCharacters), `Year (${yyyy}) is not a numeric value: ${data}`, onBadData);
     if (mm?.length) {
         (0, Expect_1.Expect)(mm.length === 2 || options?.allowSingleDigits, `Month component was not 2 digits long: ${data}`, onBadData);
