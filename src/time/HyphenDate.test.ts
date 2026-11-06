@@ -1,5 +1,6 @@
 import assert from "assert";
-import {HyphenDateToUnixWeekDays, GetDifferenceWeekdaysBetweenHyphenDates, GetDifferenceDaysBetweenHyphenDates, GetNetWorkDaysBetweenHyphenDates, UnixTimeToHyphenDate, GetWeekdayOrdinalInMonth, AddWeekdaysToHyphenDate} from "./HyphenDate";
+import {HyphenDateToUnixWeekDays, GetDifferenceWeekdaysBetweenHyphenDates, GetDifferenceDaysBetweenHyphenDates, GetNetWorkDaysBetweenHyphenDates, UnixTimeToHyphenDate, GetWeekdayOrdinalInMonth, AddWeekdaysToHyphenDate, IsHyphenDate, ExpectHyphenDate} from "./HyphenDate";
+import { Expect } from "../away/Expect";
 
 const _2019_01_01 = ("2019-01-01");
 const Wed_2020_01_01 = ("2020-01-01");
@@ -48,6 +49,7 @@ export function TestHyphenatedDate() {
     TestGetNetWorkDays();
     TestGetWeekdayOrdinalInMonth();
     TestAddWeekdaysToHyphenDate();
+    TestIsHyphenDate();
 }
 
 function TestFromUnixTime(){
@@ -163,4 +165,48 @@ function TestGetWeekdayOrdinalInMonth(){
     assert.equal(GetWeekdayOrdinalInMonth("2025-03-01"), 1);
     // fifth monday
     assert.equal(GetWeekdayOrdinalInMonth("2025-03-31"), 5);
+}
+
+
+export function TestIsHyphenDate() {
+    console.log("\t IsHyphenDate");
+    const tests = [
+        {
+            input: ["2026-12-31"] as Parameters<typeof IsHyphenDate>,
+            expectedResult: true,
+        },
+        {
+            input: ["2026-11-31"] as Parameters<typeof IsHyphenDate>,
+            expectedResult: false,
+        },
+        {
+            input: ["2026-1-31"] as Parameters<typeof IsHyphenDate>,
+            expectedResult: false,
+        },
+        {
+            input: ["2026-110-31"] as Parameters<typeof IsHyphenDate>,
+            expectedResult: false,
+        },
+        {
+            input: ["2026-12"] as Parameters<typeof IsHyphenDate>,
+            expectedResult: true,
+        },
+        {
+            input: ["2026-12",{forbidEmptyDayOfMonth:true}] as Parameters<typeof IsHyphenDate>,
+            expectedResult: false,
+        },
+    ] as const;
+
+    for(const test of tests){
+        // if(test.expectedResult===true){
+        //     (ExpectHyphenDate as any)(...test.input);
+        // }
+        const result = IsHyphenDate(...test.input);
+        Expect(
+            result===test.expectedResult,
+            JSON.stringify({...test,result}),
+            ()=>{}
+        );
+    
+    }
 }

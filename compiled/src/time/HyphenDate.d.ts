@@ -5,11 +5,17 @@ import { OnException } from "../away/OnException";
  * - "2023"
  * - "2023-01"
  * - "2023-01-01"
+ *
+ * Note that this doesn't check leap year, Feb 29 is always considered valid.
 */
 export declare function ExpectHyphenDate(data: string, onBadData?: OnException, options?: {
     forbidEmptyMonthNumber?: true;
     forbidEmptyDayOfMonth?: true;
 }): void;
+export declare function IsHyphenDate(value: string | undefined, options?: {
+    forbidEmptyMonthNumber?: true;
+    forbidEmptyDayOfMonth?: true;
+}): boolean;
 export declare function HyphenDateToJsDate(hyphenDate: string): Date;
 /**
  * Throws an error if there is no month/day in the hyphenated string, unless you specifically allow for it.

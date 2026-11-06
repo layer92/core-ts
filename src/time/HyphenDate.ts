@@ -1,12 +1,27 @@
 import { OnException } from "../away/OnException";
 import { Expect } from "../away/Expect";
 import { NumericCharacters } from "../strings/CommonCharsets";
-import { IsInCharset, PadNumberLeft, RemoveCharacters } from "../strings/Strings";
+import { IsInCharset, PadNumberLeft, RemoveCharacters, StringToInteger } from "../strings/Strings";
 import { GetMonthNumberFromJsDate } from "./MonthNumber";
 import { DaysToSeconds, SecondsToDays } from "./Seconds";
 import { JsDateToUnixTime, UnixTimeToJsDate } from "./UnixTime";
 import { GetYearFromJsDate } from "./Year";
 import { JsDateToDayOfMonthNumber } from "./DayOfMonthNumber";
+
+const DaysPerMonth = {
+    "01":31,
+    "02":29,
+    "03":31,
+    "04":30,
+    "05":31,
+    "06":30,
+    "07":31,
+    "08":31,
+    "09":30,
+    "10":31,
+    "11":30,
+    "12":31,
+};
 
 /**
  * basically a subset of https://en.wikipedia.org/wiki/ISO_8601, with only support for year, month, and date, and hyphen required.
@@ -14,6 +29,8 @@ import { JsDateToDayOfMonthNumber } from "./DayOfMonthNumber";
  * - "2023"
  * - "2023-01"
  * - "2023-01-01"
+ * 
+ * Note that this doesn't check leap year, Feb 29 is always considered valid.
 */
 export function ExpectHyphenDate(data:string,onBadData?:OnException,options?:{
     forbidEmptyMonthNumber?:true,
@@ -25,16 +42,44 @@ export function ExpectHyphenDate(data:string,onBadData?:OnException,options?:{
     // The year must be four characters long, as per https://en.wikipedia.org/wiki/ISO_8601#Years in the basic representation
     Expect(yyyy.length===4,`Did not begin with 4-digit year component: ${data}`,onBadData);
 
-    // ISO 8601 specifies two characters for mm and dd, eg "02" for February, never "2", see: https://en.wikipedia.org/wiki/ISO_8601
-    const emptyMonthCheckSuccess = mm!==undefined||!options?.forbidEmptyMonthNumber;
-    Expect(emptyMonthCheckSuccess && mm?.length==2,`Month component was not 2 digits long: ${data}`,onBadData);
-    const emptyDayOfMonthCheckSuccess = dd!==undefined||!options?.forbidEmptyDayOfMonth;
-    Expect(emptyDayOfMonthCheckSuccess && dd?.length===2,`Day component was not 2 digits long: ${data}`,onBadData);
 
-    Expect(IsInCharset(yyyy,NumericCharacters),`Year (${yyyy}) is not a numeric value: ${data}`,onBadData);
-    Expect(IsInCharset(mm,NumericCharacters),`Month (${mm}) is not a numeric value: ${data}`,onBadData);
-    Expect(IsInCharset(dd,NumericCharacters),`Day (${dd}) is not a numeric value: ${data}`,onBadData);
+    // ISO 8601 specifies two characters for mm and dd, eg "02" for February, never "2", see: https://en.wikipedia.org/wiki/ISO_8601
+    Expect(!options?.forbidEmptyMonthNumber || mm!==undefined,`Month component was empty: ${data}`,onBadData);
+    Expect(!options?.forbidEmptyDayOfMonth || dd!==undefined,`Day component was empty: ${data}`,onBadData);
+
+    Expect(IsInCharset(yyyy,NumericCharacters),`Year (${yyyy}) is not a numeric value: ${data}`,onBadData);    
+    
+    if(mm?.length){
+        Expect(mm.length===2,`Month component was not 2 digits long: ${data}`,onBadData);
+        Expect(IsInCharset(mm,NumericCharacters),`Month (${mm}) is not a numeric value: ${data}`,onBadData);
+        const month = StringToInteger(mm);
+        Expect(month>=1&&month<=12,`Month (${mm}) is outside of range 1~12: ${data}`,onBadData);
+    }
+    if(dd?.length){
+        Expect(dd.length===2,`Day component was not 2 digits long: ${data}`,onBadData);
+        Expect(IsInCharset(dd,NumericCharacters),`Day (${dd}) is not a numeric value: ${data}`,onBadData);
+        const daysInMonth = DaysPerMonth[mm];
+        Expect(daysInMonth);
+        const day = StringToInteger(dd);
+        Expect(day>=1&&day<=daysInMonth,`Day (${dd}) is outside of range for month (${mm}), should be in range 1~${daysInMonth}: ${data}`,onBadData);
+    }
+
     Expect(!isNaN(new Date(data).getTime()),`Invalid date.`,onBadData);
+}
+
+export function IsHyphenDate(value:string|undefined,options?: {
+    forbidEmptyMonthNumber?: true;
+    forbidEmptyDayOfMonth?: true;
+}){
+    if(value===undefined){
+        return false;
+    }
+    try{
+        ExpectHyphenDate(value,undefined,options);
+    }catch{
+        return false;
+    }
+    return true;
 }
 
 export function HyphenDateToJsDate(hyphenDate:string){

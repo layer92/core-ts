@@ -1,17 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetWeekdayOrdinalInMonth = exports.GetDayOfWeekJapaneseAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishNameFromHyphenDate = exports.GetWeekdayIndexFromHyphenDate = exports.HyphenDateToAmericanSlashDate = exports.GetEarliestHyphenDate = exports.GetLatestHyphenDate = exports.UnixTimeToHyphenDate = exports.SetHyphenDateDayOfMonthNumber = exports.MaybeGetDayOfMonthNumberFromHyphenDate = exports.MaybeGetMonthNumberFromHyphenDate = exports.GetYearFromHyphenDate = exports.HyphenDateToUnixWeekDays = exports.GetNetWorkDaysBetweenHyphenDates = exports.GetDifferenceYearsBetweenHyphenDates = exports.GetDifferenceMonthsFromHyphenDate = exports.GetDifferenceWeekdaysBetweenHyphenDates = exports.GetDifferenceDaysBetweenHyphenDates = exports.AddMonthsToHyphenDate = exports.JsDateToHyphenDate = exports.AddWeekdaysToHyphenDate = exports.AddDaysToHyphenDate = exports.HyphenDateToUnixTime = exports.HyphenDateToJsDate = exports.ExpectHyphenDate = void 0;
+exports.GetWeekdayOrdinalInMonth = exports.GetDayOfWeekJapaneseAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishAbbreviationFromHyphenDate = exports.GetDayOfWeekEnglishNameFromHyphenDate = exports.GetWeekdayIndexFromHyphenDate = exports.HyphenDateToAmericanSlashDate = exports.GetEarliestHyphenDate = exports.GetLatestHyphenDate = exports.UnixTimeToHyphenDate = exports.SetHyphenDateDayOfMonthNumber = exports.MaybeGetDayOfMonthNumberFromHyphenDate = exports.MaybeGetMonthNumberFromHyphenDate = exports.GetYearFromHyphenDate = exports.HyphenDateToUnixWeekDays = exports.GetNetWorkDaysBetweenHyphenDates = exports.GetDifferenceYearsBetweenHyphenDates = exports.GetDifferenceMonthsFromHyphenDate = exports.GetDifferenceWeekdaysBetweenHyphenDates = exports.GetDifferenceDaysBetweenHyphenDates = exports.AddMonthsToHyphenDate = exports.JsDateToHyphenDate = exports.AddWeekdaysToHyphenDate = exports.AddDaysToHyphenDate = exports.HyphenDateToUnixTime = exports.HyphenDateToJsDate = exports.IsHyphenDate = exports.ExpectHyphenDate = void 0;
 const Expect_1 = require("../away/Expect");
 const CommonCharsets_1 = require("../strings/CommonCharsets");
 const Strings_1 = require("../strings/Strings");
 const Seconds_1 = require("./Seconds");
 const UnixTime_1 = require("./UnixTime");
+const DaysPerMonth = {
+    "01": 31,
+    "02": 29,
+    "03": 31,
+    "04": 30,
+    "05": 31,
+    "06": 30,
+    "07": 31,
+    "08": 31,
+    "09": 30,
+    "10": 31,
+    "11": 30,
+    "12": 31,
+};
 /**
  * basically a subset of https://en.wikipedia.org/wiki/ISO_8601, with only support for year, month, and date, and hyphen required.
  * Strings in forms such as:
  * - "2023"
  * - "2023-01"
  * - "2023-01-01"
+ *
+ * Note that this doesn't check leap year, Feb 29 is always considered valid.
 */
 function ExpectHyphenDate(data, onBadData, options) {
     (0, Expect_1.Expect)(data, ``, onBadData);
@@ -20,16 +36,39 @@ function ExpectHyphenDate(data, onBadData, options) {
     // The year must be four characters long, as per https://en.wikipedia.org/wiki/ISO_8601#Years in the basic representation
     (0, Expect_1.Expect)(yyyy.length === 4, `Did not begin with 4-digit year component: ${data}`, onBadData);
     // ISO 8601 specifies two characters for mm and dd, eg "02" for February, never "2", see: https://en.wikipedia.org/wiki/ISO_8601
-    const emptyMonthCheckSuccess = mm !== undefined || !options?.forbidEmptyMonthNumber;
-    (0, Expect_1.Expect)(emptyMonthCheckSuccess && mm?.length == 2, `Month component was not 2 digits long: ${data}`, onBadData);
-    const emptyDayOfMonthCheckSuccess = dd !== undefined || !options?.forbidEmptyDayOfMonth;
-    (0, Expect_1.Expect)(emptyDayOfMonthCheckSuccess && dd?.length === 2, `Day component was not 2 digits long: ${data}`, onBadData);
+    (0, Expect_1.Expect)(!options?.forbidEmptyMonthNumber || mm !== undefined, `Month component was empty: ${data}`, onBadData);
+    (0, Expect_1.Expect)(!options?.forbidEmptyDayOfMonth || dd !== undefined, `Day component was empty: ${data}`, onBadData);
     (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(yyyy, CommonCharsets_1.NumericCharacters), `Year (${yyyy}) is not a numeric value: ${data}`, onBadData);
-    (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(mm, CommonCharsets_1.NumericCharacters), `Month (${mm}) is not a numeric value: ${data}`, onBadData);
-    (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(dd, CommonCharsets_1.NumericCharacters), `Day (${dd}) is not a numeric value: ${data}`, onBadData);
+    if (mm?.length) {
+        (0, Expect_1.Expect)(mm.length === 2, `Month component was not 2 digits long: ${data}`, onBadData);
+        (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(mm, CommonCharsets_1.NumericCharacters), `Month (${mm}) is not a numeric value: ${data}`, onBadData);
+        const month = (0, Strings_1.StringToInteger)(mm);
+        (0, Expect_1.Expect)(month >= 1 && month <= 12, `Month (${mm}) is outside of range 1~12: ${data}`, onBadData);
+    }
+    if (dd?.length) {
+        (0, Expect_1.Expect)(dd.length === 2, `Day component was not 2 digits long: ${data}`, onBadData);
+        (0, Expect_1.Expect)((0, Strings_1.IsInCharset)(dd, CommonCharsets_1.NumericCharacters), `Day (${dd}) is not a numeric value: ${data}`, onBadData);
+        const daysInMonth = DaysPerMonth[mm];
+        (0, Expect_1.Expect)(daysInMonth);
+        const day = (0, Strings_1.StringToInteger)(dd);
+        (0, Expect_1.Expect)(day >= 1 && day <= daysInMonth, `Day (${dd}) is outside of range for month (${mm}), should be in range 1~${daysInMonth}: ${data}`, onBadData);
+    }
     (0, Expect_1.Expect)(!isNaN(new Date(data).getTime()), `Invalid date.`, onBadData);
 }
 exports.ExpectHyphenDate = ExpectHyphenDate;
+function IsHyphenDate(value, options) {
+    if (value === undefined) {
+        return false;
+    }
+    try {
+        ExpectHyphenDate(value, undefined, options);
+    }
+    catch {
+        return false;
+    }
+    return true;
+}
+exports.IsHyphenDate = IsHyphenDate;
 function HyphenDateToJsDate(hyphenDate) {
     ExpectHyphenDate(hyphenDate);
     return new Date(hyphenDate);
